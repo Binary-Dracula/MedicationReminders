@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/high_contrast_background">
+
+    <!-- 主要内容区域 - 使用LinearLayout包装以保持原有的垂直布局 -->
+    <LinearLayout
+        android:id="@+id/llMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <!-- 标题 TextView -->
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/ElderlyFriendlyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用户注册"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp" />
+
+        <!-- 用户名输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUsername"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="请输入用户名（3-20个字符）"
+            app:helperText="用户名用于登录，请记住您的用户名"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="20"
+                android:contentDescription="用户名输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 手机号输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhone"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="请输入手机号（11位数字）"
+            app:helperText="手机号用于接收重要通知"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:contentDescription="手机号输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 邮箱输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="请输入邮箱地址"
+            app:helperText="邮箱用于找回密码和接收通知"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:contentDescription="邮箱输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 密码输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:hint="请输入密码（6-20个字符）"
+            app:helperText="密码用于保护您的账户安全"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleContentDescription="显示或隐藏密码">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:contentDescription="密码输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 注册按钮 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/ElderlyFriendlyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="立即注册"
+            android:minHeight="56dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="点击完成注册" />
+
+        <!-- 加载指示器 -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:contentDescription="正在处理注册信息" />
+
+    </LinearLayout>
+
+    <!-- 消息提示 TextView - 固定在底部位置 -->
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/ElderlyFriendlyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="12dp"
+        android:background="@drawable/message_background" />
+
+</RelativeLayout>

@@ -1,16 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme for night mode - keeping high contrast for elderly users -->
     <style name="Theme.MedicationReminders" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/high_contrast_accent</item>
+        <item name="colorPrimaryVariant">@color/high_contrast_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/high_contrast_accent</item>
+        <item name="colorSecondaryVariant">@color/high_contrast_primary</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Background colors for dark mode -->
+        <item name="android:colorBackground">#FF121212</item>
+        <item name="colorSurface">#FF1E1E1E</item>
+        <!-- Text colors for dark mode -->
+        <item name="android:textColorPrimary">#FFFFFFFF</item>
+        <item name="android:textColorSecondary">#FFB3B3B3</item>
+        <!-- Error color -->
+        <item name="colorError">@color/error_color</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
