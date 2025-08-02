@@ -16,6 +16,15 @@ public class UserDataSource {
     private static final String USER_PASSWORD_KEY = "user_password";
     private static final String USER_REGISTER_TIME_KEY = "user_register_time";
     
+    // Remember me functionality keys
+    private static final String REMEMBERED_USERNAME_KEY = "remembered_username";
+    private static final String REMEMBERED_PASSWORD_KEY = "remembered_password";
+    private static final String REMEMBER_ME_ENABLED_KEY = "remember_me_enabled";
+    
+    // Login attempts management keys
+    private static final String LOGIN_ATTEMPTS_PREFIX = "login_attempts_";
+    private static final String LAST_ATTEMPT_TIME_PREFIX = "last_attempt_time_";
+    
     private MMKV mmkv;
     
     /**
@@ -45,12 +54,26 @@ public class UserDataSource {
                 return false;
             }
             
-            // Save user information to MMKV
-            mmkv.encode(USER_USERNAME_KEY, userInfo.getUsername());
-            mmkv.encode(USER_PHONE_KEY, userInfo.getPhoneNumber());
-            mmkv.encode(USER_EMAIL_KEY, userInfo.getEmail());
-            mmkv.encode(USER_PASSWORD_KEY, encryptedPassword);
-            mmkv.encode(USER_REGISTER_TIME_KEY, System.currentTimeMillis());
+            // Use username as key prefix to support multiple users
+            String userPrefix = "user_" + userInfo.getUsername() + "_";
+            
+            // Save user information to MMKV with username-specific keys
+            mmkv.encode(userPrefix + "username", userInfo.getUsername());
+            mmkv.encode(userPrefix + "phone", userInfo.getPhoneNumber());
+            mmkv.encode(userPrefix + "email", userInfo.getEmail());
+            mmkv.encode(userPrefix + "password", encryptedPassword);
+            mmkv.encode(userPrefix + "register_time", System.currentTimeMillis());
+            
+            // Also maintain a list of all registered usernames
+            String existingUsers = mmkv.decodeString("all_users", "");
+            if (!existingUsers.contains(userInfo.getUsername())) {
+                if (existingUsers.isEmpty()) {
+                    existingUsers = userInfo.getUsername();
+                } else {
+                    existingUsers += "," + userInfo.getUsername();
+                }
+                mmkv.encode("all_users", existingUsers);
+            }
             
             return true;
         } catch (Exception e) {
@@ -101,16 +124,19 @@ public class UserDataSource {
                 return null;
             }
             
-            // Check if user exists by comparing stored username
-            String storedUsername = mmkv.decodeString(USER_USERNAME_KEY, "");
-            if (!username.equals(storedUsername)) {
+            // Use username-specific key prefix
+            String userPrefix = "user_" + username + "_";
+            
+            // Check if user exists by trying to retrieve username
+            String storedUsername = mmkv.decodeString(userPrefix + "username", "");
+            if (storedUsername.isEmpty() || !username.equals(storedUsername)) {
                 return null;
             }
             
             // Retrieve user information from MMKV
-            String phoneNumber = mmkv.decodeString(USER_PHONE_KEY, "");
-            String email = mmkv.decodeString(USER_EMAIL_KEY, "");
-            String encryptedPassword = mmkv.decodeString(USER_PASSWORD_KEY, "");
+            String phoneNumber = mmkv.decodeString(userPrefix + "phone", "");
+            String email = mmkv.decodeString(userPrefix + "email", "");
+            String encryptedPassword = mmkv.decodeString(userPrefix + "password", "");
             
             // Create and return UserInfo object (with encrypted password)
             UserInfo userInfo = new UserInfo();
@@ -136,7 +162,9 @@ public class UserDataSource {
             return false;
         }
         
-        String storedUsername = mmkv.decodeString(USER_USERNAME_KEY, "");
+        // Use username-specific key prefix to check existence
+        String userPrefix = "user_" + username + "_";
+        String storedUsername = mmkv.decodeString(userPrefix + "username", "");
         return username.equals(storedUsername);
     }
     
@@ -157,5 +185,132 @@ public class UserDataSource {
         mmkv.removeValueForKey(USER_EMAIL_KEY);
         mmkv.removeValueForKey(USER_PASSWORD_KEY);
         mmkv.removeValueForKey(USER_REGISTER_TIME_KEY);
+    }
+    
+    /**
+     * Save remembered credentials for "remember me" functionality
+     * @param username Username to remember
+     * @param password Plain text password to remember (will be stored encrypted)
+     * @return true if save successful, false otherwise
+     */
+    public boolean saveRememberedCredentials(String username, String password) {
+        try {
+            if (username == null || password == null) {
+                return false;
+            }
+            
+            // For "remember me" functionality, we store the plain text password
+            // This is a trade-off between security and usability for elderly users
+            // In a production app, we might use more sophisticated approaches
+            mmkv.encode(REMEMBERED_USERNAME_KEY, username);
+            mmkv.encode(REMEMBERED_PASSWORD_KEY, password); // Store plain text for auto-fill
+            mmkv.encode(REMEMBER_ME_ENABLED_KEY, true);
+            
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Get remembered credentials
+     * @return SavedCredentials object if found, null otherwise
+     */
+    public UserRepository.SavedCredentials getRememberedCredentials() {
+        try {
+            boolean rememberMeEnabled = mmkv.decodeBool(REMEMBER_ME_ENABLED_KEY, false);
+            if (!rememberMeEnabled) {
+                return null;
+            }
+            
+            String username = mmkv.decodeString(REMEMBERED_USERNAME_KEY, "");
+            String password = mmkv.decodeString(REMEMBERED_PASSWORD_KEY, "");
+            
+            if (username.isEmpty() || password.isEmpty()) {
+                return null;
+            }
+            
+            // Return the plain text password for auto-fill functionality
+            return new UserRepository.SavedCredentials(username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    /**
+     * Clear remembered credentials
+     * @return true if clear successful, false otherwise
+     */
+    public boolean clearRememberedCredentials() {
+        try {
+            mmkv.removeValueForKey(REMEMBERED_USERNAME_KEY);
+            mmkv.removeValueForKey(REMEMBERED_PASSWORD_KEY);
+            mmkv.encode(REMEMBER_ME_ENABLED_KEY, false);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Save login attempts count and time for a user
+     * @param username Username
+     * @param attempts Number of attempts
+     */
+    public void saveLoginAttempts(String username, int attempts) {
+        if (username == null || username.isEmpty()) {
+            return;
+        }
+        
+        try {
+            String attemptsKey = LOGIN_ATTEMPTS_PREFIX + username;
+            String timeKey = LAST_ATTEMPT_TIME_PREFIX + username;
+            
+            mmkv.encode(attemptsKey, attempts);
+            mmkv.encode(timeKey, System.currentTimeMillis());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Get login attempts count for a user
+     * @param username Username
+     * @return Number of login attempts, 0 if not found
+     */
+    public int getLoginAttempts(String username) {
+        if (username == null || username.isEmpty()) {
+            return 0;
+        }
+        
+        try {
+            String attemptsKey = LOGIN_ATTEMPTS_PREFIX + username;
+            return mmkv.decodeInt(attemptsKey, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    /**
+     * Get last login attempt time for a user
+     * @param username Username
+     * @return Last attempt timestamp, 0 if not found
+     */
+    public long getLastLoginAttemptTime(String username) {
+        if (username == null || username.isEmpty()) {
+            return 0;
+        }
+        
+        try {
+            String timeKey = LAST_ATTEMPT_TIME_PREFIX + username;
+            return mmkv.decodeLong(timeKey, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

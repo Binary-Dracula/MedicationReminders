@@ -116,6 +116,38 @@ public class UserRepositoryTest {
         assertEquals("Should return correct message", "Error message", result.getMessage());
     }
     
+    @Test
+    public void testAuthenticationResult_Success() {
+        UserRepository.AuthenticationResult result = new UserRepository.AuthenticationResult(true, "Login successful");
+        
+        assertTrue("Authentication result should be successful", result.isSuccess());
+        assertEquals("Should return correct message", "Login successful", result.getMessage());
+    }
+    
+    @Test
+    public void testAuthenticationResult_Failure() {
+        UserRepository.AuthenticationResult result = new UserRepository.AuthenticationResult(false, "Login failed");
+        
+        assertFalse("Authentication result should be unsuccessful", result.isSuccess());
+        assertEquals("Should return correct message", "Login failed", result.getMessage());
+    }
+    
+    @Test
+    public void testSavedCredentials_ValidCredentials() {
+        UserRepository.SavedCredentials credentials = new UserRepository.SavedCredentials("testuser", "encryptedpassword");
+        
+        assertEquals("Should return correct username", "testuser", credentials.getUsername());
+        assertEquals("Should return correct password", "encryptedpassword", credentials.getPassword());
+    }
+    
+    @Test
+    public void testSavedCredentials_NullValues() {
+        UserRepository.SavedCredentials credentials = new UserRepository.SavedCredentials(null, null);
+        
+        assertNull("Should handle null username", credentials.getUsername());
+        assertNull("Should handle null password", credentials.getPassword());
+    }
+    
     // Note: The following tests would require proper mocking of MMKV and UserDataSource
     // In a real testing environment, we would use dependency injection to mock UserDataSource
     

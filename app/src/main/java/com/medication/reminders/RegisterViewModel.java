@@ -42,8 +42,8 @@ public class RegisterViewModel extends ViewModel {
      */
     private void initializeLiveData() {
         errorMessage = new MutableLiveData<>();
-        isLoading = new MutableLiveData<>(false);
-        registerSuccess = new MutableLiveData<>(false);
+        isLoading = new MutableLiveData<>();  // 不设置初始值，避免触发观察者
+        registerSuccess = new MutableLiveData<>();  // 不设置初始值，避免触发观察者
     }
     
     /**
@@ -130,12 +130,11 @@ public class RegisterViewModel extends ViewModel {
                 return;
             }
             
-            // 保存用户信息（额外的验证和重复检查在仓库中处理）
+            // 实际保存用户数据
             UserRepository.RepositoryResult saveResult = userRepository.saveUser(userInfo);
             
-            // 发布结果
             if (isTestMode) {
-                // 在测试模式下直接设置值
+                // 在测试模式下直接设置结果
                 if (saveResult.isSuccess()) {
                     registerSuccess.setValue(true);
                     errorMessage.setValue(null);
@@ -145,8 +144,8 @@ public class RegisterViewModel extends ViewModel {
                 }
                 isLoading.setValue(false);
             } else {
-                // 在主线程上发布结果
-                mainHandler.post(() -> {
+                // 3秒后返回实际的保存结果
+                mainHandler.postDelayed(() -> {
                     if (saveResult.isSuccess()) {
                         registerSuccess.setValue(true);
                         errorMessage.setValue(null);
@@ -155,7 +154,7 @@ public class RegisterViewModel extends ViewModel {
                         registerSuccess.setValue(false);
                     }
                     isLoading.setValue(false);
-                });
+                }, 3000);
             }
             
         } catch (Exception e) {

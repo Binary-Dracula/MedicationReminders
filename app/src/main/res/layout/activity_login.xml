@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/high_contrast_background">
+
+    <!-- 主要内容区域 - 使用LinearLayout包装以保持垂直布局 -->
+    <LinearLayout
+        android:id="@+id/llMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <!-- 标题 TextView -->
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/ElderlyFriendlyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用户登录"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="用户登录页面标题" />
+
+        <!-- 用户名输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUsername"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="请输入用户名"
+            app:helperText="输入您注册时使用的用户名"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLength="20"
+                android:contentDescription="用户名输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 密码输入 -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            style="@style/ElderlyFriendlyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="请输入密码"
+            app:helperText="输入您注册时设置的密码"
+            app:helperTextTextAppearance="@style/ElderlyFriendlyText"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleContentDescription="显示或隐藏密码">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                style="@style/ElderlyFriendlyEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:contentDescription="密码输入框" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- 记住我 CheckBox -->
+        <CheckBox
+            android:id="@+id/cbRememberMe"
+            style="@style/ElderlyFriendlyCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="记住我"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="勾选后下次登录时自动填充用户名和密码" />
+
+        <!-- 登录按钮 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            style="@style/ElderlyFriendlyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="立即登录"
+            android:minHeight="56dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="点击登录到您的账户" />
+
+        <!-- 加载指示器 -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:contentDescription="正在处理登录信息" />
+
+        <!-- 注册链接 TextView -->
+        <TextView
+            android:id="@+id/tvRegisterLink"
+            style="@style/ElderlyFriendlyLinkText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="还没有账户？立即注册"
+            android:gravity="center"
+            android:padding="12dp"
+            android:contentDescription="点击跳转到注册页面" />
+
+    </LinearLayout>
+
+    <!-- 消息提示 TextView - 固定在底部位置 -->
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/ElderlyFriendlyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="12dp"
+        android:background="@drawable/message_background"
+        android:contentDescription="登录状态提示信息" />
+
+</RelativeLayout>

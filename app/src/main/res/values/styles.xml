@@ -51,4 +51,22 @@
         <item name="android:textStyle">bold</item>
     </style>
     
+    <style name="ElderlyFriendlyCheckBox">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/high_contrast_text_primary</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:buttonTint">@color/high_contrast_primary</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+    
+    <style name="ElderlyFriendlyLinkText" parent="ElderlyFriendlyText">
+        <item name="android:textColor">@color/high_contrast_primary</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+    
 </resources>

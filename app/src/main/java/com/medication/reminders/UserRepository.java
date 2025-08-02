@@ -120,6 +120,145 @@ public class UserRepository implements UserRepositoryInterface {
     }
     
     /**
+     * Authenticate user login credentials
+     * @param username Username
+     * @param password Plain text password
+     * @return AuthenticationResult containing login status and message
+     */
+    public AuthenticationResult authenticateUser(String username, String password) {
+        try {
+            // Validate input parameters
+            if (username == null || username.trim().isEmpty()) {
+                return new AuthenticationResult(false, "请输入用户名");
+            }
+            if (password == null || password.trim().isEmpty()) {
+                return new AuthenticationResult(false, "请输入密码");
+            }
+            
+            // Check if user exists
+            UserInfo storedUser = getUserByUsername(username.trim());
+            if (storedUser == null) {
+                return new AuthenticationResult(false, "用户名不存在");
+            }
+            
+            // Verify password
+            String encryptedPassword = userDataSource.encryptPassword(password);
+            if (encryptedPassword == null || !encryptedPassword.equals(storedUser.getPassword())) {
+                // Increment login attempts on failed authentication
+                incrementLoginAttempts(username.trim());
+                return new AuthenticationResult(false, "密码错误");
+            }
+            
+            // Check login attempts limit
+            int attempts = getLoginAttempts(username.trim());
+            if (attempts >= 3) {
+                long lastAttemptTime = userDataSource.getLastLoginAttemptTime(username.trim());
+                long currentTime = System.currentTimeMillis();
+                long timeDiff = currentTime - lastAttemptTime;
+                
+                // 30 seconds = 30000 milliseconds
+                if (timeDiff < 30000) {
+                    return new AuthenticationResult(false, "登录失败次数过多，请稍后再试");
+                } else {
+                    // Reset attempts after 30 seconds
+                    resetLoginAttempts(username.trim());
+                }
+            }
+            
+            // Authentication successful - reset login attempts
+            resetLoginAttempts(username.trim());
+            return new AuthenticationResult(true, "登录成功");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new AuthenticationResult(false, "登录失败，请重试");
+        }
+    }
+    
+    /**
+     * Save login credentials for "remember me" functionality
+     * @param username Username to remember
+     * @param password Plain text password to remember
+     * @return true if save successful, false otherwise
+     */
+    public boolean saveLoginCredentials(String username, String password) {
+        try {
+            if (username == null || password == null) {
+                return false;
+            }
+            
+            return userDataSource.saveRememberedCredentials(username.trim(), password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Get saved login credentials
+     * @return SavedCredentials object containing username and password, null if not found
+     */
+    public SavedCredentials getSavedCredentials() {
+        try {
+            return userDataSource.getRememberedCredentials();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    /**
+     * Clear saved login credentials
+     * @return true if clear successful, false otherwise
+     */
+    public boolean clearSavedCredentials() {
+        try {
+            return userDataSource.clearRememberedCredentials();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Increment login attempts for a user
+     * @param username Username
+     */
+    public void incrementLoginAttempts(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            return;
+        }
+        
+        int currentAttempts = getLoginAttempts(username.trim());
+        userDataSource.saveLoginAttempts(username.trim(), currentAttempts + 1);
+    }
+    
+    /**
+     * Get login attempts count for a user
+     * @param username Username
+     * @return Number of login attempts
+     */
+    public int getLoginAttempts(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            return 0;
+        }
+        
+        return userDataSource.getLoginAttempts(username.trim());
+    }
+    
+    /**
+     * Reset login attempts for a user
+     * @param username Username
+     */
+    public void resetLoginAttempts(String username) {
+        if (username == null || username.trim().isEmpty()) {
+            return;
+        }
+        
+        userDataSource.saveLoginAttempts(username.trim(), 0);
+    }
+    
+    /**
      * RepositoryResult class to hold repository operation results
      */
     public static class RepositoryResult {
@@ -137,6 +276,48 @@ public class UserRepository implements UserRepositoryInterface {
         
         public String getMessage() {
             return message;
+        }
+    }
+    
+    /**
+     * AuthenticationResult class to hold authentication operation results
+     */
+    public static class AuthenticationResult {
+        private final boolean success;
+        private final String message;
+        
+        public AuthenticationResult(boolean success, String message) {
+            this.success = success;
+            this.message = message;
+        }
+        
+        public boolean isSuccess() {
+            return success;
+        }
+        
+        public String getMessage() {
+            return message;
+        }
+    }
+    
+    /**
+     * SavedCredentials class to hold saved login credentials
+     */
+    public static class SavedCredentials {
+        private final String username;
+        private final String password;
+        
+        public SavedCredentials(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+        
+        public String getUsername() {
+            return username;
+        }
+        
+        public String getPassword() {
+            return password;
         }
     }
 }
