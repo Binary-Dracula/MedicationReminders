@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Minimum touch target size for accessibility -->
+    <dimen name="min_touch_target">48dp</dimen>
+    
+    <!-- Elderly-friendly spacing -->
+    <dimen name="elderly_margin_small">8dp</dimen>
+    <dimen name="elderly_margin_medium">16dp</dimen>
+    <dimen name="elderly_margin_large">24dp</dimen>
+    <dimen name="elderly_margin_xlarge">32dp</dimen>
+    
+    <!-- Text sizes for elderly users -->
+    <dimen name="elderly_text_small">16sp</dimen>
+    <dimen name="elderly_text_medium">18sp</dimen>
+    <dimen name="elderly_text_large">20sp</dimen>
+    <dimen name="elderly_text_xlarge">24sp</dimen>
+    
+    <!-- Button dimensions -->
+    <dimen name="elderly_button_height">56dp</dimen>
+    <dimen name="elderly_button_padding">16dp</dimen>
+    
+    <!-- Input field dimensions -->
+    <dimen name="elderly_input_height">56dp</dimen>
+    <dimen name="elderly_input_padding">16dp</dimen>
+    
+    <!-- Photo preview dimensions -->
+    <dimen name="photo_preview_size">200dp</dimen>
+</resources>

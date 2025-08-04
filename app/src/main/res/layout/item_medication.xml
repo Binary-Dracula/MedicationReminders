@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:minHeight="80dp">
+
+        <!-- Color Indicator -->
+        <View
+            android:id="@+id/colorIndicator"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/color_indicator_background" />
+
+        <!-- Medication Photo -->
+        <ImageView
+            android:id="@+id/ivMedicationPhoto"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/photo_placeholder_background"
+            android:src="@drawable/ic_medication_default"
+            android:contentDescription="药物照片" />
+
+        <!-- Medication Information -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <!-- Medication Name -->
+            <TextView
+                android:id="@+id/tvMedicationName"
+                style="@style/ElderlyFriendlyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="药物名称"
+                android:textSize="18sp"
+                android:layout_marginBottom="4dp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Medication Details (Color and Dosage Form) -->
+            <TextView
+                android:id="@+id/tvMedicationDetails"
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="白色 • 片剂"
+                android:textColor="@color/high_contrast_text_secondary"
+                android:layout_marginBottom="4dp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <!-- Created Date -->
+            <TextView
+                android:id="@+id/tvCreatedDate"
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="添加于 2024年01月01日"
+                android:textColor="@color/high_contrast_text_secondary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+        </LinearLayout>
+
+        <!-- Arrow Indicator -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_arrow_forward"
+            android:contentDescription="查看详情"
+            android:tint="@color/high_contrast_text_secondary" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

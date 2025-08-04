@@ -26,4 +26,8 @@
     <color name="dark_surface">#FF1E1E1E</color>
     <color name="dark_text_primary">#FFFFFFFF</color>
     <color name="dark_text_secondary">#FFB3B3B3</color>
+    
+    <!-- Medication colors -->
+    <color name="medication_pink">#FFFF69B4</color>
+    <color name="medication_brown">#FFA0522D</color>
 </resources>

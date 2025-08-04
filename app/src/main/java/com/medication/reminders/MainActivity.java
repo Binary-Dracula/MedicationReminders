@@ -2,6 +2,7 @@ package com.medication.reminders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     
     private TextView tvWelcome;
     private TextView tvUserInfo;
+    private Button btnAddMedication;
+    private Button btnViewMedicationList;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         
         // Setup user information from login
         setupUserInfo();
+        
+        // Setup click listeners
+        setupClickListeners();
         
         // Setup action bar
         if (getSupportActionBar() != null) {
@@ -38,6 +44,23 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         tvWelcome = findViewById(R.id.tvWelcome);
         tvUserInfo = findViewById(R.id.tvUserInfo);
+        btnAddMedication = findViewById(R.id.btnAddMedication);
+        btnViewMedicationList = findViewById(R.id.btnViewMedicationList);
+    }
+    
+    /**
+     * Setup click listeners for UI components
+     */
+    private void setupClickListeners() {
+        btnAddMedication.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddMedicationActivity.class);
+            startActivity(intent);
+        });
+        
+        btnViewMedicationList.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MedicationListActivity.class);
+            startActivity(intent);
+        });
     }
     
     /**

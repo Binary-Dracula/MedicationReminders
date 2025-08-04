@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Internal storage for temporary photos -->
+    <files-path name="temp_photos" path="temp_photos/" />
+    
+    <!-- Internal storage for medication photos -->
+    <files-path name="medication_photos" path="medication_photos/" />
+    
+    <!-- Cache directory for temporary files -->
+    <cache-path name="cache" path="." />
+</paths>

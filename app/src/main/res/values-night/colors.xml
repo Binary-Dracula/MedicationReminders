@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- High contrast colors for elderly users in dark mode -->
+    <color name="high_contrast_primary">#FF64B5F6</color>
+    <color name="high_contrast_primary_dark">#FF1976D2</color>
+    <color name="high_contrast_accent">#FF90CAF9</color>
+    <color name="high_contrast_text_primary">#FFFFFFFF</color>
+    <color name="high_contrast_text_secondary">#FFB3B3B3</color>
+    <color name="high_contrast_background">#FF121212</color>
+    <color name="high_contrast_surface">#FF1E1E1E</color>
+    <color name="error_color">#FFEF5350</color>
+    <color name="success_color">#FF66BB6A</color>
+    <color name="input_focus_color">#FF64B5F6</color>
+    <color name="hint_text_color">#FF9E9E9E</color>
+</resources>
