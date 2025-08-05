@@ -1,5 +1,7 @@
 package com.medication.reminders;
 
+import com.medication.reminders.utils.PhotoUtils;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

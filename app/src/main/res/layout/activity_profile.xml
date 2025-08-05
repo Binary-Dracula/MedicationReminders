@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/high_contrast_background"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- 主要内容区域 -->
+        <LinearLayout
+            android:id="@+id/llMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/ElderlyFriendlyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:contentDescription="个人资料页面标题"
+                android:gravity="center"
+                android:text="@string/profile_title"
+                android:textSize="24sp" />
+
+            <!-- 个人资料照片区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- 个人资料照片 -->
+                <ImageView
+                    android:id="@+id/ivProfilePhoto"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/profile_photo_background"
+                    android:contentDescription="@string/profile_photo_description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_medication_default" />
+
+                <!-- 更改照片按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChangePhoto"
+                    style="@style/ProfilePhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="点击更改个人资料照片"
+                    android:text="@string/change_profile_photo" />
+
+            </LinearLayout>
+
+            <!-- 基本信息区域 -->
+            <LinearLayout
+                style="@style/ProfileInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/ProfileSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="基本信息区域标题"
+                    android:text="@string/basic_info_title" />
+
+                <!-- 完整姓名 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/full_name_label" />
+
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户完整姓名"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+                <!-- 性别 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/gender_label" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户性别"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+                <!-- 年龄 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/age_label" />
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户年龄"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+                <!-- 出生日期 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/birth_date_label" />
+
+                    <TextView
+                        android:id="@+id/tvBirthDate"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户出生日期"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 联系信息区域 -->
+            <LinearLayout
+                style="@style/ProfileInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/ProfileSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="联系信息区域标题"
+                    android:text="@string/contact_info_title" />
+
+                <!-- 用户名 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/username_label" />
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户名"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+                <!-- 邮箱地址 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/email_label" />
+
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户邮箱地址"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+                <!-- 电话号码 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/phone_label" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneNumber"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="用户电话号码"
+                        android:text="@string/profile_not_set" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 操作按钮区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
+
+                <!-- 编辑个人资料按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEditProfile"
+                    style="@style/ElderlyFriendlyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="点击编辑个人资料信息"
+                    android:minHeight="56dp"
+                    android:text="@string/edit_profile" />
+
+                <!-- 返回按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="返回上一页"
+                    android:minHeight="56dp"
+                    android:text="@string/back"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 加载指示器 -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="正在加载个人资料信息"
+            android:visibility="gone" />
+
+        <!-- 消息提示 -->
+        <TextView
+            android:id="@+id/tvMessage"
+            style="@style/ElderlyFriendlyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/message_background"
+            android:contentDescription="个人资料状态提示信息"
+            android:gravity="center"
+            android:padding="12dp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.medication.reminders"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.medication.reminders"
         minSdk = 29
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,27 +32,39 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
 
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.mmkv)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
-    
+
     // Room database dependencies
     implementation(libs.room.runtime)
+    implementation(libs.androidx.junit)
     annotationProcessor(libs.room.compiler)
-    
+
     // PermissionX for runtime permissions
     implementation(libs.permissionx)
-    
+    // import MMKV
+    implementation(libs.mmkv)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
     testImplementation(libs.arch.core.testing)
     testImplementation(libs.room.testing)
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.13")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
 }

@@ -1,10 +1,20 @@
 package com.medication.reminders;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import android.Manifest;
 import android.content.Context;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.medication.reminders.utils.PermissionUtils;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.request.PermissionBuilder;
 
@@ -15,13 +25,8 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for PermissionUtils class

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 个人资料菜单项 -->
+    <item
+        android:id="@+id/action_profile"
+        android:title="个人资料"
+        android:icon="@drawable/ic_arrow_forward"
+        app:showAsAction="never"
+        android:contentDescription="查看个人资料" />
+
+    <!-- 退出登录菜单项 -->
+    <item
+        android:id="@+id/action_logout"
+        android:title="退出登录"
+        android:icon="@drawable/ic_arrow_back"
+        app:showAsAction="never"
+        android:contentDescription="退出当前账户" />
+
+</menu>

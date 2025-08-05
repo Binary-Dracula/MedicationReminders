@@ -1,11 +1,10 @@
 package com.medication.reminders;
 
 import android.app.Application;
-import com.tencent.mmkv.MMKV;
 
 /**
  * Application class for MedicationReminders app
- * Handles global initialization including MMKV setup
+ * 应用程序全局初始化类
  */
 public class MedicationRemindersApplication extends Application {
     
@@ -13,8 +12,7 @@ public class MedicationRemindersApplication extends Application {
     public void onCreate() {
         super.onCreate();
         
-        // Initialize MMKV
-        String rootDir = MMKV.initialize(this);
-        System.out.println("MMKV root: " + rootDir);
+        // 应用程序初始化完成
+        System.out.println("MedicationReminders应用程序已启动");
     }
 }

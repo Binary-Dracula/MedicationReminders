@@ -1,5 +1,7 @@
 package com.medication.reminders;
 
+import com.medication.reminders.models.MedicationColor;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

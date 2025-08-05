@@ -1,5 +1,7 @@
 package com.medication.reminders;
 
+import com.medication.reminders.models.MedicationValidationResult;
+
 import org.junit.Test;
 import org.junit.Before;
 

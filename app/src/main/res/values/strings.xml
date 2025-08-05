@@ -123,4 +123,201 @@
     <string name="medication_created_date_label">添加日期：</string>
     <string name="medication_updated_date_label">更新日期：</string>
     <string name="no_photo_available">暂无照片</string>
+    
+    <!-- 个人资料相关 -->
+    <string name="profile_title">个人资料</string>
+    <string name="basic_info_title">基本信息</string>
+    <string name="contact_info_title">联系信息</string>
+    <string name="edit_profile">编辑个人资料</string>
+    <string name="profile_loading">正在加载个人资料…</string>
+    <string name="profile_load_error">个人资料加载失败</string>
+    <string name="profile_not_set">未设置</string>
+    
+    <!-- 个人资料字段标签 -->
+    <string name="full_name_label">姓名：</string>
+    <string name="gender_label">性别：</string>
+    <string name="age_label">年龄：</string>
+    <string name="birth_date_label">出生日期：</string>
+    <string name="username_label">用户名：</string>
+    <string name="email_label">邮箱：</string>
+    <string name="phone_label">电话：</string>
+    
+    <!-- 性别选项 -->
+    <string name="gender_male">男性</string>
+    <string name="gender_female">女性</string>
+    <string name="gender_prefer_not_to_say">不愿透露</string>
+    
+    <!-- 个人资料照片相关 -->
+    <string name="profile_photo_label">个人资料照片</string>
+    <string name="change_profile_photo">更改照片</string>
+    <string name="remove_profile_photo">删除照片</string>
+    <string name="profile_photo_options_title">选择个人资料照片</string>
+    <string name="profile_photo_saved_successfully">个人资料照片保存成功</string>
+    <string name="profile_photo_deleted_successfully">个人资料照片删除成功</string>
+    <string name="error_profile_photo_save_failed">个人资料照片保存失败</string>
+    <string name="error_profile_photo_load_failed">个人资料照片加载失败</string>
+    <string name="error_profile_photo_delete_failed">个人资料照片删除失败</string>
+    <string name="error_profile_photo_too_large">照片文件过大，请选择较小的照片</string>
+    <string name="profile_photo_description">个人资料照片</string>
+    <string name="default_profile_photo_description">默认头像</string>
+    <string name="processing_profile_photo">处理个人资料照片中…</string>
+    
+    <!-- 个人资料编辑相关 -->
+    <string name="edit_profile_title">编辑个人资料</string>
+    <string name="registration_info_title">注册信息</string>
+    <string name="save_profile">保存个人资料</string>
+    <string name="profile_saved_successfully">个人资料保存成功</string>
+    <string name="error_profile_save_failed">个人资料保存失败，请重试</string>
+    
+    <!-- 表单字段提示和帮助文本 -->
+    <string name="full_name_hint">请输入您的完整姓名</string>
+    <string name="full_name_helper">姓名将用于个性化您的用药提醒</string>
+    <string name="gender_hint">请选择您的性别</string>
+    <string name="gender_helper">性别信息有助于提供更准确的健康建议</string>
+    <string name="birth_date_hint">请选择您的出生日期</string>
+    <string name="birth_date_helper">出生日期用于计算年龄和提供年龄相关的健康提醒</string>
+    <string name="username_hint">请输入用户名（3-20个字符）</string>
+    <string name="username_edit_helper">修改用户名将影响您的登录信息</string>
+    <string name="email_hint">请输入邮箱地址</string>
+    <string name="email_edit_helper">邮箱用于接收重要通知和找回密码</string>
+    <string name="phone_hint">请输入手机号（11位数字）</string>
+    <string name="phone_edit_helper">手机号用于接收紧急提醒和验证身份</string>
+    
+    <!-- 个人资料验证错误消息 -->
+    <string name="error_full_name_required">请输入您的完整姓名</string>
+    <string name="error_full_name_too_short">姓名不能为空</string>
+    <string name="error_full_name_too_long">姓名不能超过100个字符</string>
+    <string name="error_full_name_invalid">姓名只能包含字母、汉字、空格、连字符和撇号</string>
+    <string name="error_gender_required">请选择您的性别</string>
+    <string name="error_gender_invalid">选择的性别无效</string>
+    <string name="error_birth_date_required">请选择您的出生日期</string>
+    <string name="error_birth_date_invalid">出生日期格式无效</string>
+    <string name="error_birth_date_future">出生日期不能是未来的日期</string>
+    <string name="error_birth_date_too_young">年龄必须至少13岁</string>
+    <string name="error_username_required">请输入用户名</string>
+    <string name="error_username_too_short">用户名至少需要3个字符</string>
+    <string name="error_username_too_long">用户名不能超过20个字符</string>
+    <string name="error_username_invalid">用户名只能包含字母、数字和下划线</string>
+    <string name="error_username_exists">该用户名已被使用，请选择其他用户名</string>
+    <string name="error_email_required">请输入邮箱地址</string>
+    <string name="error_email_invalid">邮箱地址格式不正确</string>
+    <string name="error_email_exists">该邮箱已被使用，请使用其他邮箱</string>
+    <string name="error_phone_required">请输入手机号码</string>
+    <string name="error_phone_invalid">手机号码格式不正确</string>
+    <string name="error_phone_exists">该手机号已被使用，请使用其他手机号</string>
+    
+    <!-- 确认对话框 -->
+    <string name="confirm_discard_changes_title">确认取消</string>
+    <string name="confirm_discard_changes_message">您确定要取消编辑吗？未保存的修改将丢失。</string>
+    <string name="confirm_remove_photo_title">确认删除照片</string>
+    <string name="confirm_remove_photo_message">您确定要删除个人资料照片吗？</string>
+    
+    <!-- 日期选择相关 -->
+    <string name="select_birth_date">选择出生日期</string>
+    <string name="birth_date_format">yyyy年MM月dd日</string>
+    
+    <!-- 性别选项数组 -->
+    <string-array name="gender_options">
+        <item>@string/gender_male</item>
+        <item>@string/gender_female</item>
+        <item>@string/gender_prefer_not_to_say</item>
+    </string-array>
+    
+    <!-- 个人资料验证器相关字符串 -->
+    <string name="error_profile_validation_failed">个人资料验证失败</string>
+    <string name="error_create_profile_failed">创建个人资料数据失败</string>
+    <string name="error_form_validation_failed">请修正表单中的错误后再保存</string>
+    
+    <!-- 年龄显示相关 -->
+    <string name="age_suffix">岁</string>
+    <string name="age_calculation_error">年龄计算错误</string>
+    
+    <!-- 照片处理相关 -->
+    <string name="processing_photo_message">处理照片中...</string>
+    <string name="camera_unavailable">相机不可用</string>
+    <string name="gallery_unavailable">相册不可用</string>
+    <string name="open_camera_failed">打开相机失败</string>
+    <string name="open_gallery_failed">打开相册失败</string>
+    <string name="photo_temp_save_failed">照片临时保存失败</string>
+    
+    <!-- 权限相关消息 -->
+    <string name="camera_permission_required">需要相机权限才能拍摄个人资料照片</string>
+    <string name="storage_permission_required">需要存储权限才能选择个人资料照片</string>
+    
+    <string name="initialization_failed">初始化失败，请重启应用</string>
+    <string name="profile_not_found">未找到用户个人资料</string>
+    
+    <string name="phone_mask_prefix">****</string>
+    
+    <string name="profile_edit_page_title_description">编辑个人资料页面标题</string>
+    <string name="profile_photo_area_title_description">个人资料照片区域标题</string>
+    <string name="basic_info_area_title_description">基本信息编辑区域标题</string>
+    <string name="registration_info_area_title_description">注册信息编辑区域标题</string>
+    <string name="change_photo_button_description">点击更改个人资料照片</string>
+    <string name="remove_photo_button_description">点击删除个人资料照片</string>
+    <string name="full_name_input_description">完整姓名输入框</string>
+    <string name="gender_selection_description">性别选择下拉框</string>
+    <string name="birth_date_selection_description">出生日期选择框</string>
+    <string name="username_input_description">用户名输入框</string>
+    <string name="email_input_description">邮箱地址输入框</string>
+    <string name="phone_input_description">电话号码输入框</string>
+    <string name="save_profile_button_description">点击保存个人资料修改</string>
+    <string name="cancel_edit_button_description">取消编辑并返回</string>
+    <string name="loading_profile_description">正在保存个人资料信息</string>
+    <string name="profile_message_description">个人资料编辑状态提示信息</string>
+    <string name="user_profile_photo_description">用户个人资料照片</string>
+    
+    <string name="confirm_delete_photo_title">确认删除</string>
+    <string name="confirm_delete_photo_message">您确定要删除个人资料照片吗？</string>
+    
+    <string name="registration_info_updated_successfully">注册信息更新成功</string>
+    
+    <string name="validator_name_empty">姓名不能为空</string>
+    <string name="validator_name_too_long">姓名长度不能超过%d个字符</string>
+    <string name="validator_name_invalid_format">姓名只能包含中文、英文字母、空格、连字符和撇号</string>
+    <string name="validator_gender_empty">请选择性别</string>
+    <string name="validator_gender_invalid">请选择有效的性别选项</string>
+    <string name="validator_birth_date_empty">出生日期不能为空</string>
+    <string name="validator_birth_date_invalid_format">出生日期格式不正确，请使用YYYY-MM-DD格式</string>
+    <string name="validator_birth_date_future">出生日期不能是未来日期</string>
+    <string name="validator_birth_date_too_young">用户年龄必须至少%d岁</string>
+    <string name="validator_birth_date_too_old">用户年龄不能超过%d岁</string>
+    <string name="validator_username_empty">用户名不能为空</string>
+    <string name="validator_username_invalid_length">用户名长度必须在%d-%d个字符之间</string>
+    <string name="validator_username_invalid_format">用户名只能包含字母、数字和下划线</string>
+    <string name="validator_email_empty">邮箱地址不能为空</string>
+    <string name="validator_email_invalid_format">邮箱地址格式不正确</string>
+    <string name="validator_phone_empty">电话号码不能为空</string>
+    <string name="validator_phone_invalid_format">电话号码格式不正确，请输入有效的中国手机号码</string>
+    <string name="validator_photo_path_invalid">照片路径格式不正确</string>
+    <string name="validator_photo_format_unsupported">照片文件格式不支持，请使用JPG、PNG或GIF格式</string>
+    <string name="validator_profile_empty">个人资料不能为空</string>
+    
+    <string name="field_name_full_name">姓名</string>
+    <string name="field_name_gender">性别</string>
+    <string name="field_name_birth_date">出生日期</string>
+    <string name="field_name_username">用户名</string>
+    <string name="field_name_email">邮箱</string>
+    <string name="field_name_phone">电话号码</string>
+    <string name="field_name_profile_photo">个人资料照片</string>
+    <string name="field_name_profile">个人资料</string>
+    
+    <!-- 主界面相关字符串 -->
+    <string name="profile_button">个人资料</string>
+    <string name="profile_button_description">查看和编辑个人资料</string>
+    <string name="profile_menu_title">个人资料</string>
+    <string name="logout_menu_title">退出登录</string>
+    <string name="profile_completion_title">完善个人资料</string>
+    <string name="profile_completion_message">为了更好地为您提供个性化服务，建议您完善个人资料信息。现在就去设置吗？</string>
+    <string name="setup_now">立即设置</string>
+    <string name="setup_later">稍后再说</string>
+    <string name="logout_confirmation_title">退出登录</string>
+    <string name="logout_confirmation_message">您确定要退出当前账户吗？</string>
+    <string name="clear_login_info_title">清除登录信息</string>
+    <string name="clear_login_info_message">是否同时清除保存的登录信息？</string>
+    <string name="clear">清除</string>
+    <string name="keep">保留</string>
+    <string name="exit_app_title">退出应用</string>
+    <string name="exit_app_message">您确定要退出药物提醒助手吗？</string>
+    <string name="user_info_error">无法获取用户信息</string>
 </resources>

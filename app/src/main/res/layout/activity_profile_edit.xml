@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/high_contrast_background"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <!-- 主要内容区域 -->
+        <LinearLayout
+            android:id="@+id/llMainContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/ElderlyFriendlyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_profile_title"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:layout_marginBottom="32dp"
+                android:contentDescription="编辑个人资料页面标题" />
+
+            <!-- 个人资料照片编辑区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginBottom="32dp"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_photo_label"
+                    style="@style/ProfileSectionTitle"
+                    android:gravity="center"
+                    android:contentDescription="个人资料照片区域标题" />
+
+                <!-- 个人资料照片预览 -->
+                <ImageView
+                    android:id="@+id/ivProfilePhoto"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/profile_photo_background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_medication_default"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/profile_photo_description" />
+
+                <!-- 照片操作按钮 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChangePhoto"
+                        style="@style/ProfilePhotoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/change_profile_photo"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="点击更改个人资料照片" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRemovePhoto"
+                        style="@style/ProfilePhotoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remove_profile_photo"
+                        android:contentDescription="点击删除个人资料照片" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 基本信息编辑区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basic_info_title"
+                    style="@style/ProfileSectionTitle"
+                    android:contentDescription="基本信息编辑区域标题" />
+
+                <!-- 完整姓名输入 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFullName"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/full_name_hint"
+                    app:helperText="@string/full_name_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="完整姓名输入框"
+                        android:inputType="textPersonName"
+                        android:maxLength="100" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 性别选择 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilGender"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/gender_hint"
+                    app:helperText="@string/gender_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/actvGender"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="性别选择下拉框"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 出生日期选择 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBirthDate"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/birth_date_hint"
+                    app:helperText="@string/birth_date_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_arrow_forward">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBirthDate"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="出生日期选择框"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:clickable="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- 注册信息编辑区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_info_title"
+                    style="@style/ProfileSectionTitle"
+                    android:contentDescription="注册信息编辑区域标题" />
+
+                <!-- 用户名输入 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilUsername"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/username_hint"
+                    app:helperText="@string/username_edit_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUsername"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="用户名输入框"
+                        android:inputType="text"
+                        android:maxLength="20" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 邮箱输入 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/email_hint"
+                    app:helperText="@string/email_edit_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="邮箱地址输入框"
+                        android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- 电话号码输入 -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhoneNumber"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="@string/phone_hint"
+                    app:helperText="@string/phone_edit_helper"
+                    app:helperTextTextAppearance="@style/ElderlyFriendlyText">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPhoneNumber"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="电话号码输入框"
+                        android:inputType="phone"
+                        android:maxLength="11" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- 操作按钮区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <!-- 保存按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSave"
+                    style="@style/ElderlyFriendlyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save_profile"
+                    android:minHeight="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="点击保存个人资料修改" />
+
+                <!-- 取消按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancel"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textSize="18sp"
+                    android:minHeight="56dp"
+                    android:contentDescription="取消编辑并返回" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 加载指示器 -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:contentDescription="正在保存个人资料信息" />
+
+        <!-- 消息提示 -->
+        <TextView
+            android:id="@+id/tvMessage"
+            style="@style/ElderlyFriendlyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="12dp"
+            android:background="@drawable/message_background"
+            android:contentDescription="个人资料编辑状态提示信息" />
+
+    </RelativeLayout>
+
+</ScrollView>
