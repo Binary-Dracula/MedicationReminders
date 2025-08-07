@@ -258,6 +258,9 @@ public class ProfileActivity extends AppCompatActivity {
         
         // 显示联系信息
         displayContactInfo(user);
+
+        // 显示扩展信息
+        displayExtendedInfo(user);
         
         // 加载个人资料照片
         loadProfilePhoto(user.getProfilePhotoPath());
@@ -308,6 +311,56 @@ public class ProfileActivity extends AppCompatActivity {
      * 显示联系信息
      * @param user 用户对象
      */
+    private void displayExtendedInfo(User user) {
+        // 显示备用电话
+        String secondaryPhone = user.getSecondaryPhone();
+        binding.tvSecondaryPhone.setText(secondaryPhone != null && !secondaryPhone.trim().isEmpty()
+                ? secondaryPhone : getString(R.string.profile_not_set));
+
+        // 显示紧急联系人
+        String emergencyContactName = user.getEmergencyContactName();
+        binding.tvEmergencyContactName.setText(emergencyContactName != null && !emergencyContactName.trim().isEmpty()
+                ? emergencyContactName : getString(R.string.profile_not_set));
+
+        String emergencyContactPhone = user.getEmergencyContactPhone();
+        binding.tvEmergencyContactPhone.setText(emergencyContactPhone != null && !emergencyContactPhone.trim().isEmpty()
+                ? emergencyContactPhone : getString(R.string.profile_not_set));
+
+        String emergencyContactRelation = user.getEmergencyContactRelation();
+        binding.tvEmergencyContactRelation.setText(emergencyContactRelation != null && !emergencyContactRelation.trim().isEmpty()
+                ? emergencyContactRelation : getString(R.string.profile_not_set));
+
+        // 显示地址
+        String address = user.getAddress();
+        binding.tvAddress.setText(address != null && !address.trim().isEmpty()
+                ? address : getString(R.string.profile_not_set));
+
+        // 显示医疗信息
+        String bloodType = user.getBloodType();
+        binding.tvBloodType.setText(bloodType != null && !bloodType.trim().isEmpty()
+                ? bloodType : getString(R.string.profile_not_set));
+
+        String allergies = user.getAllergies();
+        binding.tvAllergies.setText(allergies != null && !allergies.trim().isEmpty()
+                ? allergies : getString(R.string.profile_not_set));
+
+        String medicalConditions = user.getMedicalConditions();
+        binding.tvMedicalConditions.setText(medicalConditions != null && !medicalConditions.trim().isEmpty()
+                ? medicalConditions : getString(R.string.profile_not_set));
+
+        String doctorName = user.getDoctorName();
+        binding.tvDoctorName.setText(doctorName != null && !doctorName.trim().isEmpty()
+                ? doctorName : getString(R.string.profile_not_set));
+
+        String doctorPhone = user.getDoctorPhone();
+        binding.tvDoctorPhone.setText(doctorPhone != null && !doctorPhone.trim().isEmpty()
+                ? doctorPhone : getString(R.string.profile_not_set));
+
+        String hospitalName = user.getHospitalName();
+        binding.tvHospitalName.setText(hospitalName != null && !hospitalName.trim().isEmpty()
+                ? hospitalName : getString(R.string.profile_not_set));
+    }
+
     private void displayContactInfo(User user) {
         // 显示用户名
         String username = user.getUsername();

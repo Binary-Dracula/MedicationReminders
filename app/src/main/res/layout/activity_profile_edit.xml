@@ -174,6 +174,241 @@
 
             </LinearLayout>
 
+            <!-- 扩展联系方式 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="扩展联系方式"
+                    style="@style/ProfileSectionTitle"
+                    android:contentDescription="扩展联系方式编辑区域标题" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSecondaryPhone"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="备用电话">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSecondaryPhone"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmergencyContactName"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="紧急联系人姓名">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmergencyContactName"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmergencyContactPhone"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="紧急联系人电话">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmergencyContactPhone"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmergencyContactRelation"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="与紧急联系人关系">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmergencyContactRelation"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- 地址信息 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="地址信息"
+                    style="@style/ProfileSectionTitle"
+                    android:contentDescription="地址信息编辑区域标题" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAddress"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="详细地址">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPostalAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- 医疗相关信息 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/ProfileInfoContainer">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="医疗相关信息"
+                    style="@style/ProfileSectionTitle"
+                    android:contentDescription="医疗相关信息编辑区域标题" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilBloodType"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="血型">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etBloodType"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAllergies"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="过敏信息">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAllergies"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMedicalConditions"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="既往病史">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMedicalConditions"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDoctorName"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="主治医生姓名">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDoctorName"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDoctorPhone"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="主治医生电话">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDoctorPhone"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilHospitalName"
+                    style="@style/ElderlyFriendlyTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="常去医院名称">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHospitalName"
+                        style="@style/ElderlyFriendlyEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
             <!-- 注册信息编辑区域 -->
             <LinearLayout
                 android:layout_width="match_parent"

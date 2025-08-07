@@ -51,6 +51,9 @@ public class UserValidator {
     private static final int MIN_PASSWORD_LENGTH = 6;
     private static final int MAX_PASSWORD_LENGTH = 20;
     private static final int MAX_TEXT_FIELD_LENGTH = 500; // 文本字段最大长度
+    private static final int MAX_RELATION_LENGTH = 50;
+    private static final int MAX_ADDRESS_LENGTH = 200;
+    private static final int MAX_MEDICAL_FIELD_LENGTH = 500;
     
     // 有效的性别选项
     private static final String[] VALID_GENDERS = {"男性", "女性", "不愿透露"};
@@ -88,6 +91,116 @@ public class UserValidator {
             return passwordResult;
         }
         
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateSecondaryPhone(String secondaryPhone) {
+        if (secondaryPhone == null || secondaryPhone.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (!PHONE_PATTERN.matcher(secondaryPhone.trim()).matches()) {
+            return ProfileValidationResult.failure("备用电话", "备用电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateEmergencyContactName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (name.trim().length() > MAX_NAME_LENGTH) {
+            return ProfileValidationResult.failure("紧急联系人姓名", "紧急联系人姓名过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateEmergencyContactPhone(String phone) {
+        if (phone == null || phone.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (!PHONE_PATTERN.matcher(phone.trim()).matches()) {
+            return ProfileValidationResult.failure("紧急联系人电话", "紧急联系人电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateEmergencyContactRelation(String relation) {
+        if (relation == null || relation.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (relation.trim().length() > MAX_RELATION_LENGTH) {
+            return ProfileValidationResult.failure("紧急联系人关系", "紧急联系人关系过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateAddress(String address) {
+        if (address == null || address.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (address.trim().length() > MAX_ADDRESS_LENGTH) {
+            return ProfileValidationResult.failure("地址", "地址过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateBloodType(String bloodType) {
+        if (bloodType == null || bloodType.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (!BLOOD_TYPE_PATTERN.matcher(bloodType.trim().toUpperCase()).matches()) {
+            return ProfileValidationResult.failure("血型", "血型格式不正确 (e.g., A+, O-)", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateAllergies(String allergies) {
+        if (allergies == null || allergies.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (allergies.trim().length() > MAX_MEDICAL_FIELD_LENGTH) {
+            return ProfileValidationResult.failure("过敏史", "过敏史描述过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateMedicalConditions(String conditions) {
+        if (conditions == null || conditions.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (conditions.trim().length() > MAX_MEDICAL_FIELD_LENGTH) {
+            return ProfileValidationResult.failure("医疗状况", "医疗状况描述过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateDoctorName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (name.trim().length() > MAX_NAME_LENGTH) {
+            return ProfileValidationResult.failure("医生姓名", "医生姓名过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateDoctorPhone(String phone) {
+        if (phone == null || phone.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (!PHONE_PATTERN.matcher(phone.trim()).matches()) {
+            return ProfileValidationResult.failure("医生电话", "医生电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+        }
+        return ProfileValidationResult.success();
+    }
+
+    public static ProfileValidationResult validateHospitalName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return ProfileValidationResult.success(); // Optional field
+        }
+        if (name.trim().length() > MAX_NAME_LENGTH) {
+            return ProfileValidationResult.failure("医院名称", "医院名称过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+        }
         return ProfileValidationResult.success();
     }
 
@@ -355,27 +468,6 @@ public class UserValidator {
             return ProfileValidationResult.failure("个人资料照片", 
                 "照片文件格式不支持，请使用JPG、PNG或GIF格式", 
                 ProfileValidationResult.ValidationErrorType.FILE_ERROR);
-        }
-        
-        return ProfileValidationResult.success();
-    }
-
-    /**
-     * 验证血型
-     * @param bloodType 血型
-     * @return 验证结果
-     */
-    public static ProfileValidationResult validateBloodType(String bloodType) {
-        if (bloodType == null || bloodType.trim().isEmpty()) {
-            return ProfileValidationResult.success(); // 血型是可选的
-        }
-        
-        String trimmedBloodType = bloodType.trim().toUpperCase();
-        
-        if (!BLOOD_TYPE_PATTERN.matcher(trimmedBloodType).matches()) {
-            return ProfileValidationResult.failure("血型", 
-                "血型格式不正确，请输入A、B、AB或O，可选择+/-", 
-                ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
         
         return ProfileValidationResult.success();

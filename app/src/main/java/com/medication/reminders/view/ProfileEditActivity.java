@@ -336,6 +336,17 @@ public class ProfileEditActivity extends AppCompatActivity {
         binding.etUsername.addTextChangedListener(textWatcher);
         binding.etEmail.addTextChangedListener(textWatcher);
         binding.etPhoneNumber.addTextChangedListener(textWatcher);
+        binding.etSecondaryPhone.addTextChangedListener(textWatcher);
+        binding.etEmergencyContactName.addTextChangedListener(textWatcher);
+        binding.etEmergencyContactPhone.addTextChangedListener(textWatcher);
+        binding.etEmergencyContactRelation.addTextChangedListener(textWatcher);
+        binding.etAddress.addTextChangedListener(textWatcher);
+        binding.etBloodType.addTextChangedListener(textWatcher);
+        binding.etAllergies.addTextChangedListener(textWatcher);
+        binding.etMedicalConditions.addTextChangedListener(textWatcher);
+        binding.etDoctorName.addTextChangedListener(textWatcher);
+        binding.etDoctorPhone.addTextChangedListener(textWatcher);
+        binding.etHospitalName.addTextChangedListener(textWatcher);
     }
     
     /**
@@ -352,6 +363,23 @@ public class ProfileEditActivity extends AppCompatActivity {
         binding.etUsername.setText(user.getUsername() != null ? user.getUsername() : "");
         binding.etEmail.setText(user.getEmail() != null ? user.getEmail() : "");
         binding.etPhoneNumber.setText(user.getPhone() != null ? user.getPhone() : "");
+
+        // 填充扩展联系方式
+        binding.etSecondaryPhone.setText(user.getSecondaryPhone() != null ? user.getSecondaryPhone() : "");
+        binding.etEmergencyContactName.setText(user.getEmergencyContactName() != null ? user.getEmergencyContactName() : "");
+        binding.etEmergencyContactPhone.setText(user.getEmergencyContactPhone() != null ? user.getEmergencyContactPhone() : "");
+        binding.etEmergencyContactRelation.setText(user.getEmergencyContactRelation() != null ? user.getEmergencyContactRelation() : "");
+
+        // 填充地址信息
+        binding.etAddress.setText(user.getAddress() != null ? user.getAddress() : "");
+
+        // 填充医疗相关信息
+        binding.etBloodType.setText(user.getBloodType() != null ? user.getBloodType() : "");
+        binding.etAllergies.setText(user.getAllergies() != null ? user.getAllergies() : "");
+        binding.etMedicalConditions.setText(user.getMedicalConditions() != null ? user.getMedicalConditions() : "");
+        binding.etDoctorName.setText(user.getDoctorName() != null ? user.getDoctorName() : "");
+        binding.etDoctorPhone.setText(user.getDoctorPhone() != null ? user.getDoctorPhone() : "");
+        binding.etHospitalName.setText(user.getHospitalName() != null ? user.getHospitalName() : "");
         
         // 设置性别选择
         String gender = user.getGender();
@@ -440,6 +468,84 @@ public class ProfileEditActivity extends AppCompatActivity {
             binding.tilPhoneNumber.setError(phoneResult.getErrorMessage());
             isFormValid = false;
         }
+
+        // 验证扩展字段
+        String secondaryPhone = binding.etSecondaryPhone.getText().toString().trim();
+        ProfileValidationResult secondaryPhoneResult = UserValidator.validateSecondaryPhone(secondaryPhone);
+        if (!secondaryPhoneResult.isValid()) {
+            binding.tilSecondaryPhone.setError(secondaryPhoneResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String emergencyContactName = binding.etEmergencyContactName.getText().toString().trim();
+        ProfileValidationResult emergencyContactNameResult = UserValidator.validateEmergencyContactName(emergencyContactName);
+        if (!emergencyContactNameResult.isValid()) {
+            binding.tilEmergencyContactName.setError(emergencyContactNameResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String emergencyContactPhone = binding.etEmergencyContactPhone.getText().toString().trim();
+        ProfileValidationResult emergencyContactPhoneResult = UserValidator.validateEmergencyContactPhone(emergencyContactPhone);
+        if (!emergencyContactPhoneResult.isValid()) {
+            binding.tilEmergencyContactPhone.setError(emergencyContactPhoneResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String emergencyContactRelation = binding.etEmergencyContactRelation.getText().toString().trim();
+        ProfileValidationResult emergencyContactRelationResult = UserValidator.validateEmergencyContactRelation(emergencyContactRelation);
+        if (!emergencyContactRelationResult.isValid()) {
+            binding.tilEmergencyContactRelation.setError(emergencyContactRelationResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String address = binding.etAddress.getText().toString().trim();
+        ProfileValidationResult addressResult = UserValidator.validateAddress(address);
+        if (!addressResult.isValid()) {
+            binding.tilAddress.setError(addressResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String bloodType = binding.etBloodType.getText().toString().trim();
+        ProfileValidationResult bloodTypeResult = UserValidator.validateBloodType(bloodType);
+        if (!bloodTypeResult.isValid()) {
+            binding.tilBloodType.setError(bloodTypeResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String allergies = binding.etAllergies.getText().toString().trim();
+        ProfileValidationResult allergiesResult = UserValidator.validateAllergies(allergies);
+        if (!allergiesResult.isValid()) {
+            binding.tilAllergies.setError(allergiesResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String medicalConditions = binding.etMedicalConditions.getText().toString().trim();
+        ProfileValidationResult medicalConditionsResult = UserValidator.validateMedicalConditions(medicalConditions);
+        if (!medicalConditionsResult.isValid()) {
+            binding.tilMedicalConditions.setError(medicalConditionsResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String doctorName = binding.etDoctorName.getText().toString().trim();
+        ProfileValidationResult doctorNameResult = UserValidator.validateDoctorName(doctorName);
+        if (!doctorNameResult.isValid()) {
+            binding.tilDoctorName.setError(doctorNameResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String doctorPhone = binding.etDoctorPhone.getText().toString().trim();
+        ProfileValidationResult doctorPhoneResult = UserValidator.validateDoctorPhone(doctorPhone);
+        if (!doctorPhoneResult.isValid()) {
+            binding.tilDoctorPhone.setError(doctorPhoneResult.getErrorMessage());
+            isFormValid = false;
+        }
+
+        String hospitalName = binding.etHospitalName.getText().toString().trim();
+        ProfileValidationResult hospitalNameResult = UserValidator.validateHospitalName(hospitalName);
+        if (!hospitalNameResult.isValid()) {
+            binding.tilHospitalName.setError(hospitalNameResult.getErrorMessage());
+            isFormValid = false;
+        }
         
         // 启用或禁用保存按钮
         binding.btnSave.setEnabled(isFormValid);
@@ -455,6 +561,17 @@ public class ProfileEditActivity extends AppCompatActivity {
         binding.tilUsername.setError(null);
         binding.tilEmail.setError(null);
         binding.tilPhoneNumber.setError(null);
+        binding.tilSecondaryPhone.setError(null);
+        binding.tilEmergencyContactName.setError(null);
+        binding.tilEmergencyContactPhone.setError(null);
+        binding.tilEmergencyContactRelation.setError(null);
+        binding.tilAddress.setError(null);
+        binding.tilBloodType.setError(null);
+        binding.tilAllergies.setError(null);
+        binding.tilMedicalConditions.setError(null);
+        binding.tilDoctorName.setError(null);
+        binding.tilDoctorPhone.setError(null);
+        binding.tilHospitalName.setError(null);
     }
     
     /**
@@ -530,17 +647,17 @@ public class ProfileEditActivity extends AppCompatActivity {
             
             // 保持现有的其他字段
             updatedUser.setProfilePhotoPath(currentUser.getProfilePhotoPath());
-            updatedUser.setSecondaryPhone(currentUser.getSecondaryPhone());
-            updatedUser.setEmergencyContactName(currentUser.getEmergencyContactName());
-            updatedUser.setEmergencyContactPhone(currentUser.getEmergencyContactPhone());
-            updatedUser.setEmergencyContactRelation(currentUser.getEmergencyContactRelation());
-            updatedUser.setAddress(currentUser.getAddress());
-            updatedUser.setBloodType(currentUser.getBloodType());
-            updatedUser.setAllergies(currentUser.getAllergies());
-            updatedUser.setMedicalConditions(currentUser.getMedicalConditions());
-            updatedUser.setDoctorName(currentUser.getDoctorName());
-            updatedUser.setDoctorPhone(currentUser.getDoctorPhone());
-            updatedUser.setHospitalName(currentUser.getHospitalName());
+            updatedUser.setSecondaryPhone(binding.etSecondaryPhone.getText().toString().trim());
+            updatedUser.setEmergencyContactName(binding.etEmergencyContactName.getText().toString().trim());
+            updatedUser.setEmergencyContactPhone(binding.etEmergencyContactPhone.getText().toString().trim());
+            updatedUser.setEmergencyContactRelation(binding.etEmergencyContactRelation.getText().toString().trim());
+            updatedUser.setAddress(binding.etAddress.getText().toString().trim());
+            updatedUser.setBloodType(binding.etBloodType.getText().toString().trim());
+            updatedUser.setAllergies(binding.etAllergies.getText().toString().trim());
+            updatedUser.setMedicalConditions(binding.etMedicalConditions.getText().toString().trim());
+            updatedUser.setDoctorName(binding.etDoctorName.getText().toString().trim());
+            updatedUser.setDoctorPhone(binding.etDoctorPhone.getText().toString().trim());
+            updatedUser.setHospitalName(binding.etHospitalName.getText().toString().trim());
             
             // 保持会话管理字段
             updatedUser.setLoggedIn(currentUser.isLoggedIn());

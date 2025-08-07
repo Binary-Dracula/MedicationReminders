@@ -181,7 +181,6 @@
                 style="@style/ProfileInfoContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -263,6 +262,301 @@
                         android:contentDescription="用户电话号码"
                         android:text="@string/profile_not_set" />
 
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 扩展联系方式 -->
+            <LinearLayout
+                style="@style/ProfileInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/ProfileSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="扩展联系方式" />
+
+                <!-- 备用电话 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="备用电话" />
+
+                    <TextView
+                        android:id="@+id/tvSecondaryPhone"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 紧急联系人姓名 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="紧急联系人姓名" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactName"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 紧急联系人电话 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="紧急联系人电话" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactPhone"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 与紧急联系人关系 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="与紧急联系人关系" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactRelation"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 地址信息 -->
+            <LinearLayout
+                style="@style/ProfileInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/ProfileSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="地址信息" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="地址" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 医疗相关信息 -->
+            <LinearLayout
+                style="@style/ProfileInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/ProfileSectionTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="医疗相关信息" />
+
+                <!-- 血型 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="血型" />
+
+                    <TextView
+                        android:id="@+id/tvBloodType"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 过敏信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="过敏信息" />
+
+                    <TextView
+                        android:id="@+id/tvAllergies"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 既往病史 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="既往病史" />
+
+                    <TextView
+                        android:id="@+id/tvMedicalConditions"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 主治医生姓名 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="主治医生姓名" />
+
+                    <TextView
+                        android:id="@+id/tvDoctorName"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 主治医生电话 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="主治医生电话" />
+
+                    <TextView
+                        android:id="@+id/tvDoctorPhone"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
+                </LinearLayout>
+
+                <!-- 常去医院名称 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ProfileFieldLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="常去医院名称" />
+
+                    <TextView
+                        android:id="@+id/tvHospitalName"
+                        style="@style/ProfileFieldValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/profile_not_set" />
                 </LinearLayout>
 
             </LinearLayout>
