@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/high_contrast_background"
+    tools:context=".view.HealthDiaryDetailActivity">
+
+
+    <!-- 主要内容区域 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="@dimen/elderly_margin_large">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 加载指示器 -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/elderly_margin_xlarge"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- 加载文本 -->
+            <TextView
+                android:id="@+id/tvLoadingMessage"
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/elderly_margin_medium"
+                android:text="@string/diary_detail_loading"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!-- 错误消息 -->
+            <TextView
+                android:id="@+id/tvErrorMessage"
+                style="@style/ErrorMessageText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/elderly_margin_xlarge"
+                android:gravity="center"
+                android:padding="@dimen/elderly_margin_large"
+                android:background="@drawable/error_message_background"
+                android:visibility="gone"
+                tools:text="@string/diary_detail_load_error"
+                tools:visibility="visible" />
+
+            <!-- 日记详情内容容器 -->
+            <LinearLayout
+                android:id="@+id/layoutDiaryContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <!-- 日记内容卡片 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/elderly_margin_large"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/high_contrast_surface">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/elderly_margin_large">
+
+                        <!-- 内容标签 -->
+                        <TextView
+                            style="@style/ElderlyFriendlyTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/diary_content_label"
+                            android:layout_marginBottom="@dimen/elderly_margin_medium" />
+
+                        <!-- 日记内容 -->
+                        <TextView
+                            android:id="@+id/tvDiaryContent"
+                            style="@style/ElderlyFriendlyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="120dp"
+                            android:gravity="top|start"
+                            android:scrollbars="vertical"
+                            android:textIsSelectable="true"
+                            tools:text="今天感觉身体状况不错，血压正常，没有头晕的症状。按时服用了降压药，晚饭后散步30分钟。" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- 时间信息卡片 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/elderly_margin_large"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/high_contrast_surface">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/elderly_margin_large">
+
+                        <!-- 创建时间 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/elderly_margin_medium">
+
+                            <TextView
+                                style="@style/ProfileFieldLabel"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/diary_created_time_label" />
+
+                            <TextView
+                                android:id="@+id/tvCreatedTime"
+                                style="@style/ProfileFieldValue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                tools:text="2024年1月15日 14:30" />
+
+                        </LinearLayout>
+
+                        <!-- 修改时间 -->
+                        <LinearLayout
+                            android:id="@+id/layoutUpdatedTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                style="@style/ProfileFieldLabel"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/diary_updated_time_label" />
+
+                            <TextView
+                                android:id="@+id/tvUpdatedTime"
+                                style="@style/ProfileFieldValue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                tools:text="2024年1月15日 16:45" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- 底部操作按钮 -->
+    <LinearLayout
+        android:id="@+id/layoutActionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/elderly_margin_large"
+        android:background="@color/high_contrast_surface"
+        android:elevation="4dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <!-- 编辑按钮 -->
+        <Button
+            android:id="@+id/btnEdit"
+            style="@style/ElderlyFriendlyButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/elderly_button_height"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/elderly_margin_medium"
+            android:text="@string/edit_diary"
+            android:contentDescription="@string/edit_diary_description"
+            app:icon="@drawable/ic_edit"
+            app:iconGravity="textStart" />
+
+        <!-- 删除按钮 -->
+        <Button
+            android:id="@+id/btnDelete"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/elderly_button_height"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/elderly_margin_medium"
+            android:text="@string/delete_diary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/error_color"
+            android:contentDescription="@string/delete_diary_description"
+            app:strokeColor="@color/error_color"
+            app:strokeWidth="2dp"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="@color/error_color"
+            app:iconGravity="textStart" />
+
+    </LinearLayout>
+
+</LinearLayout>

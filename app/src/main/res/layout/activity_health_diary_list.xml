@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/high_contrast_background">
+
+    <!-- 主要内容区域 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/elderly_margin_medium">
+
+        <!-- 健康日记列表 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHealthDiary"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:contentDescription="健康日记列表"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/elderly_margin_large" />
+
+        <!-- 空状态布局 -->
+        <LinearLayout
+            android:id="@+id/layoutEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="@dimen/elderly_margin_xlarge">
+
+            <!-- 空状态图标 -->
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_medication_default"
+                android:layout_marginBottom="@dimen/elderly_margin_large"
+                android:contentDescription="暂无日记图标"
+                app:tint="@color/high_contrast_text_secondary" />
+
+            <!-- 空状态标题 -->
+            <TextView
+                style="@style/ElderlyFriendlyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_diary_message"
+                android:textSize="@dimen/elderly_text_xlarge"
+                android:layout_marginBottom="@dimen/elderly_margin_medium"
+                android:textColor="@color/high_contrast_text_primary"
+                android:gravity="center" />
+
+            <!-- 空状态描述 -->
+            <TextView
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_diary_description"
+                android:textColor="@color/high_contrast_text_secondary"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+        <!-- 加载状态布局 -->
+        <LinearLayout
+            android:id="@+id/layoutLoading"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="@dimen/elderly_margin_xlarge">
+
+            <!-- 加载指示器 -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/elderly_margin_medium"
+                android:indeterminateTint="@color/high_contrast_primary" />
+
+            <!-- 加载文本 -->
+            <TextView
+                android:id="@+id/tvLoadingMessage"
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diary_loading"
+                android:textColor="@color/high_contrast_text_secondary" />
+
+        </LinearLayout>
+
+        <!-- 错误状态布局 -->
+        <LinearLayout
+            android:id="@+id/layoutError"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="@dimen/elderly_margin_xlarge">
+
+            <!-- 错误图标 -->
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_medication_default"
+                android:layout_marginBottom="@dimen/elderly_margin_large"
+                android:contentDescription="加载错误图标"
+                app:tint="@color/error_color" />
+
+            <!-- 错误文本 -->
+            <TextView
+                android:id="@+id/tvErrorMessage"
+                style="@style/ErrorMessageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/diary_load_error"
+                android:layout_marginBottom="@dimen/elderly_margin_medium"
+                android:gravity="center" />
+
+            <!-- 重试按钮 -->
+            <Button
+                android:id="@+id/btnRetry"
+                style="@style/ElderlyFriendlyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retry"
+                android:minWidth="120dp"
+                android:contentDescription="重新加载日记列表" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 添加日记浮动按钮 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddDiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/elderly_margin_large"
+        android:src="@drawable/ic_add_medication"
+        android:contentDescription="@string/add_diary_description"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/high_contrast_primary"
+        app:elevation="8dp"
+        app:pressedTranslationZ="12dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

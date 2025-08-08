@@ -70,6 +70,24 @@
             android:parentActivityName=".view.ProfileActivity"
             android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
 
+        <activity
+            android:name=".view.HealthDiaryListActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
+        <activity
+            android:name=".view.HealthDiaryDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".view.HealthDiaryListActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
+        <activity
+            android:name=".view.HealthDiaryEditActivity"
+            android:exported="false"
+            android:parentActivityName=".view.HealthDiaryListActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
         <!-- FileProvider for camera photo capture -->
         <provider
             android:name="androidx.core.content.FileProvider"

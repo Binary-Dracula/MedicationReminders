@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvUserInfo;
     private Button btnAddMedication;
     private Button btnViewMedicationList;
+    private Button btnHealthDiary;
     private Button btnProfile;
     
     private UserRepository userRepository;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         tvUserInfo = findViewById(R.id.tvUserInfo);
         btnAddMedication = findViewById(R.id.btnAddMedication);
         btnViewMedicationList = findViewById(R.id.btnViewMedicationList);
+        btnHealthDiary = findViewById(R.id.btnHealthDiary);
         btnProfile = findViewById(R.id.btnProfile);
     }
     
@@ -78,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
         
         btnViewMedicationList.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MedicationListActivity.class);
+            startActivity(intent);
+        });
+        
+        // 健康日记按钮点击监听器
+        btnHealthDiary.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HealthDiaryListActivity.class);
             startActivity(intent);
         });
         
