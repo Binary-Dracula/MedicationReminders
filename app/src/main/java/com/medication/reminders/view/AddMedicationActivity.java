@@ -46,6 +46,7 @@ public class AddMedicationActivity extends AppCompatActivity {
     // Spinner adapters
     private ArrayAdapter<String> colorAdapter;
     private ArrayAdapter<String> dosageFormAdapter;
+    private ArrayAdapter<String> unitAdapter;
     
     // Photo handling
     private static final int CAMERA_REQUEST = 101;
@@ -70,6 +71,7 @@ public class AddMedicationActivity extends AppCompatActivity {
         setupToolbar();
         setupUI();
         setupSpinners();
+        setupQuantityAndUnit();
         setupObservers();
         setupClickListeners();
     }
@@ -170,6 +172,66 @@ public class AddMedicationActivity extends AppCompatActivity {
     private void setupSpinners() {
         setupColorSpinner();
         setupDosageFormSpinner();
+    }
+
+    private void setupQuantityAndUnit() {
+        // Unit spinner options
+        String[] units = new String[]{
+                getString(R.string.select_unit),
+                getString(R.string.unit_piece),
+                getString(R.string.unit_pill),
+                getString(R.string.unit_ml),
+                getString(R.string.unit_g),
+                getString(R.string.unit_bag),
+                getString(R.string.unit_bottle)
+        };
+
+        unitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
+        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.unitSpinner.setAdapter(unitAdapter);
+
+        binding.unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    viewModel.setUnit(units[position]);
+                } else {
+                    viewModel.setUnit("");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                viewModel.setUnit("");
+            }
+        });
+
+        // Quantities text inputs
+        binding.totalQuantityEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                try {
+                    int v = s.toString().trim().isEmpty() ? 0 : Integer.parseInt(s.toString().trim());
+                    viewModel.setTotalQuantity(v);
+                } catch (NumberFormatException e) {
+                    viewModel.setTotalQuantity(0);
+                }
+            }
+        });
+
+        binding.remainingQuantityEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                try {
+                    int v = s.toString().trim().isEmpty() ? 0 : Integer.parseInt(s.toString().trim());
+                    viewModel.setRemainingQuantity(v);
+                } catch (NumberFormatException e) {
+                    viewModel.setRemainingQuantity(0);
+                }
+            }
+        });
     }
     
     /**
@@ -328,6 +390,20 @@ public class AddMedicationActivity extends AppCompatActivity {
         viewModel.getSelectedDosageForm().observe(this, dosageForm -> {
             updateDosageFormSpinnerSelection(dosageForm);
         });
+
+        viewModel.getTotalQuantity().observe(this, v -> {
+            String t = v == null ? "" : String.valueOf(v);
+            if (!t.equals(binding.totalQuantityEditText.getText().toString())) {
+                binding.totalQuantityEditText.setText(t);
+            }
+        });
+        viewModel.getRemainingQuantity().observe(this, v -> {
+            String t = v == null ? "" : String.valueOf(v);
+            if (!t.equals(binding.remainingQuantityEditText.getText().toString())) {
+                binding.remainingQuantityEditText.setText(t);
+            }
+        });
+        viewModel.getUnit().observe(this, u -> updateUnitSpinnerSelection(u));
     }
     
     /**
@@ -352,6 +428,18 @@ public class AddMedicationActivity extends AppCompatActivity {
             // Show error in a toast or custom view since Spinner doesn't have setError
             if (error != null && !error.trim().isEmpty()) {
                 showFieldError(getString(R.string.medication_dosage_form_label), error);
+            }
+        });
+
+        viewModel.getTotalQuantityError().observe(this, error -> {
+            binding.totalQuantityLayout.setError(error);
+        });
+        viewModel.getRemainingQuantityError().observe(this, error -> {
+            binding.remainingQuantityLayout.setError(error);
+        });
+        viewModel.getUnitError().observe(this, error -> {
+            if (error != null && !error.trim().isEmpty()) {
+                showFieldError(getString(R.string.medication_unit_label), error);
             }
         });
     }
@@ -934,6 +1022,22 @@ public class AddMedicationActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Update unit spinner selection based on ViewModel data
+     */
+    private void updateUnitSpinnerSelection(String unit) {
+        if (unit == null || unit.trim().isEmpty()) {
+            binding.unitSpinner.setSelection(0);
+            return;
+        }
+        for (int i = 0; i < unitAdapter.getCount(); i++) {
+            if (unit.equals(unitAdapter.getItem(i))) {
+                binding.unitSpinner.setSelection(i);
+                return;
+            }
+        }
+    }
     
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -1081,13 +1185,5 @@ public class AddMedicationActivity extends AppCompatActivity {
         binding = null;
     }
     
-    @Override
-    protected void onPause() {
-        super.onPause();
-        
-        // Reset save success state when leaving activity
-        if (viewModel != null) {
-            viewModel.resetSaveSuccess();
-        }
-    }
+    // 移除 onPause 中对 saveSuccess 的重置，避免跨页时把成功状态覆盖为 false
 }

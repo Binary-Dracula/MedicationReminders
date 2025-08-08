@@ -24,6 +24,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private MutableLiveData<String> medicationName = new MutableLiveData<>("");
     private MutableLiveData<String> selectedColor = new MutableLiveData<>("");
     private MutableLiveData<String> selectedDosageForm = new MutableLiveData<>("");
+    private MutableLiveData<Integer> totalQuantity = new MutableLiveData<>(0);
+    private MutableLiveData<Integer> remainingQuantity = new MutableLiveData<>(0);
+    private MutableLiveData<String> unit = new MutableLiveData<>("片");
     private MutableLiveData<String> photoPath = new MutableLiveData<>("");
     
     // UI state fields
@@ -37,6 +40,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private MutableLiveData<String> nameError = new MutableLiveData<>();
     private MutableLiveData<String> colorError = new MutableLiveData<>();
     private MutableLiveData<String> dosageFormError = new MutableLiveData<>();
+    private MutableLiveData<String> totalQuantityError = new MutableLiveData<>();
+    private MutableLiveData<String> remainingQuantityError = new MutableLiveData<>();
+    private MutableLiveData<String> unitError = new MutableLiveData<>();
     
     // Photo management fields
     private MutableLiveData<Boolean> hasPhoto = new MutableLiveData<>(false);
@@ -79,6 +85,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public LiveData<String> getPhotoPath() {
         return photoPath;
     }
+
+    public LiveData<Integer> getTotalQuantity() { return totalQuantity; }
+    public LiveData<Integer> getRemainingQuantity() { return remainingQuantity; }
+    public LiveData<String> getUnit() { return unit; }
     
     public LiveData<String> getErrorMessage() {
         return errorMessage;
@@ -111,6 +121,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public LiveData<String> getDosageFormError() {
         return dosageFormError;
     }
+    public LiveData<String> getTotalQuantityError() { return totalQuantityError; }
+    public LiveData<String> getRemainingQuantityError() { return remainingQuantityError; }
+    public LiveData<String> getUnitError() { return unitError; }
     
     public LiveData<Boolean> getHasPhoto() {
         return hasPhoto;
@@ -148,6 +161,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public void setSelectedDosageForm(String dosageForm) {
         selectedDosageForm.setValue(dosageForm);
     }
+
+    public void setTotalQuantity(Integer value) { totalQuantity.setValue(value == null ? 0 : Math.max(0, value)); }
+    public void setRemainingQuantity(Integer value) { remainingQuantity.setValue(value == null ? 0 : Math.max(0, value)); }
+    public void setUnit(String value) { unit.setValue(value == null ? "" : value); }
     
     /**
      * Set photo path and update photo-related states
@@ -208,6 +225,32 @@ public class AddMedicationViewModel extends AndroidViewModel {
             dosageFormError.setValue(null);
         }
     }
+
+    private void validateQuantitiesAndUnit() {
+        Integer total = totalQuantity.getValue();
+        Integer remaining = remainingQuantity.getValue();
+        String u = unit.getValue();
+
+        if (total == null || total < 0) {
+            totalQuantityError.setValue("总量必须是非负整数");
+        } else {
+            totalQuantityError.setValue(null);
+        }
+
+        if (remaining == null || remaining < 0) {
+            remainingQuantityError.setValue("剩余量必须是非负整数，且不能大于总量");
+        } else if (total != null && remaining != null && remaining > total) {
+            remainingQuantityError.setValue("剩余量必须是非负整数，且不能大于总量");
+        } else {
+            remainingQuantityError.setValue(null);
+        }
+
+        if (u == null || u.trim().isEmpty()) {
+            unitError.setValue("请选择单位");
+        } else {
+            unitError.setValue(null);
+        }
+    }
     
     /**
      * Validate all form fields (only called when saving)
@@ -218,10 +261,14 @@ public class AddMedicationViewModel extends AndroidViewModel {
         validateName();
         validateColor();
         validateDosageForm();
+        validateQuantitiesAndUnit();
         
         return nameError.getValue() == null && 
                colorError.getValue() == null && 
-               dosageFormError.getValue() == null;
+               dosageFormError.getValue() == null &&
+               totalQuantityError.getValue() == null &&
+               remainingQuantityError.getValue() == null &&
+               unitError.getValue() == null;
     }
     
     // Save medication logic
@@ -258,14 +305,17 @@ public class AddMedicationViewModel extends AndroidViewModel {
         medication.setColor(selectedColor.getValue());
         medication.setDosageForm(selectedDosageForm.getValue());
         medication.setPhotoPath(photoPath.getValue());
+        medication.setTotalQuantity(totalQuantity.getValue() == null ? 0 : totalQuantity.getValue());
+        medication.setRemainingQuantity(remainingQuantity.getValue() == null ? 0 : remainingQuantity.getValue());
+        medication.setUnit(unit.getValue());
         
         // Save to repository
         repository.insertMedication(medication, allowDuplicate, new MedicationRepository.InsertCallback() {
             @Override
             public void onSuccess(long id) {
+                clearForm();
                 isLoading.postValue(false);
                 saveSuccess.postValue(true);
-                clearForm();
             }
             
             @Override
@@ -303,6 +353,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
         selectedColor.postValue("");
         selectedDosageForm.postValue("");
         clearPhoto();
+        totalQuantity.postValue(0);
+        remainingQuantity.postValue(0);
+        unit.postValue("片");
         clearErrors();
         saveSuccess.postValue(false);
     }
@@ -315,6 +368,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
         nameError.postValue(null);
         colorError.postValue(null);
         dosageFormError.postValue(null);
+        totalQuantityError.postValue(null);
+        remainingQuantityError.postValue(null);
+        unitError.postValue(null);
     }
     
     /**
@@ -334,11 +390,17 @@ public class AddMedicationViewModel extends AndroidViewModel {
         String color = selectedColor.getValue();
         String dosageForm = selectedDosageForm.getValue();
         String photo = photoPath.getValue();
+        Integer total = totalQuantity.getValue();
+        Integer remaining = remainingQuantity.getValue();
+        String u = unit.getValue();
         
         return (name != null && !name.trim().isEmpty()) ||
                (color != null && !color.trim().isEmpty()) ||
                (dosageForm != null && !dosageForm.trim().isEmpty()) ||
-               (photo != null && !photo.trim().isEmpty());
+               (photo != null && !photo.trim().isEmpty()) ||
+               (total != null && total > 0) ||
+               (remaining != null && remaining > 0) ||
+               (u != null && !u.trim().isEmpty());
     }
     
     /**
@@ -352,6 +414,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
         medication.setColor(selectedColor.getValue() != null ? selectedColor.getValue() : "");
         medication.setDosageForm(selectedDosageForm.getValue() != null ? selectedDosageForm.getValue() : "");
         medication.setPhotoPath(photoPath.getValue() != null ? photoPath.getValue() : "");
+        medication.setTotalQuantity(totalQuantity.getValue() != null ? totalQuantity.getValue() : 0);
+        medication.setRemainingQuantity(remainingQuantity.getValue() != null ? remainingQuantity.getValue() : 0);
+        medication.setUnit(unit.getValue() != null ? unit.getValue() : "");
         return medication;
     }
     

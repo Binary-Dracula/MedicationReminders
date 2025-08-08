@@ -331,6 +331,20 @@ public class MedicationRepository {
             result.addError("请选择药物剂型");
         }
         
+        // Basic quantity & unit validation
+        if (medication.getTotalQuantity() < 0) {
+            result.addError("总量必须是非负整数");
+        }
+        if (medication.getRemainingQuantity() < 0) {
+            result.addError("剩余量必须是非负整数");
+        }
+        if (medication.getRemainingQuantity() > medication.getTotalQuantity()) {
+            result.addError("剩余量不能大于总量");
+        }
+        if (medication.getUnit() == null || medication.getUnit().trim().isEmpty()) {
+            result.addError("请选择单位");
+        }
+
         return result;
     }
     

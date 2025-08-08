@@ -139,6 +139,77 @@
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:contentDescription="@string/photo_upload_button_description" />
 
+        <!-- 数量与单位 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/totalQuantityLayout"
+                style="@style/ElderlyFriendlyTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/totalQuantityEditText"
+                    style="@style/ElderlyFriendlyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/medication_total_quantity_label"
+                    android:inputType="number"
+                    android:maxLength="6" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/remainingQuantityLayout"
+                style="@style/ElderlyFriendlyTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/remainingQuantityEditText"
+                    style="@style/ElderlyFriendlyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/medication_remaining_quantity_label"
+                    android:inputType="number"
+                    android:maxLength="6" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/unitLabelTextView"
+            style="@style/ElderlyFriendlyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/medication_unit_label"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/high_contrast_text_primary"
+            android:layout_marginBottom="8dp"
+            android:minHeight="48dp"
+            android:gravity="center_vertical"
+            android:contentDescription="@string/medication_unit_label" />
+
+        <Spinner
+            android:id="@+id/unitSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/spinner_background"
+            android:padding="16dp"
+            android:minHeight="56dp"
+            android:contentDescription="@string/medication_unit_label" />
+
         <!-- 错误消息显示 -->
         <TextView
             android:id="@+id/errorMessageTextView"

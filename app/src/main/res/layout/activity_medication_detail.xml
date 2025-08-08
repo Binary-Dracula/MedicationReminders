@@ -109,6 +109,33 @@
 
                 </LinearLayout>
 
+                <!-- Stock Information -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="库存："
+                        android:textSize="18sp"
+                        android:textColor="@color/high_contrast_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvStockInfo"
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0/0 片（0%）"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

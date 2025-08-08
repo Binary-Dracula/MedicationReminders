@@ -81,6 +81,18 @@
                 android:textColor="@color/high_contrast_text_secondary"
                 android:textSize="14sp" />
 
+            <!-- Stock Info -->
+            <TextView
+                android:id="@+id/tvStockInfo"
+                style="@style/ElderlyFriendlyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="库存：0/0 片（0%）"
+                android:textColor="@color/high_contrast_text_secondary"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
         <!-- Arrow Indicator -->

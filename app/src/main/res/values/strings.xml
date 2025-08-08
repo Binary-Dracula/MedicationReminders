@@ -7,6 +7,10 @@
     <string name="medication_color_label">药物颜色</string>
     <string name="medication_dosage_form_label">剂型</string>
     <string name="medication_photo_label">药物照片（可选）</string>
+    <string name="medication_total_quantity_label">总量</string>
+    <string name="medication_remaining_quantity_label">剩余量</string>
+    <string name="medication_unit_label">单位</string>
+    <string name="medication_stock_info">库存：%1$d/%2$d %3$s（%4$d%%）</string>
     <string name="upload_photo">上传照片</string>
     <string name="take_photo">拍照</string>
     <string name="select_from_gallery">从相册选择</string>
@@ -46,6 +50,15 @@
     <string name="dosage_form_other">其他</string>
     <string name="select_dosage_form">请选择剂型</string>
     
+    <!-- 单位选项 -->
+    <string name="unit_piece">片</string>
+    <string name="unit_pill">粒</string>
+    <string name="unit_ml">毫升</string>
+    <string name="unit_g">克</string>
+    <string name="unit_bag">袋</string>
+    <string name="unit_bottle">瓶</string>
+    <string name="select_unit">请选择单位</string>
+    
     <!-- 验证错误消息 -->
     <string name="error_medication_null">药物信息不能为空</string>
     <string name="error_medication_name_required">药物名称是必需的</string>
@@ -57,6 +70,9 @@
     <string name="error_color_invalid">选择的颜色无效</string>
     <string name="error_dosage_form_not_selected">请选择药物剂型</string>
     <string name="error_dosage_form_invalid">选择的剂型无效</string>
+    <string name="error_total_quantity_invalid">总量必须是非负整数</string>
+    <string name="error_remaining_quantity_invalid">剩余量必须是非负整数，且不能大于总量</string>
+    <string name="error_unit_not_selected">请选择单位</string>
     <string name="error_photo_save_failed">照片保存失败，请重试</string>
     <string name="error_database_save_failed">保存失败，请检查存储空间后重试</string>
     <string name="error_storage_insufficient">存储空间不足，请清理后重试</string>

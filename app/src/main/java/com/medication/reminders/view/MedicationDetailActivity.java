@@ -28,6 +28,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private TextView tvMedicationName;
     private TextView tvMedicationColor;
     private TextView tvMedicationDosageForm;
+    private TextView tvStockInfo;
     private TextView tvCreatedDate;
     private TextView tvUpdatedDate;
     private ImageView ivMedicationPhoto;
@@ -71,6 +72,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         tvCreatedDate = findViewById(R.id.tvCreatedDate);
         tvUpdatedDate = findViewById(R.id.tvUpdatedDate);
         ivMedicationPhoto = findViewById(R.id.ivMedicationPhoto);
+        tvStockInfo = findViewById(R.id.tvStockInfo);
     }
     
     /**
@@ -127,6 +129,13 @@ public class MedicationDetailActivity extends AppCompatActivity {
         
         // Display photo
         displayMedicationPhoto(medication.getPhotoPath());
+
+        // Display stock info
+        int total = medication.getTotalQuantity();
+        int remaining = medication.getRemainingQuantity();
+        String unit = medication.getUnit() == null ? "" : medication.getUnit();
+        int percent = medication.getRemainingPercentage();
+        tvStockInfo.setText(getString(R.string.medication_stock_info, remaining, total, unit, percent));
         
         // Update action bar title
         if (getSupportActionBar() != null) {

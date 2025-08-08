@@ -128,6 +128,43 @@ public interface MedicationDao {
     LiveData<Integer> getMedicationCount();
     
     /**
+     * 获取需要补充的药品（剩余量低于指定百分比）
+     * 
+     * @param threshold 阈值百分比
+     * @return 需要补充的药品列表
+     */
+    @Query("SELECT * FROM medications WHERE (remaining_quantity * 100.0 / total_quantity) <= :threshold AND total_quantity > 0 ORDER BY (remaining_quantity * 100.0 / total_quantity) ASC")
+    LiveData<List<MedicationInfo>> getMedicationsNeedingRefill(int threshold);
+    
+    /**
+     * 更新药品剩余量
+     * 
+     * @param id 药品ID
+     * @param remainingQuantity 新的剩余量
+     * @return 更新的行数
+     */
+    @Query("UPDATE medications SET remaining_quantity = :remainingQuantity, updated_at = :updatedAt WHERE id = :id")
+    int updateMedicationQuantity(long id, int remainingQuantity, long updatedAt);
+    
+    /**
+     * 减少药品剩余量
+     * 
+     * @param id 药品ID
+     * @param amount 减少的数量
+     * @return 更新的行数
+     */
+    @Query("UPDATE medications SET remaining_quantity = MAX(0, remaining_quantity - :amount), updated_at = :updatedAt WHERE id = :id")
+    int reduceMedicationQuantity(long id, int amount, long updatedAt);
+    
+    /**
+     * 获取剩余量为0的药品
+     * 
+     * @return 剩余量为0的药品列表
+     */
+    @Query("SELECT * FROM medications WHERE remaining_quantity = 0 ORDER BY updated_at DESC")
+    LiveData<List<MedicationInfo>> getEmptyMedications();
+    
+    /**
      * Delete all medications (for testing purposes)
      * 
      * @return The number of rows deleted

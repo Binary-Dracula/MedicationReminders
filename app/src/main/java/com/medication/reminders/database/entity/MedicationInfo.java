@@ -33,19 +33,33 @@ public class MedicationInfo {
     @ColumnInfo(name = "updated_at")
     private long updatedAt;
     
+    @ColumnInfo(name = "remaining_quantity")
+    private int remainingQuantity;
+    
+    @ColumnInfo(name = "total_quantity")
+    private int totalQuantity;
+    
+    @ColumnInfo(name = "unit")
+    private String unit; // 单位：片、粒、毫升等
+    
     // Default constructor
     public MedicationInfo() {
     }
     
     // Constructor with all fields except id (auto-generated)
     @Ignore
-    public MedicationInfo(String name, String color, String dosageForm, String photoPath, long createdAt, long updatedAt) {
+    public MedicationInfo(String name, String color, String dosageForm, String photoPath, 
+                         long createdAt, long updatedAt, int remainingQuantity, 
+                         int totalQuantity, String unit) {
         this.name = name;
         this.color = color;
         this.dosageForm = dosageForm;
         this.photoPath = photoPath;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.remainingQuantity = remainingQuantity;
+        this.totalQuantity = totalQuantity;
+        this.unit = unit;
     }
     
     // Constructor with required fields only
@@ -56,6 +70,9 @@ public class MedicationInfo {
         this.dosageForm = dosageForm;
         this.createdAt = System.currentTimeMillis();
         this.updatedAt = System.currentTimeMillis();
+        this.remainingQuantity = 0;
+        this.totalQuantity = 0;
+        this.unit = "片";
     }
     
     // Getters and Setters
@@ -115,6 +132,59 @@ public class MedicationInfo {
         this.updatedAt = updatedAt;
     }
     
+    public int getRemainingQuantity() {
+        return remainingQuantity;
+    }
+    
+    public void setRemainingQuantity(int remainingQuantity) {
+        this.remainingQuantity = remainingQuantity;
+    }
+    
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+    
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+    
+    public String getUnit() {
+        return unit;
+    }
+    
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+    
+    /**
+     * 获取剩余量百分比
+     * @return 剩余量百分比 (0-100)
+     */
+    public int getRemainingPercentage() {
+        if (totalQuantity <= 0) {
+            return 0;
+        }
+        return (int) ((remainingQuantity * 100.0) / totalQuantity);
+    }
+    
+    /**
+     * 检查是否需要补充药品
+     * @param threshold 阈值百分比
+     * @return 是否需要补充
+     */
+    public boolean needsRefill(int threshold) {
+        return getRemainingPercentage() <= threshold;
+    }
+    
+    /**
+     * 减少剩余量
+     * @param amount 减少的数量
+     */
+    public void reduceQuantity(int amount) {
+        this.remainingQuantity = Math.max(0, this.remainingQuantity - amount);
+        this.updatedAt = System.currentTimeMillis();
+    }
+    
     @Override
     public String toString() {
         return "MedicationInfo{" +
@@ -123,6 +193,9 @@ public class MedicationInfo {
                 ", color='" + color + '\'' +
                 ", dosageForm='" + dosageForm + '\'' +
                 ", photoPath='" + photoPath + '\'' +
+                ", remainingQuantity=" + remainingQuantity +
+                ", totalQuantity=" + totalQuantity +
+                ", unit='" + unit + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

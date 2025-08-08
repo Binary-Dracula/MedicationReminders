@@ -22,7 +22,7 @@ import com.medication.reminders.utils.Converters;
  */
 @Database(
     entities = {MedicationInfo.class, User.class, HealthDiary.class},
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters({Converters.class})
@@ -97,7 +97,7 @@ public abstract class MedicationDatabase extends RoomDatabase {
      * @return 当前数据库版本
      */
     public static int getDatabaseVersion() {
-        return 3;
+        return 4;
     }
     
     /**

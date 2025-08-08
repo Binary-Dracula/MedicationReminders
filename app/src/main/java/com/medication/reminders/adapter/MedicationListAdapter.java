@@ -76,6 +76,7 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
         private TextView tvMedicationName;
         private TextView tvMedicationDetails;
         private TextView tvCreatedDate;
+        private TextView tvStockInfo;
         private ImageView ivMedicationPhoto;
         private View colorIndicator;
         
@@ -84,6 +85,7 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
             tvMedicationName = itemView.findViewById(R.id.tvMedicationName);
             tvMedicationDetails = itemView.findViewById(R.id.tvMedicationDetails);
             tvCreatedDate = itemView.findViewById(R.id.tvCreatedDate);
+            tvStockInfo = itemView.findViewById(R.id.tvStockInfo);
             ivMedicationPhoto = itemView.findViewById(R.id.ivMedicationPhoto);
             colorIndicator = itemView.findViewById(R.id.colorIndicator);
             
@@ -115,6 +117,14 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
             
             // Set medication photo
             setMedicationPhoto(medication.getPhotoPath());
+
+            // Stock info
+            int total = medication.getTotalQuantity();
+            int remaining = medication.getRemainingQuantity();
+            String unit = medication.getUnit() == null ? "" : medication.getUnit();
+            int percent = medication.getRemainingPercentage();
+            String stockText = context.getString(R.string.medication_stock_info, remaining, total, unit, percent);
+            tvStockInfo.setText(stockText);
             
             // Set content descriptions for accessibility
             itemView.setContentDescription("药物：" + medication.getName() + "，" + details);
