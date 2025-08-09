@@ -74,6 +74,16 @@ public class AddMedicationActivity extends AppCompatActivity {
         setupQuantityAndUnit();
         setupObservers();
         setupClickListeners();
+
+        // 如果是编辑模式，尝试加载已有药物数据
+        long editId = getIntent().getLongExtra("edit_medication_id", -1);
+        if (editId > 0) {
+            viewModel.getMedicationById(editId).observe(this, medication -> {
+                if (medication != null) {
+                    viewModel.startEditFrom(medication);
+                }
+            });
+        }
     }
     
     /**
@@ -101,6 +111,8 @@ public class AddMedicationActivity extends AppCompatActivity {
         
         // Configure text input
         setupTextInputs();
+
+        // 仅在药物详情页提供用药提醒入口，因此此处不添加入口按钮
     }
     
     /**
@@ -229,6 +241,54 @@ public class AddMedicationActivity extends AppCompatActivity {
                     viewModel.setRemainingQuantity(v);
                 } catch (NumberFormatException e) {
                     viewModel.setRemainingQuantity(0);
+                }
+            }
+        });
+
+        // 每次用量输入框
+        binding.dosagePerIntakeEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Clear general error message when user starts typing
+                if (binding.errorMessageTextView.getVisibility() == View.VISIBLE) {
+                    hideErrorMessage();
+                }
+            }
+            @Override public void afterTextChanged(Editable s) {
+                // Clear field-specific error when user starts typing
+                if (binding.dosagePerIntakeLayout.getError() != null) {
+                    binding.dosagePerIntakeLayout.setError(null);
+                }
+                
+                try {
+                    int v = s.toString().trim().isEmpty() ? 1 : Integer.parseInt(s.toString().trim());
+                    viewModel.setDosagePerIntake(v);
+                } catch (NumberFormatException e) {
+                    viewModel.setDosagePerIntake(1);
+                }
+            }
+        });
+
+        // 库存提醒阈值输入框
+        binding.lowStockThresholdEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Clear general error message when user starts typing
+                if (binding.errorMessageTextView.getVisibility() == View.VISIBLE) {
+                    hideErrorMessage();
+                }
+            }
+            @Override public void afterTextChanged(Editable s) {
+                // Clear field-specific error when user starts typing
+                if (binding.lowStockThresholdLayout.getError() != null) {
+                    binding.lowStockThresholdLayout.setError(null);
+                }
+                
+                try {
+                    int v = s.toString().trim().isEmpty() ? 5 : Integer.parseInt(s.toString().trim());
+                    viewModel.setLowStockThreshold(v);
+                } catch (NumberFormatException e) {
+                    viewModel.setLowStockThreshold(5);
                 }
             }
         });
@@ -404,6 +464,21 @@ public class AddMedicationActivity extends AppCompatActivity {
             }
         });
         viewModel.getUnit().observe(this, u -> updateUnitSpinnerSelection(u));
+        
+        // 观察库存管理字段变化
+        viewModel.getDosagePerIntake().observe(this, v -> {
+            String t = v == null ? "1" : String.valueOf(v);
+            if (!t.equals(binding.dosagePerIntakeEditText.getText().toString())) {
+                binding.dosagePerIntakeEditText.setText(t);
+            }
+        });
+        
+        viewModel.getLowStockThreshold().observe(this, v -> {
+            String t = v == null ? "5" : String.valueOf(v);
+            if (!t.equals(binding.lowStockThresholdEditText.getText().toString())) {
+                binding.lowStockThresholdEditText.setText(t);
+            }
+        });
     }
     
     /**
@@ -442,6 +517,15 @@ public class AddMedicationActivity extends AppCompatActivity {
                 showFieldError(getString(R.string.medication_unit_label), error);
             }
         });
+        
+        // 观察库存管理字段错误状态
+        viewModel.getDosagePerIntakeError().observe(this, error -> {
+            binding.dosagePerIntakeLayout.setError(error);
+        });
+        
+        viewModel.getLowStockThresholdError().observe(this, error -> {
+            binding.lowStockThresholdLayout.setError(error);
+        });
     }
     
     /**
@@ -475,6 +559,10 @@ public class AddMedicationActivity extends AppCompatActivity {
             // Clear any existing errors before validation
             hideErrorMessage();
             binding.medicationNameLayout.setError(null);
+            binding.totalQuantityLayout.setError(null);
+            binding.remainingQuantityLayout.setError(null);
+            binding.dosagePerIntakeLayout.setError(null);
+            binding.lowStockThresholdLayout.setError(null);
             
             // Trigger save
             viewModel.saveMedication();
@@ -720,7 +808,8 @@ public class AddMedicationActivity extends AppCompatActivity {
      */
     private void showSuccessMessage() {
         // Show success message in the error message area with success styling
-        binding.errorMessageTextView.setText(getString(R.string.medication_saved_successfully));
+        String msg = viewModel.isEditMode() ? getString(R.string.medication_updated_successfully) : getString(R.string.medication_saved_successfully);
+        binding.errorMessageTextView.setText(msg);
         binding.errorMessageTextView.setBackgroundResource(R.drawable.success_message_background);
         binding.errorMessageTextView.setTextColor(getResources().getColor(R.color.success_color));
         binding.errorMessageTextView.setVisibility(View.VISIBLE);
@@ -763,6 +852,11 @@ public class AddMedicationActivity extends AppCompatActivity {
         binding.medicationNameEditText.setEnabled(!isLoading);
         binding.colorSpinner.setEnabled(!isLoading);
         binding.dosageFormSpinner.setEnabled(!isLoading);
+        binding.totalQuantityEditText.setEnabled(!isLoading);
+        binding.remainingQuantityEditText.setEnabled(!isLoading);
+        binding.unitSpinner.setEnabled(!isLoading);
+        binding.dosagePerIntakeEditText.setEnabled(!isLoading);
+        binding.lowStockThresholdEditText.setEnabled(!isLoading);
         
         // Update visual feedback
         float alpha = isLoading ? 0.6f : 1.0f;
@@ -771,6 +865,11 @@ public class AddMedicationActivity extends AppCompatActivity {
         binding.medicationNameLayout.setAlpha(alpha);
         binding.colorSpinner.setAlpha(alpha);
         binding.dosageFormSpinner.setAlpha(alpha);
+        binding.totalQuantityLayout.setAlpha(alpha);
+        binding.remainingQuantityLayout.setAlpha(alpha);
+        binding.unitSpinner.setAlpha(alpha);
+        binding.dosagePerIntakeLayout.setAlpha(alpha);
+        binding.lowStockThresholdLayout.setAlpha(alpha);
         
         // Show/hide loading indicator if needed
         if (isLoading) {
@@ -984,6 +1083,15 @@ public class AddMedicationActivity extends AppCompatActivity {
             binding.uploadPhotoButton.setText(getString(R.string.upload_photo) + " (已选择)");
         } else {
             binding.uploadPhotoButton.setText(getString(R.string.upload_photo));
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 根据编辑模式更新UI（标题等）
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(viewModel != null && viewModel.isEditMode() ? "编辑药物" : getString(R.string.add_medication_title));
         }
     }
     

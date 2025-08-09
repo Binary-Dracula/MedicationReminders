@@ -30,4 +30,9 @@
     <!-- Medication colors -->
     <color name="medication_pink">#FFFF69B4</color>
     <color name="medication_brown">#FFA0522D</color>
+    
+    <!-- Stock status colors -->
+    <color name="stock_sufficient">#FF4CAF50</color>    <!-- 绿色 - 库存充足 -->
+    <color name="stock_low">#FFFF9800</color>           <!-- 橙色 - 库存不足 -->
+    <color name="stock_out">#FFF44336</color>           <!-- 红色 - 缺货 -->
 </resources>

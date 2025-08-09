@@ -10,7 +10,23 @@
     <string name="medication_total_quantity_label">总量</string>
     <string name="medication_remaining_quantity_label">剩余量</string>
     <string name="medication_unit_label">单位</string>
+    <string name="medication_dosage_per_intake_label">每次用量</string>
+    <string name="medication_low_stock_threshold_label">库存提醒阈值</string>
     <string name="medication_stock_info">库存：%1$d/%2$d %3$s（%4$d%%）</string>
+    <string name="stock_status_sufficient">库存充足</string>
+    <string name="stock_status_low">库存不足</string>
+    <string name="stock_status_out">缺货</string>
+    <string name="inventory_warning_title">库存提醒</string>
+    <string name="inventory_out_of_stock_title">药物缺货</string>
+    <string name="inventory_low_stock_title">库存不足提醒</string>
+    <string name="inventory_out_of_stock_message">您的%s已经用完，请及时补充库存以免影响用药计划</string>
+    <string name="inventory_low_stock_message">您的%1$s剩余量为%2$d%3$s，已达到库存提醒阈值（%4$d%5$s），建议及时补充</string>
+    <string name="replenish_stock_now">立即补充</string>
+    <string name="replenish_stock">去补充库存</string>
+    <string name="dosage_per_intake_label">每次用量：</string>
+    <string name="low_stock_threshold_label">库存提醒阈值：</string>
+    <string name="medication_stock_display">%1$d/%2$d %3$s</string>
+    <string name="medication_stock_with_status">%1$d/%2$d %3$s - %4$s</string>
     <string name="upload_photo">上传照片</string>
     <string name="take_photo">拍照</string>
     <string name="select_from_gallery">从相册选择</string>
@@ -73,6 +89,8 @@
     <string name="error_total_quantity_invalid">总量必须是非负整数</string>
     <string name="error_remaining_quantity_invalid">剩余量必须是非负整数，且不能大于总量</string>
     <string name="error_unit_not_selected">请选择单位</string>
+    <string name="error_dosage_per_intake_invalid">每次用量必须是正整数</string>
+    <string name="error_low_stock_threshold_invalid">库存提醒阈值必须是非负整数</string>
     <string name="error_photo_save_failed">照片保存失败，请重试</string>
     <string name="error_database_save_failed">保存失败，请检查存储空间后重试</string>
     <string name="error_storage_insufficient">存储空间不足，请清理后重试</string>
@@ -337,6 +355,25 @@
     <string name="exit_app_message">您确定要退出药物提醒助手吗？</string>
     <string name="user_info_error">无法获取用户信息</string>
     
+    <!-- 用药记录相关字符串 -->
+    <string name="intake_record_title">用药记录</string>
+    <string name="intake_record_button">用药记录</string>
+    <string name="intake_record_button_description">查看用药记录列表</string>
+    <string name="no_intake_records_message">暂无用药记录，开始添加药物提醒吧</string>
+    
+    <!-- 用药记录详情相关字符串 -->
+    <string name="intake_record_detail_title">用药记录详情</string>
+    <string name="intake_time_label">服用时间</string>
+    <string name="dosage_taken_label">服用剂量</string>
+    <string name="record_info_label">记录信息</string>
+    <string name="intake_record_readonly_notice">此记录为历史数据，仅供查看，无法修改</string>
+    <string name="record_id_format">记录编号：#%d</string>
+    <string name="back_button">返回</string>
+    <string name="retry_button">重试</string>
+    <string name="dosage_unit_format">%d 片</string>
+    <string name="intake_record_load_failed">用药记录加载失败</string>
+    <string name="intake_record_not_found">未找到该用药记录</string>
+
     <!-- 健康日记相关字符串 -->
     <string name="health_diary_title">健康日记</string>
     <string name="health_diary_list_title">我的健康日记</string>
@@ -432,4 +469,14 @@
     <string name="success_diary_deleted">健康日记删除成功</string>
     <string name="success_diary_loaded">日记加载完成</string>
     <string name="success_operation_completed">操作完成</string>
+
+  <!-- 用药提醒 -->
+  <string name="reminder_notification_title">用药提醒</string>
+  <string name="reminder_notification_text">到点提醒：请按时服药</string>
+  <string name="reminder_action_snooze">延迟10分钟</string>
+  <string name="reminder_action_taken">已服用</string>
+  <string name="schedule_save_success">用药计划已保存并开始提醒</string>
+  <string name="schedule_save_failed">用药计划保存失败</string>
+  <string name="exact_alarm_permission_tip">为了确保准时提醒，请授权精准闹钟</string>
+  <string name="notification_permission_tip">为保证提醒可见，请在系统设置中开启通知权限</string>
 </resources>

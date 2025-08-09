@@ -118,13 +118,8 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
             // Set medication photo
             setMedicationPhoto(medication.getPhotoPath());
 
-            // Stock info
-            int total = medication.getTotalQuantity();
-            int remaining = medication.getRemainingQuantity();
-            String unit = medication.getUnit() == null ? "" : medication.getUnit();
-            int percent = medication.getRemainingPercentage();
-            String stockText = context.getString(R.string.medication_stock_info, remaining, total, unit, percent);
-            tvStockInfo.setText(stockText);
+            // Stock info with status color
+            setStockInfo(medication);
             
             // Set content descriptions for accessibility
             itemView.setContentDescription("药物：" + medication.getName() + "，" + details);
@@ -208,6 +203,47 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
                 case "CLEAR": return android.R.color.transparent;
                 default: return 0;
             }
+        }
+        
+        /**
+         * 设置库存信息和状态颜色
+         * 根据库存状态设置不同颜色：绿色（充足）、橙色（不足）、红色（缺货）
+         */
+        private void setStockInfo(MedicationInfo medication) {
+            int total = medication.getTotalQuantity();
+            int remaining = medication.getRemainingQuantity();
+            String unit = medication.getUnit() == null ? "" : medication.getUnit();
+            
+            // 构建库存显示文本：剩余量/总量+单位
+            String stockDisplay = context.getString(R.string.medication_stock_display, remaining, total, unit);
+            
+            // 获取库存状态和对应颜色
+            String statusText;
+            int statusColor;
+            
+            if (medication.isOutOfStock()) {
+                // 缺货状态 - 红色
+                statusText = context.getString(R.string.stock_status_out);
+                statusColor = context.getResources().getColor(R.color.stock_out, null);
+            } else if (medication.isLowStock()) {
+                // 库存不足状态 - 橙色
+                statusText = context.getString(R.string.stock_status_low);
+                statusColor = context.getResources().getColor(R.color.stock_low, null);
+            } else {
+                // 库存充足状态 - 绿色
+                statusText = context.getString(R.string.stock_status_sufficient);
+                statusColor = context.getResources().getColor(R.color.stock_sufficient, null);
+            }
+            
+            // 设置完整的库存信息文本：剩余量/总量+单位 - 状态提示
+            String fullStockText = context.getString(R.string.medication_stock_with_status, 
+                remaining, total, unit, statusText);
+            
+            tvStockInfo.setText(fullStockText);
+            tvStockInfo.setTextColor(statusColor);
+            
+            // 设置可访问性描述
+            tvStockInfo.setContentDescription("库存状态：" + fullStockText);
         }
     }
 }

@@ -84,6 +84,12 @@ public class AddMedicationViewModelTest {
         assertNull(viewModel.getDosageFormError().getValue());
         assertFalse(viewModel.getHasPhoto().getValue());
         assertNull(viewModel.getPhotoPreviewPath().getValue());
+        
+        // Assert initial values for inventory fields
+        assertEquals(Integer.valueOf(1), viewModel.getDosagePerIntake().getValue());
+        assertEquals(Integer.valueOf(5), viewModel.getLowStockThreshold().getValue());
+        assertNull(viewModel.getDosagePerIntakeError().getValue());
+        assertNull(viewModel.getLowStockThresholdError().getValue());
     }
     
     @Test
@@ -194,6 +200,84 @@ public class AddMedicationViewModelTest {
         assertEquals("", viewModel.getSelectedDosageForm().getValue());
         // No real-time validation - error should be null until save is attempted
         assertNull(viewModel.getDosageFormError().getValue());
+    }
+    
+    @Test
+    public void testSetDosagePerIntake_ValidValue() {
+        // Arrange
+        Integer testValue = 2;
+        
+        // Act
+        viewModel.setDosagePerIntake(testValue);
+        
+        // Assert
+        assertEquals(testValue, viewModel.getDosagePerIntake().getValue());
+    }
+    
+    @Test
+    public void testSetDosagePerIntake_NullValue() {
+        // Act
+        viewModel.setDosagePerIntake(null);
+        
+        // Assert
+        assertEquals(Integer.valueOf(1), viewModel.getDosagePerIntake().getValue());
+    }
+    
+    @Test
+    public void testSetDosagePerIntake_ZeroValue() {
+        // Act
+        viewModel.setDosagePerIntake(0);
+        
+        // Assert
+        assertEquals(Integer.valueOf(1), viewModel.getDosagePerIntake().getValue());
+    }
+    
+    @Test
+    public void testSetDosagePerIntake_NegativeValue() {
+        // Act
+        viewModel.setDosagePerIntake(-5);
+        
+        // Assert
+        assertEquals(Integer.valueOf(1), viewModel.getDosagePerIntake().getValue());
+    }
+    
+    @Test
+    public void testSetLowStockThreshold_ValidValue() {
+        // Arrange
+        Integer testValue = 10;
+        
+        // Act
+        viewModel.setLowStockThreshold(testValue);
+        
+        // Assert
+        assertEquals(testValue, viewModel.getLowStockThreshold().getValue());
+    }
+    
+    @Test
+    public void testSetLowStockThreshold_NullValue() {
+        // Act
+        viewModel.setLowStockThreshold(null);
+        
+        // Assert
+        assertEquals(Integer.valueOf(5), viewModel.getLowStockThreshold().getValue());
+    }
+    
+    @Test
+    public void testSetLowStockThreshold_NegativeValue() {
+        // Act
+        viewModel.setLowStockThreshold(-3);
+        
+        // Assert
+        assertEquals(Integer.valueOf(0), viewModel.getLowStockThreshold().getValue());
+    }
+    
+    @Test
+    public void testSetLowStockThreshold_ZeroValue() {
+        // Act
+        viewModel.setLowStockThreshold(0);
+        
+        // Assert
+        assertEquals(Integer.valueOf(0), viewModel.getLowStockThreshold().getValue());
     }
     
     @Test
@@ -514,6 +598,30 @@ public class AddMedicationViewModelTest {
     }
     
     @Test
+    public void testHasFormData_WithDosagePerIntake() {
+        // Arrange
+        viewModel.setDosagePerIntake(3); // Different from default value of 1
+        
+        // Act
+        boolean result = viewModel.hasFormData();
+        
+        // Assert
+        assertTrue("Form with non-default dosage per intake should return true", result);
+    }
+    
+    @Test
+    public void testHasFormData_WithLowStockThreshold() {
+        // Arrange
+        viewModel.setLowStockThreshold(10); // Different from default value of 5
+        
+        // Act
+        boolean result = viewModel.hasFormData();
+        
+        // Assert
+        assertTrue("Form with non-default low stock threshold should return true", result);
+    }
+    
+    @Test
     public void testGetCurrentMedicationData() {
         // Arrange
         setupValidMedicationData();
@@ -527,6 +635,11 @@ public class AddMedicationViewModelTest {
         assertEquals("White", result.getColor());
         assertEquals("Tablet", result.getDosageForm());
         assertEquals("/path/to/photo.jpg", result.getPhotoPath());
+        assertEquals(100, result.getTotalQuantity());
+        assertEquals(50, result.getRemainingQuantity());
+        assertEquals("片", result.getUnit());
+        assertEquals(2, result.getDosagePerIntake());
+        assertEquals(10, result.getLowStockThreshold());
     }
     
     @Test
@@ -540,6 +653,11 @@ public class AddMedicationViewModelTest {
         assertEquals("", result.getColor());
         assertEquals("", result.getDosageForm());
         assertEquals("", result.getPhotoPath());
+        assertEquals(0, result.getTotalQuantity());
+        assertEquals(0, result.getRemainingQuantity());
+        assertEquals("片", result.getUnit());
+        assertEquals(1, result.getDosagePerIntake());
+        assertEquals(5, result.getLowStockThreshold());
     }
     
     @Test
@@ -549,6 +667,11 @@ public class AddMedicationViewModelTest {
         viewModel.setSelectedColor(null);
         viewModel.setSelectedDosageForm(null);
         viewModel.setPhotoPath(null);
+        viewModel.setTotalQuantity(null);
+        viewModel.setRemainingQuantity(null);
+        viewModel.setUnit(null);
+        viewModel.setDosagePerIntake(null);
+        viewModel.setLowStockThreshold(null);
         
         // Act
         MedicationInfo result = viewModel.getCurrentMedicationData();
@@ -559,6 +682,65 @@ public class AddMedicationViewModelTest {
         assertEquals("", result.getColor());
         assertEquals("", result.getDosageForm());
         assertEquals("", result.getPhotoPath());
+        assertEquals(0, result.getTotalQuantity());
+        assertEquals(0, result.getRemainingQuantity());
+        assertEquals("", result.getUnit());
+        assertEquals(1, result.getDosagePerIntake());
+        assertEquals(5, result.getLowStockThreshold());
+    }
+    
+    @Test
+    public void testInventoryFieldsValidation_DosagePerIntakeExceedsRemaining() {
+        // Arrange
+        setupValidMedicationData();
+        viewModel.setRemainingQuantity(1);
+        viewModel.setDosagePerIntake(2); // Invalid: exceeds remaining quantity
+        viewModel.getErrorMessage().observeForever(stringObserver);
+        
+        // Act
+        viewModel.saveMedication();
+        
+        // Assert
+        verify(stringObserver).onChanged("请检查并修正表单中的错误");
+        verifyNoInteractions(mockRepository);
+    }
+    
+    @Test
+    public void testInventoryFieldsValidation_LowStockThresholdExceedsTotal() {
+        // Arrange
+        setupValidMedicationData();
+        viewModel.setTotalQuantity(5);
+        viewModel.setLowStockThreshold(10); // Invalid: exceeds total quantity
+        viewModel.getErrorMessage().observeForever(stringObserver);
+        
+        // Act
+        viewModel.saveMedication();
+        
+        // Assert
+        verify(stringObserver).onChanged("请检查并修正表单中的错误");
+        verifyNoInteractions(mockRepository);
+    }
+    
+    @Test
+    public void testInventoryFieldsValidation_ValidValues() {
+        // Arrange
+        setupValidMedicationData();
+        Observer<Boolean> successObserver = mock(Observer.class);
+        viewModel.getSaveSuccess().observeForever(successObserver);
+        
+        // Mock repository success
+        doAnswer(invocation -> {
+            MedicationRepository.InsertCallback callback = invocation.getArgument(2);
+            callback.onSuccess(1L);
+            return null;
+        }).when(mockRepository).insertMedication(any(MedicationInfo.class), eq(false), any(MedicationRepository.InsertCallback.class));
+        
+        // Act
+        viewModel.saveMedication();
+        
+        // Assert
+        verify(successObserver, atLeast(1)).onChanged(true);
+        verify(mockRepository).insertMedication(any(MedicationInfo.class), eq(false), any(MedicationRepository.InsertCallback.class));
     }
     
     /**
@@ -569,5 +751,10 @@ public class AddMedicationViewModelTest {
         viewModel.setSelectedColor("White");
         viewModel.setSelectedDosageForm("Tablet");
         viewModel.setPhotoPath("/path/to/photo.jpg");
+        viewModel.setTotalQuantity(100);
+        viewModel.setRemainingQuantity(50);
+        viewModel.setUnit("片");
+        viewModel.setDosagePerIntake(2);
+        viewModel.setLowStockThreshold(10);
     }
 }

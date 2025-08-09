@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.medication.reminders.R;
 import com.medication.reminders.databinding.ActivityLoginBinding;
 import com.medication.reminders.viewmodels.UserViewModel;
+import com.medication.reminders.utils.ExactAlarmPermissionHelper;
 
 /**
  * LoginActivity 类，用于处理用户登录界面。
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         
         // 在应用启动时检查是否需要自动登录
         checkAutoLogin();
+
+        // 检查并提示精准闹钟/通知权限
+        checkAndPromptExactAlarmPermission();
     }
     
     /**
@@ -377,6 +381,21 @@ public class LoginActivity extends AppCompatActivity {
     private void checkAutoLogin() {
         // 检查是否有被记住的用户需要自动登录
         userViewModel.checkRememberedUser();
+    }
+
+    /**
+     * 启动时检查精准闹钟能力与通知权限，并引导用户授权
+     */
+    private void checkAndPromptExactAlarmPermission() {
+        boolean exactOk = ExactAlarmPermissionHelper.canScheduleExactAlarms(this);
+        if (!exactOk) {
+            Toast.makeText(this, "为了确保准时提醒，请授权精准闹钟", Toast.LENGTH_LONG).show();
+            ExactAlarmPermissionHelper.requestExactAlarmPermission(this);
+        }
+        if (ExactAlarmPermissionHelper.needsPostNotificationPermission()) {
+            // Android 13+ 仅提示，实际权限弹窗建议放在首次触发提醒前
+            Toast.makeText(this, "为保证提醒可见，请在系统设置中开启通知权限", Toast.LENGTH_LONG).show();
+        }
     }
     
     @Override

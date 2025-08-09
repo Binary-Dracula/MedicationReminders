@@ -14,6 +14,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // 如果需要精确定时闹钟，可在manifest中声明 SCHEDULE_EXACT_ALARM（本项目仅演示，不强制）
     }
 
     buildTypes {

@@ -29,6 +29,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private MutableLiveData<String> unit = new MutableLiveData<>("片");
     private MutableLiveData<String> photoPath = new MutableLiveData<>("");
     
+    // 库存管理字段
+    private MutableLiveData<Integer> dosagePerIntake = new MutableLiveData<>(1);
+    private MutableLiveData<Integer> lowStockThreshold = new MutableLiveData<>(5);
+    
     // UI state fields
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> saveSuccess = new MutableLiveData<>(false);
@@ -44,9 +48,17 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private MutableLiveData<String> remainingQuantityError = new MutableLiveData<>();
     private MutableLiveData<String> unitError = new MutableLiveData<>();
     
+    // 库存管理字段验证状态
+    private MutableLiveData<String> dosagePerIntakeError = new MutableLiveData<>();
+    private MutableLiveData<String> lowStockThresholdError = new MutableLiveData<>();
+    
     // Photo management fields
     private MutableLiveData<Boolean> hasPhoto = new MutableLiveData<>(false);
     private MutableLiveData<String> photoPreviewPath = new MutableLiveData<>();
+
+    // Edit mode fields
+    private long editingMedicationId = -1L;
+    private boolean isEditMode = false;
     
     /**
      * Constructor initializes the ViewModel with repository
@@ -90,6 +102,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public LiveData<Integer> getRemainingQuantity() { return remainingQuantity; }
     public LiveData<String> getUnit() { return unit; }
     
+    // 库存管理字段的Getter方法
+    public LiveData<Integer> getDosagePerIntake() { return dosagePerIntake; }
+    public LiveData<Integer> getLowStockThreshold() { return lowStockThreshold; }
+    
     public LiveData<String> getErrorMessage() {
         return errorMessage;
     }
@@ -125,6 +141,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public LiveData<String> getRemainingQuantityError() { return remainingQuantityError; }
     public LiveData<String> getUnitError() { return unitError; }
     
+    // 库存管理字段错误状态的Getter方法
+    public LiveData<String> getDosagePerIntakeError() { return dosagePerIntakeError; }
+    public LiveData<String> getLowStockThresholdError() { return lowStockThresholdError; }
+    
     public LiveData<Boolean> getHasPhoto() {
         return hasPhoto;
     }
@@ -132,6 +152,36 @@ public class AddMedicationViewModel extends AndroidViewModel {
     public LiveData<String> getPhotoPreviewPath() {
         return photoPreviewPath;
     }
+
+    public boolean isEditMode() { return isEditMode; }
+    public long getEditingMedicationId() { return editingMedicationId; }
+
+    // Expose medication LiveData for loading existing data
+    public LiveData<MedicationInfo> getMedicationById(long id) {
+        return repository.getMedicationById(id);
+    }
+
+    // Initialize edit mode from existing medication
+    public void startEditFrom(MedicationInfo medication) {
+        if (medication == null) return;
+        editingMedicationId = medication.getId();
+        isEditMode = true;
+        medicationName.postValue(nonNull(medication.getName()));
+        selectedColor.postValue(nonNull(medication.getColor()));
+        selectedDosageForm.postValue(nonNull(medication.getDosageForm()));
+        photoPath.postValue(nonNull(medication.getPhotoPath()));
+        photoPreviewPath.postValue(nonNull(medication.getPhotoPath()));
+        hasPhoto.postValue(medication.getPhotoPath() != null && !medication.getPhotoPath().trim().isEmpty());
+        totalQuantity.postValue(medication.getTotalQuantity());
+        remainingQuantity.postValue(medication.getRemainingQuantity());
+        unit.postValue(nonNull(medication.getUnit()));
+        
+        // 设置库存管理字段
+        dosagePerIntake.postValue(medication.getDosagePerIntake());
+        lowStockThreshold.postValue(medication.getLowStockThreshold());
+    }
+
+    private String nonNull(String s) { return s == null ? "" : s; }
     
     // Setters for form data (called from UI)
     
@@ -141,7 +191,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
      * @param name The medication name
      */
     public void setMedicationName(String name) {
-        medicationName.setValue(name != null ? name.trim() : "");
+        medicationName.postValue(name != null ? name.trim() : "");
     }
     
     /**
@@ -150,7 +200,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
      * @param color The selected color
      */
     public void setSelectedColor(String color) {
-        selectedColor.setValue(color);
+        selectedColor.postValue(color);
     }
     
     /**
@@ -159,12 +209,30 @@ public class AddMedicationViewModel extends AndroidViewModel {
      * @param dosageForm The selected dosage form
      */
     public void setSelectedDosageForm(String dosageForm) {
-        selectedDosageForm.setValue(dosageForm);
+        selectedDosageForm.postValue(dosageForm);
     }
 
-    public void setTotalQuantity(Integer value) { totalQuantity.setValue(value == null ? 0 : Math.max(0, value)); }
-    public void setRemainingQuantity(Integer value) { remainingQuantity.setValue(value == null ? 0 : Math.max(0, value)); }
-    public void setUnit(String value) { unit.setValue(value == null ? "" : value); }
+    public void setTotalQuantity(Integer value) { totalQuantity.postValue(value == null ? 0 : Math.max(0, value)); }
+    public void setRemainingQuantity(Integer value) { remainingQuantity.postValue(value == null ? 0 : Math.max(0, value)); }
+    public void setUnit(String value) { unit.postValue(value == null ? "" : value); }
+    
+    /**
+     * 设置每次用量
+     * 
+     * @param value 每次用量，必须为正整数
+     */
+    public void setDosagePerIntake(Integer value) { 
+        dosagePerIntake.postValue(value == null ? 1 : Math.max(1, value)); 
+    }
+    
+    /**
+     * 设置库存提醒阈值
+     * 
+     * @param value 库存提醒阈值，必须为非负整数
+     */
+    public void setLowStockThreshold(Integer value) { 
+        lowStockThreshold.postValue(value == null ? 5 : Math.max(0, value)); 
+    }
     
     /**
      * Set photo path and update photo-related states
@@ -172,9 +240,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
      * @param path The photo file path
      */
     public void setPhotoPath(String path) {
-        photoPath.setValue(path);
-        photoPreviewPath.setValue(path);
-        hasPhoto.setValue(path != null && !path.trim().isEmpty());
+        photoPath.postValue(path);
+        photoPreviewPath.postValue(path);
+        hasPhoto.postValue(path != null && !path.trim().isEmpty());
     }
     
     /**
@@ -194,11 +262,11 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateName() {
         String name = medicationName.getValue();
         if (name == null || name.trim().isEmpty()) {
-            nameError.setValue("药物名称是必需的");
+            nameError.postValue("药物名称是必需的");
         } else if (name.trim().length() > 100) {
-            nameError.setValue("药物名称不能超过100个字符");
+            nameError.postValue("药物名称不能超过100个字符");
         } else {
-            nameError.setValue(null);
+            nameError.postValue(null);
         }
     }
     
@@ -208,9 +276,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateColor() {
         String color = selectedColor.getValue();
         if (color == null || color.trim().isEmpty()) {
-            colorError.setValue("请选择药物颜色");
+            colorError.postValue("请选择药物颜色");
         } else {
-            colorError.setValue(null);
+            colorError.postValue(null);
         }
     }
     
@@ -220,9 +288,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateDosageForm() {
         String dosageForm = selectedDosageForm.getValue();
         if (dosageForm == null || dosageForm.trim().isEmpty()) {
-            dosageFormError.setValue("请选择药物剂型");
+            dosageFormError.postValue("请选择药物剂型");
         } else {
-            dosageFormError.setValue(null);
+            dosageFormError.postValue(null);
         }
     }
 
@@ -230,25 +298,48 @@ public class AddMedicationViewModel extends AndroidViewModel {
         Integer total = totalQuantity.getValue();
         Integer remaining = remainingQuantity.getValue();
         String u = unit.getValue();
+        Integer dosageIntake = dosagePerIntake.getValue();
+        Integer stockThreshold = lowStockThreshold.getValue();
 
+        // 验证总量
         if (total == null || total < 0) {
-            totalQuantityError.setValue("总量必须是非负整数");
+            totalQuantityError.postValue("总量必须是非负整数");
         } else {
-            totalQuantityError.setValue(null);
+            totalQuantityError.postValue(null);
         }
 
+        // 验证剩余量
         if (remaining == null || remaining < 0) {
-            remainingQuantityError.setValue("剩余量必须是非负整数，且不能大于总量");
+            remainingQuantityError.postValue("剩余量必须是非负整数，且不能大于总量");
         } else if (total != null && remaining != null && remaining > total) {
-            remainingQuantityError.setValue("剩余量必须是非负整数，且不能大于总量");
+            remainingQuantityError.postValue("剩余量必须是非负整数，且不能大于总量");
         } else {
-            remainingQuantityError.setValue(null);
+            remainingQuantityError.postValue(null);
         }
 
+        // 验证单位
         if (u == null || u.trim().isEmpty()) {
-            unitError.setValue("请选择单位");
+            unitError.postValue("请选择单位");
         } else {
-            unitError.setValue(null);
+            unitError.postValue(null);
+        }
+        
+        // 验证每次用量
+        if (dosageIntake == null || dosageIntake <= 0) {
+            dosagePerIntakeError.postValue("每次用量必须是正整数");
+        } else if (remaining != null && dosageIntake > remaining) {
+            dosagePerIntakeError.postValue("每次用量不能大于剩余量");
+        } else {
+            dosagePerIntakeError.postValue(null);
+        }
+        
+        // 验证库存提醒阈值
+        if (stockThreshold == null || stockThreshold < 0) {
+            lowStockThresholdError.postValue("库存提醒阈值必须是非负整数");
+        } else if (total != null && stockThreshold > total) {
+            lowStockThresholdError.postValue("库存提醒阈值不能大于总量");
+        } else {
+            lowStockThresholdError.postValue(null);
         }
     }
     
@@ -268,7 +359,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
                dosageFormError.getValue() == null &&
                totalQuantityError.getValue() == null &&
                remainingQuantityError.getValue() == null &&
-               unitError.getValue() == null;
+               unitError.getValue() == null &&
+               dosagePerIntakeError.getValue() == null &&
+               lowStockThresholdError.getValue() == null;
     }
     
     // Save medication logic
@@ -277,9 +370,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
      * Save medication to database
      * Performs validation and calls repository
      */
-    public void saveMedication() {
-        saveMedication(false);
-    }
+    public void saveMedication() { saveMedication(false); }
     
     /**
      * Save medication with duplicate override option
@@ -292,12 +383,12 @@ public class AddMedicationViewModel extends AndroidViewModel {
         
         // Validate all fields
         if (!validateAllFields()) {
-            errorMessage.setValue("请检查并修正表单中的错误");
+            errorMessage.postValue("请检查并修正表单中的错误");
             return;
         }
         
         // Set loading state
-        isLoading.setValue(true);
+        isLoading.postValue(true);
         
         // Create medication object
         MedicationInfo medication = new MedicationInfo();
@@ -309,28 +400,49 @@ public class AddMedicationViewModel extends AndroidViewModel {
         medication.setRemainingQuantity(remainingQuantity.getValue() == null ? 0 : remainingQuantity.getValue());
         medication.setUnit(unit.getValue());
         
-        // Save to repository
-        repository.insertMedication(medication, allowDuplicate, new MedicationRepository.InsertCallback() {
-            @Override
-            public void onSuccess(long id) {
-                clearForm();
-                isLoading.postValue(false);
-                saveSuccess.postValue(true);
-            }
-            
-            @Override
-            public void onError(String errorMessage) {
-                isLoading.postValue(false);
-                AddMedicationViewModel.this.errorMessage.postValue(errorMessage);
-            }
-            
-            @Override
-            public void onDuplicateFound(String medicationName) {
-                isLoading.postValue(false);
-                duplicateMedicationName.postValue(medicationName);
-                showDuplicateDialog.postValue(true);
-            }
-        });
+        // 设置库存管理字段值
+        medication.setDosagePerIntake(dosagePerIntake.getValue() == null ? 1 : dosagePerIntake.getValue());
+        medication.setLowStockThreshold(lowStockThreshold.getValue() == null ? 5 : lowStockThreshold.getValue());
+
+        if (isEditMode && editingMedicationId > 0) {
+            medication.setId(editingMedicationId);
+            repository.updateMedication(medication, new MedicationRepository.UpdateCallback() {
+                @Override
+                public void onSuccess() {
+                    isLoading.postValue(false);
+                    saveSuccess.postValue(true);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    isLoading.postValue(false);
+                    AddMedicationViewModel.this.errorMessage.postValue(errorMessage);
+                }
+            });
+        } else {
+            // Save to repository (insert)
+            repository.insertMedication(medication, allowDuplicate, new MedicationRepository.InsertCallback() {
+                @Override
+                public void onSuccess(long id) {
+                    clearForm();
+                    isLoading.postValue(false);
+                    saveSuccess.postValue(true);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    isLoading.postValue(false);
+                    AddMedicationViewModel.this.errorMessage.postValue(errorMessage);
+                }
+
+                @Override
+                public void onDuplicateFound(String medicationName) {
+                    isLoading.postValue(false);
+                    duplicateMedicationName.postValue(medicationName);
+                    showDuplicateDialog.postValue(true);
+                }
+            });
+        }
     }
     
     /**
@@ -356,6 +468,11 @@ public class AddMedicationViewModel extends AndroidViewModel {
         totalQuantity.postValue(0);
         remainingQuantity.postValue(0);
         unit.postValue("片");
+        
+        // 重置库存管理字段
+        dosagePerIntake.postValue(1);
+        lowStockThreshold.postValue(5);
+        
         clearErrors();
         saveSuccess.postValue(false);
     }
@@ -371,6 +488,10 @@ public class AddMedicationViewModel extends AndroidViewModel {
         totalQuantityError.postValue(null);
         remainingQuantityError.postValue(null);
         unitError.postValue(null);
+        
+        // 清除库存管理字段错误状态
+        dosagePerIntakeError.postValue(null);
+        lowStockThresholdError.postValue(null);
     }
     
     /**
@@ -393,6 +514,8 @@ public class AddMedicationViewModel extends AndroidViewModel {
         Integer total = totalQuantity.getValue();
         Integer remaining = remainingQuantity.getValue();
         String u = unit.getValue();
+        Integer dosageIntake = dosagePerIntake.getValue();
+        Integer stockThreshold = lowStockThreshold.getValue();
         
         return (name != null && !name.trim().isEmpty()) ||
                (color != null && !color.trim().isEmpty()) ||
@@ -400,7 +523,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
                (photo != null && !photo.trim().isEmpty()) ||
                (total != null && total > 0) ||
                (remaining != null && remaining > 0) ||
-               (u != null && !u.trim().isEmpty());
+               (u != null && !u.trim().isEmpty() && !"片".equals(u.trim())) ||
+               (dosageIntake != null && dosageIntake != 1) ||
+               (stockThreshold != null && stockThreshold != 5);
     }
     
     /**
@@ -417,6 +542,11 @@ public class AddMedicationViewModel extends AndroidViewModel {
         medication.setTotalQuantity(totalQuantity.getValue() != null ? totalQuantity.getValue() : 0);
         medication.setRemainingQuantity(remainingQuantity.getValue() != null ? remainingQuantity.getValue() : 0);
         medication.setUnit(unit.getValue() != null ? unit.getValue() : "");
+        
+        // 设置库存管理字段
+        medication.setDosagePerIntake(dosagePerIntake.getValue() != null ? dosagePerIntake.getValue() : 1);
+        medication.setLowStockThreshold(lowStockThreshold.getValue() != null ? lowStockThreshold.getValue() : 5);
+        
         return medication;
     }
     

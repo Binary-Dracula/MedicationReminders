@@ -136,6 +136,112 @@
 
                 </LinearLayout>
 
+                <!-- Dosage Per Intake Information -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dosage_per_intake_label"
+                        android:textSize="18sp"
+                        android:textColor="@color/high_contrast_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvDosagePerIntake"
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1 片"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <!-- Low Stock Threshold Information -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/low_stock_threshold_label"
+                        android:textSize="18sp"
+                        android:textColor="@color/high_contrast_text_secondary" />
+
+                    <TextView
+                        android:id="@+id/tvLowStockThreshold"
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="5 片"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Inventory Status Warning Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardInventoryWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/error_message_background">
+
+                <TextView
+                    android:id="@+id/tvInventoryWarningTitle"
+                    style="@style/ElderlyFriendlyTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/inventory_warning_title"
+                    android:textSize="20sp"
+                    android:textColor="@color/error_color"
+                    android:layout_marginBottom="8dp"
+                    android:drawableStart="@drawable/ic_delete"
+                    android:drawablePadding="8dp" />
+
+                <TextView
+                    android:id="@+id/tvInventoryWarningMessage"
+                    style="@style/ElderlyFriendlyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="您的药物库存不足，建议及时补充"
+                    android:textSize="16sp"
+                    android:textColor="@color/error_color"
+                    android:layout_marginBottom="12dp" />
+
+                <Button
+                    android:id="@+id/btnReplenishStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/replenish_stock"
+                    android:textSize="16sp"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/error_color" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -185,6 +291,33 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <!-- Actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnEditMedication"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="编辑药物" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/btnOpenSchedule"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="设置提醒" />
+        </LinearLayout>
 
     </LinearLayout>
 

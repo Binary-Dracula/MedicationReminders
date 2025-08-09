@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/high_contrast_background">
+
+    <!-- 用药记录列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewIntakeRecords"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/elderly_margin_medium"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:contentDescription="用药记录列表"
+        android:visibility="gone" />
+
+    <!-- 空状态布局 -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="@dimen/elderly_margin_large"
+        android:visibility="visible">
+
+        <!-- 空状态图标 -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="@dimen/elderly_margin_large"
+            android:src="@drawable/ic_medication_default"
+            android:contentDescription="暂无用药记录图标"
+            app:tint="@color/high_contrast_text_secondary"
+            android:alpha="0.6" />
+
+        <!-- 空状态消息 -->
+        <TextView
+            android:id="@+id/tvEmptyMessage"
+            style="@style/ElderlyFriendlyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_intake_records_message"
+            android:gravity="center"
+            android:textSize="@dimen/elderly_text_large"
+            android:textColor="@color/high_contrast_text_secondary"
+            android:lineSpacingExtra="4dp"
+            android:contentDescription="暂无用药记录提示" />
+
+        <!-- 提示文本 -->
+        <TextView
+            style="@style/ElderlyFriendlyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/elderly_margin_medium"
+            android:text="当您确认服用药物时，系统会自动记录用药信息"
+            android:gravity="center"
+            android:textSize="@dimen/elderly_text_medium"
+            android:textColor="@color/high_contrast_text_secondary"
+            android:lineSpacingExtra="2dp"
+            android:contentDescription="用药记录说明" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

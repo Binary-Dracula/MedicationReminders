@@ -1,8 +1,10 @@
 package com.medication.reminders.view;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +31,19 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private TextView tvMedicationColor;
     private TextView tvMedicationDosageForm;
     private TextView tvStockInfo;
+    private TextView tvDosagePerIntake;
+    private TextView tvLowStockThreshold;
     private TextView tvCreatedDate;
     private TextView tvUpdatedDate;
     private ImageView ivMedicationPhoto;
+    private Button btnEditMedication;
+    private Button btnOpenSchedule;
+    
+    // 库存状态警告相关组件
+    private androidx.cardview.widget.CardView cardInventoryWarning;
+    private TextView tvInventoryWarningTitle;
+    private TextView tvInventoryWarningMessage;
+    private Button btnReplenishStock;
     
     private MedicationListViewModel viewModel;
     private long medicationId;
@@ -73,6 +85,20 @@ public class MedicationDetailActivity extends AppCompatActivity {
         tvUpdatedDate = findViewById(R.id.tvUpdatedDate);
         ivMedicationPhoto = findViewById(R.id.ivMedicationPhoto);
         tvStockInfo = findViewById(R.id.tvStockInfo);
+        tvDosagePerIntake = findViewById(R.id.tvDosagePerIntake);
+        tvLowStockThreshold = findViewById(R.id.tvLowStockThreshold);
+        btnEditMedication = findViewById(R.id.btnEditMedication);
+        btnOpenSchedule = findViewById(R.id.btnOpenSchedule);
+        
+        // 库存状态警告相关组件
+        cardInventoryWarning = findViewById(R.id.cardInventoryWarning);
+        tvInventoryWarningTitle = findViewById(R.id.tvInventoryWarningTitle);
+        tvInventoryWarningMessage = findViewById(R.id.tvInventoryWarningMessage);
+        btnReplenishStock = findViewById(R.id.btnReplenishStock);
+
+        btnEditMedication.setOnClickListener(v -> openEditPage());
+        btnOpenSchedule.setOnClickListener(v -> openSchedulePage());
+        btnReplenishStock.setOnClickListener(v -> openEditPage()); // 补充库存也是跳转到编辑页面
     }
     
     /**
@@ -130,12 +156,11 @@ public class MedicationDetailActivity extends AppCompatActivity {
         // Display photo
         displayMedicationPhoto(medication.getPhotoPath());
 
-        // Display stock info
-        int total = medication.getTotalQuantity();
-        int remaining = medication.getRemainingQuantity();
-        String unit = medication.getUnit() == null ? "" : medication.getUnit();
-        int percent = medication.getRemainingPercentage();
-        tvStockInfo.setText(getString(R.string.medication_stock_info, remaining, total, unit, percent));
+        // Display comprehensive inventory information
+        displayInventoryInformation(medication);
+        
+        // Display inventory status warning if needed
+        displayInventoryStatusWarning(medication);
         
         // Update action bar title
         if (getSupportActionBar() != null) {
@@ -166,6 +191,91 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private void setDefaultMedicationIcon() {
         ivMedicationPhoto.setImageResource(R.drawable.ic_medication_default);
         ivMedicationPhoto.setContentDescription("默认药物图标");
+    }
+    
+    /**
+     * 显示完整的库存信息
+     * @param medication 药物信息
+     */
+    private void displayInventoryInformation(MedicationInfo medication) {
+        int total = medication.getTotalQuantity();
+        int remaining = medication.getRemainingQuantity();
+        String unit = medication.getUnit() == null ? "片" : medication.getUnit();
+        int percent = medication.getRemainingPercentage();
+        int dosagePerIntake = medication.getDosagePerIntake();
+        int lowStockThreshold = medication.getLowStockThreshold();
+        
+        // 显示库存信息，根据状态设置不同颜色
+        String stockInfo = getString(R.string.medication_stock_info, remaining, total, unit, percent);
+        tvStockInfo.setText(stockInfo);
+        
+        // 根据库存状态设置文字颜色
+        if (medication.isOutOfStock()) {
+            tvStockInfo.setTextColor(getResources().getColor(R.color.stock_out, null));
+        } else if (medication.isLowStock()) {
+            tvStockInfo.setTextColor(getResources().getColor(R.color.stock_low, null));
+        } else {
+            tvStockInfo.setTextColor(getResources().getColor(R.color.stock_sufficient, null));
+        }
+        
+        // 显示每次用量
+        tvDosagePerIntake.setText(dosagePerIntake + " " + unit);
+        
+        // 显示库存提醒阈值
+        tvLowStockThreshold.setText(lowStockThreshold + " " + unit);
+    }
+    
+    /**
+     * 显示库存状态警告信息
+     * @param medication 药物信息
+     */
+    private void displayInventoryStatusWarning(MedicationInfo medication) {
+        if (medication.isOutOfStock()) {
+            // 缺货状态
+            cardInventoryWarning.setVisibility(android.view.View.VISIBLE);
+            tvInventoryWarningTitle.setText(getString(R.string.inventory_out_of_stock_title));
+            tvInventoryWarningTitle.setTextColor(getResources().getColor(R.color.stock_out, null));
+            tvInventoryWarningMessage.setText(getString(R.string.inventory_out_of_stock_message, medication.getName()));
+            tvInventoryWarningMessage.setTextColor(getResources().getColor(R.color.stock_out, null));
+            btnReplenishStock.setText(getString(R.string.replenish_stock_now));
+            btnReplenishStock.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                getResources().getColor(R.color.stock_out, null)));
+        } else if (medication.isLowStock()) {
+            // 库存不足状态
+            cardInventoryWarning.setVisibility(android.view.View.VISIBLE);
+            tvInventoryWarningTitle.setText(getString(R.string.inventory_low_stock_title));
+            tvInventoryWarningTitle.setTextColor(getResources().getColor(R.color.stock_low, null));
+            
+            String unit = medication.getUnit() == null ? "片" : medication.getUnit();
+            String warningMessage = getString(R.string.inventory_low_stock_message, 
+                medication.getName(), 
+                medication.getRemainingQuantity(), 
+                unit,
+                medication.getLowStockThreshold(),
+                unit);
+            tvInventoryWarningMessage.setText(warningMessage);
+            tvInventoryWarningMessage.setTextColor(getResources().getColor(R.color.stock_low, null));
+            btnReplenishStock.setText(getString(R.string.replenish_stock));
+            btnReplenishStock.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
+                getResources().getColor(R.color.stock_low, null)));
+        } else {
+            // 库存充足，隐藏警告卡片
+            cardInventoryWarning.setVisibility(android.view.View.GONE);
+        }
+    }
+
+    /** 跳转药物编辑页 */
+    private void openEditPage() {
+        Intent i = new Intent(this, AddMedicationActivity.class);
+        i.putExtra("edit_medication_id", medicationId);
+        startActivity(i);
+    }
+
+    /** 跳转提醒设置页 */
+    private void openSchedulePage() {
+        Intent i = new Intent(this, ScheduleEditActivity.class);
+        i.putExtra("medication_id", medicationId);
+        startActivity(i);
     }
     
     /**

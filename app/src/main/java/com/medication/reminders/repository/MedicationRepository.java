@@ -7,7 +7,9 @@ import androidx.lifecycle.LiveData;
 
 import com.medication.reminders.database.MedicationDatabase;
 import com.medication.reminders.database.dao.MedicationDao;
+import com.medication.reminders.database.dao.MedicationIntakeRecordDao;
 import com.medication.reminders.database.entity.MedicationInfo;
+import com.medication.reminders.database.entity.MedicationIntakeRecord;
 import com.medication.reminders.models.MedicationValidationResult;
 
 import java.util.List;
@@ -25,6 +27,7 @@ import java.util.concurrent.Future;
 public class MedicationRepository {
     
     private MedicationDao medicationDao;
+    private MedicationIntakeRecordDao intakeRecordDao;
     private LiveData<List<MedicationInfo>> allMedications;
     private ExecutorService databaseWriteExecutor;
     
@@ -36,6 +39,7 @@ public class MedicationRepository {
     public MedicationRepository(Application application) {
         MedicationDatabase db = MedicationDatabase.getDatabase(application);
         medicationDao = db.medicationDao();
+        intakeRecordDao = db.medicationIntakeRecordDao();
         allMedications = medicationDao.getAllMedications();
         
         // Create a single-threaded executor for database write operations
@@ -349,6 +353,73 @@ public class MedicationRepository {
     }
     
     /**
+     * 用药扣减功能
+     * 当用户确认用药时，自动减少药物剩余量并创建用药记录
+     * 
+     * @param medicationId 药物ID
+     * @param callback 回调接口处理结果
+     */
+    public void consumeMedication(long medicationId, ConsumeCallback callback) {
+        databaseWriteExecutor.execute(() -> {
+            try {
+                // 获取药物信息
+                MedicationInfo medication = medicationDao.getMedicationByIdSync(medicationId);
+                if (medication == null) {
+                    if (callback != null) {
+                        callback.onError("未找到指定的药物");
+                    }
+                    return;
+                }
+                
+                // 检查库存是否足够
+                int dosagePerIntake = medication.getDosagePerIntake();
+                int currentRemaining = medication.getRemainingQuantity();
+                
+                // 计算用药后的剩余量：剩余量 = max(0, 剩余量 - 每次用量)
+                int newRemainingQuantity = Math.max(0, currentRemaining - dosagePerIntake);
+                
+                // 更新药物剩余量
+                long currentTime = System.currentTimeMillis();
+                int rowsUpdated = medicationDao.updateMedicationQuantity(medicationId, newRemainingQuantity, currentTime);
+                
+                if (rowsUpdated == 0) {
+                    if (callback != null) {
+                        callback.onError("更新药物库存失败");
+                    }
+                    return;
+                }
+                
+                // 创建用药记录
+                MedicationIntakeRecord intakeRecord = new MedicationIntakeRecord();
+                intakeRecord.setMedicationName(medication.getName());
+                intakeRecord.setIntakeTime(currentTime);
+                intakeRecord.setDosageTaken(dosagePerIntake);
+                
+                long recordId = intakeRecordDao.insertIntakeRecord(intakeRecord);
+                
+                if (recordId > 0) {
+                    // 检查库存状态并返回结果
+                    boolean isLowStock = newRemainingQuantity <= medication.getLowStockThreshold() && newRemainingQuantity > 0;
+                    boolean isOutOfStock = newRemainingQuantity == 0;
+                    
+                    if (callback != null) {
+                        callback.onSuccess(newRemainingQuantity, isLowStock, isOutOfStock);
+                    }
+                } else {
+                    if (callback != null) {
+                        callback.onError("创建用药记录失败");
+                    }
+                }
+                
+            } catch (Exception e) {
+                if (callback != null) {
+                    callback.onError("用药操作失败: " + e.getMessage());
+                }
+            }
+        });
+    }
+    
+    /**
      * Clean up resources
      * Should be called when the repository is no longer needed
      */
@@ -382,6 +453,27 @@ public class MedicationRepository {
      */
     public interface DeleteCallback {
         void onSuccess();
+        void onError(String errorMessage);
+    }
+    
+    /**
+     * 用药扣减操作的回调接口
+     */
+    public interface ConsumeCallback {
+        /**
+         * 用药成功时调用
+         * 
+         * @param newRemainingQuantity 更新后的剩余量
+         * @param isLowStock 是否库存不足
+         * @param isOutOfStock 是否缺货
+         */
+        void onSuccess(int newRemainingQuantity, boolean isLowStock, boolean isOutOfStock);
+        
+        /**
+         * 用药失败时调用
+         * 
+         * @param errorMessage 错误信息
+         */
         void onError(String errorMessage);
     }
 }

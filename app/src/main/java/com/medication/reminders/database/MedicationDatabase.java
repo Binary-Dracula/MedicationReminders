@@ -9,9 +9,13 @@ import androidx.room.TypeConverters;
 
 import com.medication.reminders.database.dao.HealthDiaryDao;
 import com.medication.reminders.database.dao.MedicationDao;
+import com.medication.reminders.database.dao.MedicationIntakeRecordDao;
+import com.medication.reminders.database.dao.MedicationScheduleDao;
 import com.medication.reminders.database.dao.UserDao;
 import com.medication.reminders.database.entity.HealthDiary;
 import com.medication.reminders.database.entity.MedicationInfo;
+import com.medication.reminders.database.entity.MedicationIntakeRecord;
+import com.medication.reminders.database.entity.MedicationSchedule;
 import com.medication.reminders.database.entity.User;
 import com.medication.reminders.utils.Converters;
 
@@ -21,8 +25,8 @@ import com.medication.reminders.utils.Converters;
  * 使用单例模式确保数据库实例唯一
  */
 @Database(
-    entities = {MedicationInfo.class, User.class, HealthDiary.class},
-    version = 4,
+    entities = {MedicationInfo.class, User.class, HealthDiary.class, MedicationSchedule.class, MedicationIntakeRecord.class},
+    version = 8,
     exportSchema = false
 )
 @TypeConverters({Converters.class})
@@ -48,6 +52,16 @@ public abstract class MedicationDatabase extends RoomDatabase {
      * @return HealthDiaryDao实例
      */
     public abstract HealthDiaryDao healthDiaryDao();
+
+    /**
+     * 获取MedicationScheduleDao
+     */
+    public abstract MedicationScheduleDao medicationScheduleDao();
+
+    /**
+     * 获取MedicationIntakeRecordDao
+     */
+    public abstract MedicationIntakeRecordDao medicationIntakeRecordDao();
     
     // Singleton instance
     private static volatile MedicationDatabase INSTANCE;
@@ -97,7 +111,7 @@ public abstract class MedicationDatabase extends RoomDatabase {
      * @return 当前数据库版本
      */
     public static int getDatabaseVersion() {
-        return 4;
+        return 8;
     }
     
     /**

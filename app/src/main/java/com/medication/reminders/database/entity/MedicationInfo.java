@@ -42,6 +42,12 @@ public class MedicationInfo {
     @ColumnInfo(name = "unit")
     private String unit; // 单位：片、粒、毫升等
     
+    @ColumnInfo(name = "dosage_per_intake")
+    private int dosagePerIntake = 1; // 每次用量，默认为1
+    
+    @ColumnInfo(name = "low_stock_threshold")
+    private int lowStockThreshold = 5; // 库存提醒阈值，默认为5
+    
     // Default constructor
     public MedicationInfo() {
     }
@@ -50,7 +56,7 @@ public class MedicationInfo {
     @Ignore
     public MedicationInfo(String name, String color, String dosageForm, String photoPath, 
                          long createdAt, long updatedAt, int remainingQuantity, 
-                         int totalQuantity, String unit) {
+                         int totalQuantity, String unit, int dosagePerIntake, int lowStockThreshold) {
         this.name = name;
         this.color = color;
         this.dosageForm = dosageForm;
@@ -60,6 +66,8 @@ public class MedicationInfo {
         this.remainingQuantity = remainingQuantity;
         this.totalQuantity = totalQuantity;
         this.unit = unit;
+        this.dosagePerIntake = dosagePerIntake;
+        this.lowStockThreshold = lowStockThreshold;
     }
     
     // Constructor with required fields only
@@ -73,6 +81,8 @@ public class MedicationInfo {
         this.remainingQuantity = 0;
         this.totalQuantity = 0;
         this.unit = "片";
+        this.dosagePerIntake = 1;
+        this.lowStockThreshold = 5;
     }
     
     // Getters and Setters
@@ -156,6 +166,22 @@ public class MedicationInfo {
         this.unit = unit;
     }
     
+    public int getDosagePerIntake() {
+        return dosagePerIntake;
+    }
+    
+    public void setDosagePerIntake(int dosagePerIntake) {
+        this.dosagePerIntake = dosagePerIntake;
+    }
+    
+    public int getLowStockThreshold() {
+        return lowStockThreshold;
+    }
+    
+    public void setLowStockThreshold(int lowStockThreshold) {
+        this.lowStockThreshold = lowStockThreshold;
+    }
+    
     /**
      * 获取剩余量百分比
      * @return 剩余量百分比 (0-100)
@@ -185,6 +211,22 @@ public class MedicationInfo {
         this.updatedAt = System.currentTimeMillis();
     }
     
+    /**
+     * 检查是否库存不足
+     * @return 如果剩余量小于等于提醒阈值且大于0则返回true
+     */
+    public boolean isLowStock() {
+        return remainingQuantity <= lowStockThreshold && remainingQuantity > 0;
+    }
+    
+    /**
+     * 检查是否缺货
+     * @return 如果剩余量为0则返回true
+     */
+    public boolean isOutOfStock() {
+        return remainingQuantity == 0;
+    }
+    
     @Override
     public String toString() {
         return "MedicationInfo{" +
@@ -196,6 +238,8 @@ public class MedicationInfo {
                 ", remainingQuantity=" + remainingQuantity +
                 ", totalQuantity=" + totalQuantity +
                 ", unit='" + unit + '\'' +
+                ", dosagePerIntake=" + dosagePerIntake +
+                ", lowStockThreshold=" + lowStockThreshold +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

@@ -48,6 +48,16 @@ public interface MedicationDao {
     MedicationInfo getMedicationByName(String name);
     
     /**
+     * Get a specific medication by its ID (synchronous)
+     * This is a synchronous method for use in background operations
+     * 
+     * @param id The medication ID
+     * @return The medication if found, null otherwise
+     */
+    @Query("SELECT * FROM medications WHERE id = :id")
+    MedicationInfo getMedicationByIdSync(long id);
+    
+    /**
      * Insert a new medication into the database
      * 
      * @param medication The medication to insert

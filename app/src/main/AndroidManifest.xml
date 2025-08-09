@@ -5,6 +5,11 @@
     <!-- Permissions for photo functionality -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 精准闹钟（Android 12+） -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- Android 13+ 通知权限（建议一并申请提升可达性） -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="33" />
     
     <!-- Camera feature (optional) -->
     <uses-feature
@@ -88,6 +93,24 @@
             android:parentActivityName=".view.HealthDiaryListActivity"
             android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
 
+        <activity
+            android:name=".view.ScheduleEditActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MedicationListActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
+        <activity
+            android:name=".view.MedicationIntakeRecordListActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MainActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
+        <activity
+            android:name=".view.MedicationIntakeRecordDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".view.MedicationIntakeRecordListActivity"
+            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+
         <!-- FileProvider for camera photo capture -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -98,6 +121,16 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <receiver
+            android:name=".view.ReminderReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.medication.reminders.ACTION_REMIND" />
+                <action android:name="com.medication.reminders.ACTION_SNOOZE" />
+                <action android:name="com.medication.reminders.ACTION_TAKEN" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

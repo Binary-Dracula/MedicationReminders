@@ -1,6 +1,9 @@
 package com.medication.reminders.view;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -12,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.medication.reminders.R;
 import com.medication.reminders.repository.UserRepository;
+import com.medication.reminders.utils.ExactAlarmPermissionHelper;
 
 
 /**
@@ -25,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAddMedication;
     private Button btnViewMedicationList;
     private Button btnHealthDiary;
+    private Button btnIntakeRecord;
     private Button btnProfile;
+        private static final int REQ_POST_NOTIFICATIONS = 1001;
     
     private UserRepository userRepository;
     private String currentUsername;
@@ -53,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
         
-        // 检查个人资料完成状态
-        checkProfileCompletionStatus();
+        // 进入主界面即直接申请所需权限
+        requestPermissionsIfNeeded();
     }
     
     /**
@@ -66,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddMedication = findViewById(R.id.btnAddMedication);
         btnViewMedicationList = findViewById(R.id.btnViewMedicationList);
         btnHealthDiary = findViewById(R.id.btnHealthDiary);
+        btnIntakeRecord = findViewById(R.id.btnIntakeRecord);
         btnProfile = findViewById(R.id.btnProfile);
     }
     
@@ -86,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
         // 健康日记按钮点击监听器
         btnHealthDiary.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HealthDiaryListActivity.class);
+            startActivity(intent);
+        });
+        
+        // 用药记录按钮点击监听器
+        btnIntakeRecord.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MedicationIntakeRecordListActivity.class);
             startActivity(intent);
         });
         
@@ -162,87 +175,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("username", currentUsername);
         startActivity(intent);
     }
-    
-    /**
-     * 检查个人资料完成状态
-     * 如果用户尚未完成个人资料，提示用户完善信息
-     */
-    private void checkProfileCompletionStatus() {
-        if (currentUsername == null || currentUsername.isEmpty()) {
-            return;
-        }
-        
-        // 在后台线程检查个人资料状态
-        new Thread(() -> {
-            try {
-                // 使用getCurrentUser方法获取当前用户信息
-                userRepository.getCurrentUserAsync(new com.medication.reminders.models.RepositoryCallback<com.medication.reminders.database.entity.User>() {
-                    @Override
-                    public void onSuccess(com.medication.reminders.database.entity.User user) {
-                        runOnUiThread(() -> {
-                            if (user == null || !isProfileComplete(user)) {
-                                showProfileCompletionPrompt();
-                            }
-                        });
-                    }
-                    
-                    @Override
-                    public void onError(String error) {
-                        // 如果获取用户信息失败，不显示提示
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-    
-    /**
-     * 检查个人资料是否完整
-     * @param user 用户实体
-     * @return true如果个人资料完整，false否则
-     */
-    private boolean isProfileComplete(com.medication.reminders.database.entity.User user) {
-        if (user == null) {
-            return false;
-        }
-        
-        // 检查必填字段
-        return user.getFullName() != null && !user.getFullName().trim().isEmpty() &&
-               user.getGender() != null && !user.getGender().trim().isEmpty() &&
-               user.getBirthDate() != null && !user.getBirthDate().trim().isEmpty();
-    }
-    
-    /**
-     * 显示个人资料完善提示
-     */
-    private void showProfileCompletionPrompt() {
-        new androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("完善个人资料")
-            .setMessage("为了更好地为您提供个性化服务，建议您完善个人资料信息。现在就去设置吗？")
-            .setPositiveButton("立即设置", (dialog, which) -> {
-                navigateToProfileEdit();
-            })
-            .setNegativeButton("稍后再说", (dialog, which) -> dialog.dismiss())
-            .setCancelable(false)
-            .show();
-    }
-    
-    /**
-     * 导航到个人资料编辑界面
-     */
-    private void navigateToProfileEdit() {
-        if (currentUsername == null || currentUsername.isEmpty()) {
-            android.widget.Toast.makeText(this, "无法获取用户信息", android.widget.Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
-        Intent intent = new Intent(this, ProfileEditActivity.class);
-        intent.putExtra("username", currentUsername);
-        intent.putExtra("is_first_setup", true);
-        startActivity(intent);
-    }
-    
+
     /**
      * 显示退出确认对话框
      */
@@ -312,6 +245,20 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void requestPermissionsIfNeeded() {
+        // 精准闹钟（Android 12+）
+        if (!ExactAlarmPermissionHelper.canScheduleExactAlarms(this)) {
+            android.widget.Toast.makeText(this, getString(R.string.exact_alarm_permission_tip), android.widget.Toast.LENGTH_LONG).show();
+            ExactAlarmPermissionHelper.requestExactAlarmPermission(this);
+        }
+        // 通知权限（Android 13+）
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQ_POST_NOTIFICATIONS);
+            }
+        }
     }
 
 }

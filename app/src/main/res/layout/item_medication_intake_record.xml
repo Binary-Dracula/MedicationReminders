@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginBottom="@dimen/elderly_margin_medium"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/high_contrast_surface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/min_touch_target"
+        android:orientation="vertical"
+        android:padding="@dimen/elderly_margin_medium">
+
+        <!-- 药物名称 -->
+        <TextView
+            android:id="@+id/tvMedicationName"
+            style="@style/ElderlyFriendlyText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/elderly_margin_small"
+            android:text="阿司匹林"
+            android:textSize="@dimen/elderly_text_large"
+            android:textStyle="bold"
+            android:textColor="@color/high_contrast_text_primary"
+            android:contentDescription="药物名称" />
+
+        <!-- 分隔线 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/elderly_margin_small"
+            android:background="@color/high_contrast_text_secondary"
+            android:alpha="0.2" />
+
+        <!-- 底部信息区域 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- 左侧信息区域 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- 服用日期 -->
+                <TextView
+                    android:id="@+id/tvIntakeDate"
+                    style="@style/ElderlyFriendlyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024年01月01日"
+                    android:textColor="@color/high_contrast_text_secondary"
+                    android:textSize="@dimen/elderly_text_medium"
+                    android:drawablePadding="6dp"
+                    app:drawableStartCompat="@drawable/ic_medication_default"
+                    app:drawableTint="@color/high_contrast_text_secondary" />
+
+                <!-- 服用时间和剂量 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- 服用时间 -->
+                    <TextView
+                        android:id="@+id/tvIntakeTime"
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="08:30"
+                        android:textColor="@color/high_contrast_text_secondary"
+                        android:textSize="@dimen/elderly_text_medium"
+                        android:drawablePadding="6dp"
+                        app:drawableStartCompat="@drawable/ic_medication_default"
+                        app:drawableTint="@color/high_contrast_text_secondary" />
+
+                    <!-- 分隔符 -->
+                    <TextView
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text="·"
+                        android:textColor="@color/high_contrast_text_secondary"
+                        android:textSize="@dimen/elderly_text_medium" />
+
+                    <!-- 服用剂量 -->
+                    <TextView
+                        android:id="@+id/tvDosageTaken"
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textColor="@color/high_contrast_text_secondary"
+                        android:textSize="@dimen/elderly_text_medium" />
+
+                    <TextView
+                        style="@style/ElderlyFriendlyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="片"
+                        android:textColor="@color/high_contrast_text_secondary"
+                        android:textSize="@dimen/elderly_text_medium" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 查看详情箭头 -->
+            <ImageView
+                android:layout_width="@dimen/min_touch_target"
+                android:layout_height="@dimen/min_touch_target"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="查看用药记录详情"
+                android:src="@drawable/ic_arrow_forward"
+                android:padding="12dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                app:tint="@color/high_contrast_primary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

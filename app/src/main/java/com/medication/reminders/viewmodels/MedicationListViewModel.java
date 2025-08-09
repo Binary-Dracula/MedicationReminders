@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 
 import com.medication.reminders.database.entity.MedicationInfo;
 import com.medication.reminders.repository.MedicationRepository;
+import com.medication.reminders.database.entity.MedicationSchedule;
+import com.medication.reminders.repository.MedicationScheduleRepository;
 
 import java.util.List;
 
@@ -19,11 +21,13 @@ import java.util.List;
 public class MedicationListViewModel extends AndroidViewModel {
     
     private MedicationRepository repository;
+    private MedicationScheduleRepository scheduleRepository;
     private LiveData<List<MedicationInfo>> allMedications;
     
     public MedicationListViewModel(@NonNull Application application) {
         super(application);
         repository = new MedicationRepository(application);
+        scheduleRepository = new MedicationScheduleRepository(application);
         allMedications = repository.getAllMedications();
     }
     
@@ -32,6 +36,10 @@ public class MedicationListViewModel extends AndroidViewModel {
      */
     public LiveData<List<MedicationInfo>> getAllMedications() {
         return allMedications;
+    }
+
+    public LiveData<List<MedicationSchedule>> getSchedules(long medicationId) {
+        return scheduleRepository.getSchedulesForMedication(medicationId);
     }
     
     /**

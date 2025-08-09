@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/editTimes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="时间列表，逗号分隔，如 08:00,12:00,20:30" />
+
+        <!-- 星期选择 - 分两行显示 -->
+        <LinearLayout
+            android:id="@+id/weekDaysContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+            
+            <!-- 第一行：周一到周四 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+                <CheckBox android:id="@+id/cbMon" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周一"/>
+                <CheckBox android:id="@+id/cbTue" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周二"/>
+                <CheckBox android:id="@+id/cbWed" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周三"/>
+                <CheckBox android:id="@+id/cbThu" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周四"/>
+            </LinearLayout>
+            
+            <!-- 第二行：周五到周日 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="start">
+                <CheckBox android:id="@+id/cbFri" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周五"/>
+                <CheckBox android:id="@+id/cbSat" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周六"/>
+                <CheckBox android:id="@+id/cbSun" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="周日"/>
+                <!-- 空白占位，保持对齐 -->
+                <View android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 每月几号输入 -->
+        <EditText
+            android:id="@+id/editDayOfMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="每月几号（1-31）"
+            android:inputType="number"
+            android:visibility="gone" />
+
+        <!-- 每隔X天输入 -->
+        <EditText
+            android:id="@+id/editIntervalDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="每隔X天（整数）"
+            android:inputType="number"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="保存"/>
+    </LinearLayout>
+
+</ScrollView>
+

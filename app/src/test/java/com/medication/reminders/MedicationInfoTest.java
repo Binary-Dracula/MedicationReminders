@@ -41,7 +41,7 @@ public class MedicationInfoTest {
     @Test
     public void testConstructorWithAllFields() {
         MedicationInfo med = new MedicationInfo(TEST_NAME, TEST_COLOR, TEST_DOSAGE_FORM, 
-                                               TEST_PHOTO_PATH, TEST_TIMESTAMP, TEST_TIMESTAMP);
+                                               TEST_PHOTO_PATH, TEST_TIMESTAMP, TEST_TIMESTAMP, 100, 100, "片", 1, 5);
         
         assertEquals("Name should be set correctly", TEST_NAME, med.getName());
         assertEquals("Color should be set correctly", TEST_COLOR, med.getColor());
@@ -49,6 +49,8 @@ public class MedicationInfoTest {
         assertEquals("Photo path should be set correctly", TEST_PHOTO_PATH, med.getPhotoPath());
         assertEquals("Created at should be set correctly", TEST_TIMESTAMP, med.getCreatedAt());
         assertEquals("Updated at should be set correctly", TEST_TIMESTAMP, med.getUpdatedAt());
+        assertEquals("Dosage per intake should be set correctly", 1, med.getDosagePerIntake());
+        assertEquals("Low stock threshold should be set correctly", 5, med.getLowStockThreshold());
     }
     
     @Test
@@ -137,6 +139,8 @@ public class MedicationInfoTest {
         assertTrue("toString should contain photo path", result.contains("photoPath='" + TEST_PHOTO_PATH + "'"));
         assertTrue("toString should contain created at", result.contains("createdAt=" + TEST_TIMESTAMP));
         assertTrue("toString should contain updated at", result.contains("updatedAt=" + (TEST_TIMESTAMP + 1000)));
+        assertTrue("toString should contain dosagePerIntake", result.contains("dosagePerIntake="));
+        assertTrue("toString should contain lowStockThreshold", result.contains("lowStockThreshold="));
     }
     
     @Test
@@ -152,10 +156,12 @@ public class MedicationInfoTest {
         String result = medication.toString();
         
         assertNotNull("toString should not return null", result);
-        assertTrue("toString should handle null name", result.contains("name=null"));
-        assertTrue("toString should handle null color", result.contains("color=null"));
-        assertTrue("toString should handle null dosage form", result.contains("dosageForm=null"));
-        assertTrue("toString should handle null photo path", result.contains("photoPath=null"));
+        assertTrue("toString should handle null name", result.contains("name='null'"));
+        assertTrue("toString should handle null color", result.contains("color='null'"));
+        assertTrue("toString should handle null dosage form", result.contains("dosageForm='null'"));
+        assertTrue("toString should handle null photo path", result.contains("photoPath='null'"));
+        assertTrue("toString should contain dosagePerIntake", result.contains("dosagePerIntake=1"));
+        assertTrue("toString should contain lowStockThreshold", result.contains("lowStockThreshold=5"));
     }
     
     @Test
@@ -200,5 +206,69 @@ public class MedicationInfoTest {
         
         medication.setId(Long.MAX_VALUE);
         assertEquals("Max ID should be handled", Long.MAX_VALUE, medication.getId());
+    }
+    
+    @Test
+    public void testDosagePerIntakeSettersAndGetters() {
+        medication.setDosagePerIntake(2);
+        assertEquals("Dosage per intake should be set correctly", 2, medication.getDosagePerIntake());
+        
+        medication.setDosagePerIntake(0);
+        assertEquals("Zero dosage per intake should be handled", 0, medication.getDosagePerIntake());
+    }
+    
+    @Test
+    public void testLowStockThresholdSettersAndGetters() {
+        medication.setLowStockThreshold(10);
+        assertEquals("Low stock threshold should be set correctly", 10, medication.getLowStockThreshold());
+        
+        medication.setLowStockThreshold(0);
+        assertEquals("Zero threshold should be handled", 0, medication.getLowStockThreshold());
+    }
+    
+    @Test
+    public void testIsLowStock() {
+        medication.setLowStockThreshold(5);
+        
+        // Test when remaining quantity is above threshold
+        medication.setRemainingQuantity(10);
+        assertFalse("Should not be low stock when above threshold", medication.isLowStock());
+        
+        // Test when remaining quantity equals threshold
+        medication.setRemainingQuantity(5);
+        assertTrue("Should be low stock when equal to threshold", medication.isLowStock());
+        
+        // Test when remaining quantity is below threshold but above 0
+        medication.setRemainingQuantity(3);
+        assertTrue("Should be low stock when below threshold", medication.isLowStock());
+        
+        // Test when remaining quantity is 0
+        medication.setRemainingQuantity(0);
+        assertFalse("Should not be low stock when out of stock", medication.isLowStock());
+    }
+    
+    @Test
+    public void testIsOutOfStock() {
+        // Test when remaining quantity is 0
+        medication.setRemainingQuantity(0);
+        assertTrue("Should be out of stock when remaining quantity is 0", medication.isOutOfStock());
+        
+        // Test when remaining quantity is above 0
+        medication.setRemainingQuantity(1);
+        assertFalse("Should not be out of stock when remaining quantity is above 0", medication.isOutOfStock());
+        
+        medication.setRemainingQuantity(100);
+        assertFalse("Should not be out of stock when remaining quantity is high", medication.isOutOfStock());
+    }
+    
+    @Test
+    public void testConstructorWithRequiredFieldsSetsDefaults() {
+        MedicationInfo med = new MedicationInfo(TEST_NAME, TEST_COLOR, TEST_DOSAGE_FORM);
+        
+        assertEquals("Default dosage per intake should be 1", 1, med.getDosagePerIntake());
+        assertEquals("Default low stock threshold should be 5", 5, med.getLowStockThreshold());
+        assertEquals("Default unit should be 片", "片", med.getUnit());
+        assertEquals("Default remaining quantity should be 0", 0, med.getRemainingQuantity());
+        assertEquals("Default total quantity should be 0", 0, med.getTotalQuantity());
     }
 }
