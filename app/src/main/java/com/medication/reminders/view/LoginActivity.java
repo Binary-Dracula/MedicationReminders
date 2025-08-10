@@ -19,7 +19,6 @@ import com.medication.reminders.utils.ExactAlarmPermissionHelper;
  * LoginActivity 类，用于处理用户登录界面。
  * 继承自 AppCompatActivity，并使用 ViewBinding 进行 UI 管理。
  * 采用 MVVM 模式，配合 UserViewModel 进行业务逻辑处理。
- * 
  * 重构说明：
  * - 移除对 UserRepository 的直接依赖
  * - 使用 UserViewModel 处理登录逻辑
@@ -53,9 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         
         // 在应用启动时检查是否需要自动登录
         checkAutoLogin();
-
-        // 检查并提示精准闹钟/通知权限
-        checkAndPromptExactAlarmPermission();
     }
     
     /**
@@ -68,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         
         // 设置初始可见性状态
-        binding.progressBar.setVisibility(android.view.View.GONE);
         binding.tvMessage.setVisibility(android.view.View.GONE);
         
         // 设置点击监听器
@@ -238,7 +233,6 @@ public class LoginActivity extends AppCompatActivity {
      * 显示加载指示器并禁用登录按钮
      */
     private void showLoading() {
-        binding.progressBar.setVisibility(android.view.View.VISIBLE);
         binding.btnLogin.setEnabled(false);
         binding.btnLogin.setText("登录中...");
     }
@@ -247,7 +241,6 @@ public class LoginActivity extends AppCompatActivity {
      * 隐藏加载指示器并启用登录按钮
      */
     private void hideLoading() {
-        binding.progressBar.setVisibility(android.view.View.GONE);
         binding.btnLogin.setEnabled(true);
         binding.btnLogin.setText("立即登录");
     }
@@ -383,21 +376,6 @@ public class LoginActivity extends AppCompatActivity {
         userViewModel.checkRememberedUser();
     }
 
-    /**
-     * 启动时检查精准闹钟能力与通知权限，并引导用户授权
-     */
-    private void checkAndPromptExactAlarmPermission() {
-        boolean exactOk = ExactAlarmPermissionHelper.canScheduleExactAlarms(this);
-        if (!exactOk) {
-            Toast.makeText(this, "为了确保准时提醒，请授权精准闹钟", Toast.LENGTH_LONG).show();
-            ExactAlarmPermissionHelper.requestExactAlarmPermission(this);
-        }
-        if (ExactAlarmPermissionHelper.needsPostNotificationPermission()) {
-            // Android 13+ 仅提示，实际权限弹窗建议放在首次触发提醒前
-            Toast.makeText(this, "为保证提醒可见，请在系统设置中开启通知权限", Toast.LENGTH_LONG).show();
-        }
-    }
-    
     @Override
     protected void onDestroy() {
         super.onDestroy();

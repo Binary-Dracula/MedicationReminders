@@ -2,14 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- 个人资料菜单项 -->
-    <item
-        android:id="@+id/action_profile"
-        android:title="个人资料"
-        android:icon="@drawable/ic_arrow_forward"
-        app:showAsAction="never"
-        android:contentDescription="查看个人资料" />
-
     <!-- 退出登录菜单项 -->
     <item
         android:id="@+id/action_logout"
