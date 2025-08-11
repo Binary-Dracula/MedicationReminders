@@ -1,679 +1,678 @@
 <resources>
     <string name="app_name">MedicationReminders</string>
     
-    <!-- 药物添加相关字符串 -->
-    <string name="add_medication_title">添加药物</string>
-    <string name="medication_name_hint">请输入药物名称</string>
-    <string name="medication_color_label">药物颜色</string>
-    <string name="medication_dosage_form_label">剂型</string>
-    <string name="medication_photo_label">药物照片（可选）</string>
-    <string name="medication_total_quantity_label">总量</string>
-    <string name="medication_remaining_quantity_label">剩余量</string>
-    <string name="medication_unit_label">单位</string>
-    <string name="medication_dosage_per_intake_label">每次用量</string>
-    <string name="medication_low_stock_threshold_label">库存提醒阈值</string>
-    <string name="medication_stock_info">库存：%1$d/%2$d %3$s（%4$d%%）</string>
-    <string name="stock_status_sufficient">库存充足</string>
-    <string name="stock_status_low">库存不足</string>
-    <string name="stock_status_out">缺货</string>
-    <string name="inventory_warning_title">库存提醒</string>
-    <string name="inventory_out_of_stock_title">药物缺货</string>
-    <string name="inventory_low_stock_title">库存不足提醒</string>
-    <string name="inventory_out_of_stock_message">您的%s已经用完，请及时补充库存以免影响用药计划</string>
-    <string name="inventory_low_stock_message">您的%1$s剩余量为%2$d%3$s，已达到库存提醒阈值（%4$d%5$s），建议及时补充</string>
-    <string name="replenish_stock_now">立即补充</string>
-    <string name="replenish_stock">去补充库存</string>
-    <string name="dosage_per_intake_label">每次用量：</string>
-    <string name="low_stock_threshold_label">库存提醒阈值：</string>
+    <!-- Medication addition related strings -->
+    <string name="add_medication_title">Add Medication</string>
+    <string name="medication_name_hint">Enter medication name</string>
+    <string name="medication_color_label">Color</string>
+    <string name="medication_dosage_form_label">Form</string>
+    <string name="medication_photo_label">Photo (Optional)</string>
+    <string name="medication_total_quantity_label">Total Qty</string>
+    <string name="medication_remaining_quantity_label">Remaining</string>
+    <string name="medication_unit_label">Unit</string>
+    <string name="medication_dosage_per_intake_label">Dosage per dose</string>
+    <string name="medication_low_stock_threshold_label">Low stock threshold</string>
+    <string name="medication_stock_info">Stock: %1$d/%2$d %3$s (%4$d%%)</string>
+    <string name="stock_status_sufficient">In stock</string>
+    <string name="stock_status_low">Low stock</string>
+    <string name="stock_status_out">Out of stock</string>
+    <string name="inventory_warning_title">Stock Alert</string>
+    <string name="inventory_out_of_stock_title">Out of Stock</string>
+    <string name="inventory_low_stock_title">Low Stock Alert</string>
+    <string name="inventory_out_of_stock_message">Your %s is out of stock. Please replenish to avoid affecting your medication schedule</string>
+    <string name="inventory_low_stock_message">Your %1$s has %2$d%3$s remaining, reaching the low stock threshold (%4$d%5$s). Please replenish soon</string>
+    <string name="replenish_stock_now">Replenish Now</string>
+    <string name="replenish_stock">Replenish Stock</string>
+    <string name="dosage_per_intake_label">Dosage per dose:</string>
+    <string name="low_stock_threshold_label">Low stock threshold:</string>
     <string name="medication_stock_display">%1$d/%2$d %3$s</string>
     <string name="medication_stock_with_status">%1$d/%2$d %3$s - %4$s</string>
-    <string name="upload_photo">上传照片</string>
-    <string name="take_photo">拍照</string>
-    <string name="select_from_gallery">从相册选择</string>
-    <string name="save">保存</string>
-    <string name="cancel">取消</string>
-    <string name="confirm">确定</string>
-    <string name="photo_options_title">选择照片</string>
-    <string name="medication_list_title">药物列表</string>
-    <string name="no_medications_message">暂无药物信息</string>
-    <string name="add_medication_button">添加药物</string>
-    <string name="add_medication_description">点击添加新的药物信息</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="select_from_gallery">From Gallery</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="photo_options_title">Select Photo</string>
+    <string name="medication_list_title">Medication List</string>
+    <string name="no_medications_message">No medications</string>
+    <string name="add_medication_button">Add Medication</string>
+    <string name="add_medication_description">Tap to add new medication</string>
     
-    <!-- 颜色选项 -->
-    <string name="color_white">白色</string>
-    <string name="color_yellow">黄色</string>
-    <string name="color_blue">蓝色</string>
-    <string name="color_red">红色</string>
-    <string name="color_green">绿色</string>
-    <string name="color_pink">粉色</string>
-    <string name="color_orange">橙色</string>
-    <string name="color_brown">棕色</string>
-    <string name="color_purple">紫色</string>
-    <string name="color_clear">透明</string>
-    <string name="color_other">其他</string>
-    <string name="select_color">请选择颜色</string>
+    <!-- Color options -->
+    <string name="color_white">White</string>
+    <string name="color_yellow">Yellow</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_purple">Purple</string>
+    <string name="color_clear">Clear</string>
+    <string name="color_other">Other</string>
+    <string name="select_color">Select color</string>
     
-    <!-- 剂型选项 -->
-    <string name="dosage_form_pill">药丸</string>
-    <string name="dosage_form_tablet">片剂</string>
-    <string name="dosage_form_capsule">胶囊</string>
-    <string name="dosage_form_liquid">液体</string>
-    <string name="dosage_form_injection">注射剂</string>
-    <string name="dosage_form_powder">粉剂</string>
-    <string name="dosage_form_cream">乳膏</string>
-    <string name="dosage_form_patch">贴剂</string>
-    <string name="dosage_form_inhaler">吸入剂</string>
-    <string name="dosage_form_other">其他</string>
-    <string name="select_dosage_form">请选择剂型</string>
+    <!-- Dosage form options -->
+    <string name="dosage_form_pill">Pill</string>
+    <string name="dosage_form_tablet">Tablet</string>
+    <string name="dosage_form_capsule">Capsule</string>
+    <string name="dosage_form_liquid">Liquid</string>
+    <string name="dosage_form_injection">Injection</string>
+    <string name="dosage_form_powder">Powder</string>
+    <string name="dosage_form_cream">Cream</string>
+    <string name="dosage_form_patch">Patch</string>
+    <string name="dosage_form_inhaler">Inhaler</string>
+    <string name="dosage_form_other">Other</string>
+    <string name="select_dosage_form">Select form</string>
     
-    <!-- 单位选项 -->
-    <string name="unit_piece">片</string>
-    <string name="unit_pill">粒</string>
-    <string name="unit_ml">毫升</string>
-    <string name="unit_g">克</string>
-    <string name="unit_bag">袋</string>
-    <string name="unit_bottle">瓶</string>
-    <string name="select_unit">请选择单位</string>
+    <!-- Unit options -->
+    <string name="unit_piece">Piece</string>
+    <string name="unit_pill">Pill</string>
+    <string name="unit_ml">ml</string>
+    <string name="unit_g">g</string>
+    <string name="unit_bag">Bag</string>
+    <string name="unit_bottle">Bottle</string>
+    <string name="select_unit">Select unit</string>
     
-    <!-- 验证错误消息 -->
-    <string name="error_medication_null">药物信息不能为空</string>
-    <string name="error_medication_name_required">药物名称是必需的</string>
-    <string name="error_medication_name_too_short">药物名称不能为空</string>
-    <string name="error_medication_name_too_long">药物名称不能超过%d个字符</string>
-    <string name="error_medication_name_invalid_characters">药物名称包含无效字符</string>
-    <string name="error_medication_name_exists">该药物已存在，是否继续添加？</string>
-    <string name="error_color_not_selected">请选择药物颜色</string>
-    <string name="error_color_invalid">选择的颜色无效</string>
-    <string name="error_dosage_form_not_selected">请选择药物剂型</string>
-    <string name="error_dosage_form_invalid">选择的剂型无效</string>
-    <string name="error_total_quantity_invalid">总量必须是非负整数</string>
-    <string name="error_remaining_quantity_invalid">剩余量必须是非负整数，且不能大于总量</string>
-    <string name="error_unit_not_selected">请选择单位</string>
-    <string name="error_dosage_per_intake_invalid">每次用量必须是正整数</string>
-    <string name="error_low_stock_threshold_invalid">库存提醒阈值必须是非负整数</string>
-    <string name="error_photo_save_failed">照片保存失败，请重试</string>
-    <string name="error_database_save_failed">保存失败，请检查存储空间后重试</string>
-    <string name="error_storage_insufficient">存储空间不足，请清理后重试</string>
-    <string name="error_system_error">系统错误，请重启应用后重试</string>
-    <string name="error_photo_load_failed">照片加载失败</string>
-    <string name="error_camera_not_available">相机不可用</string>
-    <string name="error_gallery_not_available">相册不可用</string>
+    <!-- Validation error messages -->
+    <string name="error_medication_null">Medication info cannot be empty</string>
+    <string name="error_medication_name_required">Medication name is required</string>
+    <string name="error_medication_name_too_short">Medication name cannot be empty</string>
+    <string name="error_medication_name_too_long">Medication name cannot exceed %d characters</string>
+    <string name="error_medication_name_invalid_characters">Medication name contains invalid characters</string>
+    <string name="error_medication_name_exists">This medication already exists. Continue adding?</string>
+    <string name="error_color_not_selected">Please select medication color</string>
+    <string name="error_color_invalid">Selected color is invalid</string>
+    <string name="error_dosage_form_not_selected">Please select dosage form</string>
+    <string name="error_dosage_form_invalid">Selected form is invalid</string>
+    <string name="error_total_quantity_invalid">Total quantity must be non-negative integer</string>
+    <string name="error_remaining_quantity_invalid">Remaining quantity must be non-negative and not exceed total</string>
+    <string name="error_unit_not_selected">Please select unit</string>
+    <string name="error_dosage_per_intake_invalid">Dosage per dose must be positive integer</string>
+    <string name="error_low_stock_threshold_invalid">Low stock threshold must be non-negative integer</string>
+    <string name="error_photo_save_failed">Photo save failed, please retry</string>
+    <string name="error_database_save_failed">Save failed, check storage and retry</string>
+    <string name="error_storage_insufficient">Insufficient storage, clear space and retry</string>
+    <string name="error_system_error">System error, restart app and retry</string>
+    <string name="error_photo_load_failed">Photo load failed</string>
+    <string name="error_camera_not_available">Camera unavailable</string>
+    <string name="error_gallery_not_available">Gallery unavailable</string>
     
-    <!-- 权限相关字符串 -->
-    <string name="camera_permission_reason">需要相机权限来拍摄药物照片</string>
-    <string name="camera_permission_settings_message">请在设置中手动授权相机权限</string>
-    <string name="storage_permission_reason">需要存储权限来保存药物照片</string>
-    <string name="storage_permission_settings_message">请在设置中手动授权存储权限</string>
-    <string name="go_to_settings">去设置</string>
-    <string name="permission_denied_message">权限被拒绝，无法使用此功能</string>
-    <string name="permission_permanently_denied_message">权限被永久拒绝，请在设置中手动授权</string>
+    <!-- Permission related strings -->
+    <string name="camera_permission_reason">Camera permission needed to take medication photos</string>
+    <string name="camera_permission_settings_message">Please manually grant camera permission in settings</string>
+    <string name="storage_permission_reason">Storage permission needed to save medication photos</string>
+    <string name="storage_permission_settings_message">Please manually grant storage permission in settings</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="permission_denied_message">Permission denied, cannot use this feature</string>
+    <string name="permission_permanently_denied_message">Permission permanently denied, please grant manually in settings</string>
     
-    <!-- 成功消息 -->
-    <string name="medication_saved_successfully">药物保存成功</string>
-    <string name="photo_saved_successfully">照片保存成功</string>
-    <string name="medication_updated_successfully">药物更新成功</string>
-    <string name="medication_deleted_successfully">药物删除成功</string>
+    <!-- Success messages -->
+    <string name="medication_saved_successfully">Medication saved successfully</string>
+    <string name="photo_saved_successfully">Photo saved successfully</string>
+    <string name="medication_updated_successfully">Medication updated successfully</string>
+    <string name="medication_deleted_successfully">Medication deleted successfully</string>
     
-    <!-- 确认对话框 -->
-    <string name="confirm_cancel_title">确认取消</string>
-    <string name="confirm_cancel_message">您确定要取消添加药物吗？未保存的信息将丢失。</string>
-    <string name="confirm_delete_title">确认删除</string>
-    <string name="confirm_delete_message">您确定要删除这个药物吗？此操作无法撤销。</string>
-    <string name="yes">是</string>
-    <string name="no">否</string>
+    <!-- Confirmation dialogs -->
+    <string name="confirm_cancel_title">Confirm Cancel</string>
+    <string name="confirm_cancel_message">Are you sure you want to cancel? Unsaved info will be lost.</string>
+    <string name="confirm_delete_title">Confirm Delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this medication? This action cannot be undone.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     
-    <!-- 加载状态 -->
-    <string name="loading">加载中…</string>
-    <string name="saving">保存中…</string>
-    <string name="processing_photo">处理照片中…</string>
+    <!-- Loading states -->
+    <string name="loading">Loading…</string>
+    <string name="saving">Saving…</string>
+    <string name="processing_photo">Processing photo…</string>
     
-    <!-- 可访问性描述 -->
-    <string name="medication_photo_description">药物照片</string>
-    <string name="medication_photo_preview">药物照片预览</string>
-    <string name="error_message">错误消息</string>
-    <string name="default_medication_icon_description">默认药物图标</string>
-    <string name="color_spinner_description">选择药物颜色</string>
-    <string name="dosage_form_spinner_description">选择药物剂型</string>
-    <string name="photo_upload_button_description">上传药物照片</string>
-    <string name="save_button_description">保存药物信息</string>
-    <string name="cancel_button_description">取消添加药物</string>
+    <!-- Accessibility descriptions -->
+    <string name="medication_photo_description">Medication photo</string>
+    <string name="medication_photo_preview">Medication photo preview</string>
+    <string name="error_message">Error message</string>
+    <string name="default_medication_icon_description">Default medication icon</string>
+    <string name="color_spinner_description">Select medication color</string>
+    <string name="dosage_form_spinner_description">Select dosage form</string>
+    <string name="photo_upload_button_description">Upload medication photo</string>
+    <string name="save_button_description">Save medication info</string>
+    <string name="cancel_button_description">Cancel adding medication</string>
     
-    <!-- 通用字符串 -->
-    <string name="ok">确定</string>
-    <string name="retry">重试</string>
-    <string name="close">关闭</string>
-    <string name="back">返回</string>
-    <string name="next">下一步</string>
-    <string name="previous">上一步</string>
-    <string name="edit">编辑</string>
-    <string name="delete">删除</string>
-    <string name="view">查看</string>
+    <!-- Common strings -->
+    <string name="ok">OK</string>
+    <string name="retry">Retry</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="view">View</string>
     
-    <!-- 药物详情相关 -->
-    <string name="medication_details_title">药物详情</string>
-    <string name="medication_name_label">药物名称：</string>
-    <string name="medication_color_display_label">颜色：</string>
-    <string name="medication_dosage_form_display_label">剂型：</string>
-    <string name="medication_created_date_label">添加日期：</string>
-    <string name="medication_updated_date_label">更新日期：</string>
-    <string name="no_photo_available">暂无照片</string>
+    <!-- Medication details related -->
+    <string name="medication_details_title">Medication Details</string>
+    <string name="medication_name_label">Name:</string>
+    <string name="medication_color_display_label">Color:</string>
+    <string name="medication_dosage_form_display_label">Form:</string>
+    <string name="medication_created_date_label">Added:</string>
+    <string name="medication_updated_date_label">Updated:</string>
+    <string name="no_photo_available">No photo</string>
     
-    <!-- 个人资料相关 -->
-    <string name="profile_title">个人资料</string>
-    <string name="basic_info_title">基本信息</string>
-    <string name="contact_info_title">联系信息</string>
-    <string name="edit_profile">编辑个人资料</string>
-    <string name="profile_loading">正在加载个人资料…</string>
-    <string name="profile_load_error">个人资料加载失败</string>
-    <string name="profile_not_set">未设置</string>
+    <!-- Profile related -->
+    <string name="profile_title">Profile</string>
+    <string name="basic_info_title">Basic Info</string>
+    <string name="contact_info_title">Contact Info</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_loading">Loading profile…</string>
+    <string name="profile_load_error">Profile load failed</string>
+    <string name="profile_not_set">Not set</string>
     
-    <!-- 个人资料字段标签 -->
-    <string name="full_name_label">姓名：</string>
-    <string name="gender_label">性别：</string>
-    <string name="age_label">年龄：</string>
-    <string name="birth_date_label">出生日期：</string>
-    <string name="username_label">用户名：</string>
-    <string name="email_label">邮箱：</string>
-    <string name="phone_label">电话：</string>
+    <!-- Profile field labels -->
+    <string name="full_name_label">Name:</string>
+    <string name="gender_label">Gender:</string>
+    <string name="age_label">Age:</string>
+    <string name="birth_date_label">Birth Date:</string>
+    <string name="username_label">Username:</string>
+    <string name="email_label">Email:</string>
+    <string name="phone_label">Phone:</string>
     
-    <!-- 性别选项 -->
-    <string name="gender_male">男性</string>
-    <string name="gender_female">女性</string>
-    <string name="gender_prefer_not_to_say">不愿透露</string>
+    <!-- Gender options -->
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_prefer_not_to_say">Prefer not to say</string>
     
-    <!-- 个人资料照片相关 -->
-    <string name="profile_photo_label">个人资料照片</string>
-    <string name="change_profile_photo">更改照片</string>
-    <string name="remove_profile_photo">删除照片</string>
-    <string name="profile_photo_options_title">选择个人资料照片</string>
-    <string name="profile_photo_saved_successfully">个人资料照片保存成功</string>
-    <string name="profile_photo_deleted_successfully">个人资料照片删除成功</string>
-    <string name="error_profile_photo_save_failed">个人资料照片保存失败</string>
-    <string name="error_profile_photo_load_failed">个人资料照片加载失败</string>
-    <string name="error_profile_photo_delete_failed">个人资料照片删除失败</string>
-    <string name="error_profile_photo_too_large">照片文件过大，请选择较小的照片</string>
-    <string name="profile_photo_description">个人资料照片</string>
-    <string name="default_profile_photo_description">默认头像</string>
-    <string name="processing_profile_photo">处理个人资料照片中…</string>
+    <!-- Profile photo related -->
+    <string name="profile_photo_label">Profile Photo</string>
+    <string name="change_profile_photo">Change Photo</string>
+    <string name="remove_profile_photo">Remove Photo</string>
+    <string name="profile_photo_options_title">Select Profile Photo</string>
+    <string name="profile_photo_saved_successfully">Profile photo saved successfully</string>
+    <string name="profile_photo_deleted_successfully">Profile photo deleted successfully</string>
+    <string name="error_profile_photo_save_failed">Profile photo save failed</string>
+    <string name="error_profile_photo_load_failed">Profile photo load failed</string>
+    <string name="error_profile_photo_delete_failed">Profile photo delete failed</string>
+    <string name="error_profile_photo_too_large">Photo file too large, please select smaller photo</string>
+    <string name="profile_photo_description">Profile photo</string>
+    <string name="default_profile_photo_description">Default avatar</string>
+    <string name="processing_profile_photo">Processing profile photo…</string>
     
-    <!-- 个人资料编辑相关 -->
-    <string name="edit_profile_title">编辑个人资料</string>
-    <string name="registration_info_title">注册信息</string>
-    <string name="save_profile">保存个人资料</string>
-    <string name="profile_saved_successfully">个人资料保存成功</string>
-    <string name="error_profile_save_failed">个人资料保存失败，请重试</string>
+    <!-- Profile editing related -->
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="registration_info_title">Registration Info</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="profile_saved_successfully">Profile saved successfully</string>
+    <string name="error_profile_save_failed">Profile save failed, please retry</string>
     
-    <!-- 表单字段提示和帮助文本 -->
-    <string name="full_name_hint">请输入您的完整姓名</string>
-    <string name="full_name_helper">姓名将用于个性化您的用药提醒</string>
-    <string name="gender_hint">请选择您的性别</string>
-    <string name="gender_helper">性别信息有助于提供更准确的健康建议</string>
-    <string name="birth_date_hint">请选择您的出生日期</string>
-    <string name="birth_date_helper">出生日期用于计算年龄和提供年龄相关的健康提醒</string>
-    <string name="username_hint">请输入用户名（3-20个字符）</string>
-    <string name="username_edit_helper">修改用户名将影响您的登录信息</string>
-    <string name="email_hint">请输入邮箱地址</string>
-    <string name="email_edit_helper">邮箱用于接收重要通知和找回密码</string>
-    <string name="phone_hint">请输入手机号（11位数字）</string>
-    <string name="phone_edit_helper">手机号用于接收紧急提醒和验证身份</string>
+    <!-- Form field hints and help text -->
+    <string name="full_name_hint">Enter your full name</string>
+    <string name="full_name_helper">Name will be used to personalize medication reminders</string>
+    <string name="gender_hint">Select your gender</string>
+    <string name="gender_helper">Gender info helps provide more accurate health advice</string>
+    <string name="birth_date_hint">Select your birth date</string>
+    <string name="birth_date_helper">Birth date used to calculate age and provide age-related health reminders</string>
+    <string name="username_hint">Enter username (3-20 characters)</string>
+    <string name="username_edit_helper">Changing username will affect your login info</string>
+    <string name="email_hint">Enter email address</string>
+    <string name="email_edit_helper">Email for important notifications and password recovery</string>
+    <string name="phone_hint">Enter phone number (11 digits)</string>
+    <string name="phone_edit_helper">Phone for emergency alerts and identity verification</string>
     
-    <!-- 个人资料验证错误消息 -->
-    <string name="error_full_name_required">请输入您的完整姓名</string>
-    <string name="error_full_name_too_short">姓名不能为空</string>
-    <string name="error_full_name_too_long">姓名不能超过100个字符</string>
-    <string name="error_full_name_invalid">姓名只能包含字母、汉字、空格、连字符和撇号</string>
-    <string name="error_gender_required">请选择您的性别</string>
-    <string name="error_gender_invalid">选择的性别无效</string>
-    <string name="error_birth_date_required">请选择您的出生日期</string>
-    <string name="error_birth_date_invalid">出生日期格式无效</string>
-    <string name="error_birth_date_future">出生日期不能是未来的日期</string>
-    <string name="error_birth_date_too_young">年龄必须至少13岁</string>
-    <string name="error_username_required">请输入用户名</string>
-    <string name="error_username_too_short">用户名至少需要3个字符</string>
-    <string name="error_username_too_long">用户名不能超过20个字符</string>
-    <string name="error_username_invalid">用户名只能包含字母、数字和下划线</string>
-    <string name="error_username_exists">该用户名已被使用，请选择其他用户名</string>
-    <string name="error_email_required">请输入邮箱地址</string>
-    <string name="error_email_invalid">邮箱地址格式不正确</string>
-    <string name="error_email_exists">该邮箱已被使用，请使用其他邮箱</string>
-    <string name="error_phone_required">请输入手机号码</string>
-    <string name="error_phone_invalid">手机号码格式不正确</string>
-    <string name="error_phone_exists">该手机号已被使用，请使用其他手机号</string>
+    <!-- Profile validation error messages -->
+    <string name="error_full_name_required">Please enter your full name</string>
+    <string name="error_full_name_too_short">Name cannot be empty</string>
+    <string name="error_full_name_too_long">Name cannot exceed 100 characters</string>
+    <string name="error_full_name_invalid">Name can only contain letters, Chinese characters, spaces, hyphens and apostrophes</string>
+    <string name="error_gender_required">Please select your gender</string>
+    <string name="error_gender_invalid">Selected gender is invalid</string>
+    <string name="error_birth_date_required">Please select your birth date</string>
+    <string name="error_birth_date_invalid">Birth date format is invalid</string>
+    <string name="error_birth_date_future">Birth date cannot be in the future</string>
+    <string name="error_birth_date_too_young">Age must be at least 13</string>
+    <string name="error_username_required">Please enter username</string>
+    <string name="error_username_too_short">Username needs at least 3 characters</string>
+    <string name="error_username_too_long">Username cannot exceed 20 characters</string>
+    <string name="error_username_invalid">Username can only contain letters, numbers and underscores</string>
+    <string name="error_username_exists">Username already exists, please choose another</string>
+    <string name="error_email_required">Please enter email address</string>
+    <string name="error_email_invalid">Email address format is incorrect</string>
+    <string name="error_email_exists">Email already exists, please use another</string>
+    <string name="error_phone_required">Please enter phone number</string>
+    <string name="error_phone_invalid">Phone number format is incorrect</string>
+    <string name="error_phone_exists">Phone number already exists, please use another</string>
     
-    <!-- 确认对话框 -->
-    <string name="confirm_discard_changes_title">确认取消</string>
-    <string name="confirm_discard_changes_message">您确定要取消编辑吗？未保存的修改将丢失。</string>
-    <string name="confirm_remove_photo_title">确认删除照片</string>
-    <string name="confirm_remove_photo_message">您确定要删除个人资料照片吗？</string>
+    <!-- Confirmation dialogs -->
+    <string name="confirm_discard_changes_title">Confirm Cancel</string>
+    <string name="confirm_discard_changes_message">Are you sure you want to cancel? Unsaved changes will be lost.</string>
+    <string name="confirm_remove_photo_title">Confirm Remove Photo</string>
+    <string name="confirm_remove_photo_message">Are you sure you want to remove profile photo?</string>
     
-    <!-- 日期选择相关 -->
-    <string name="select_birth_date">选择出生日期</string>
-    <string name="birth_date_format">yyyy年MM月dd日</string>
+    <!-- Date selection related -->
+    <string name="select_birth_date">Select Birth Date</string>
+    <string name="birth_date_format">yyyy-MM-dd</string>
     
-    <!-- 性别选项数组 -->
+    <!-- Gender options array -->
     <string-array name="gender_options">
         <item>@string/gender_male</item>
         <item>@string/gender_female</item>
         <item>@string/gender_prefer_not_to_say</item>
     </string-array>
     
-    <!-- 个人资料验证器相关字符串 -->
-    <string name="error_profile_validation_failed">个人资料验证失败</string>
-    <string name="error_create_profile_failed">创建个人资料数据失败</string>
-    <string name="error_form_validation_failed">请修正表单中的错误后再保存</string>
+    <!-- Profile validator related strings -->
+    <string name="error_profile_validation_failed">Profile validation failed</string>
+    <string name="error_create_profile_failed">Failed to create profile data</string>
+    <string name="error_form_validation_failed">Please fix form errors before saving</string>
     
-    <!-- 年龄显示相关 -->
-    <string name="age_suffix">岁</string>
-    <string name="age_calculation_error">年龄计算错误</string>
+    <!-- Age display related -->
+    <string name="age_suffix">y/o</string>
+    <string name="age_calculation_error">Age calculation error</string>
     
-    <!-- 照片处理相关 -->
-    <string name="processing_photo_message">处理照片中...</string>
-    <string name="camera_unavailable">相机不可用</string>
-    <string name="gallery_unavailable">相册不可用</string>
-    <string name="open_camera_failed">打开相机失败</string>
-    <string name="open_gallery_failed">打开相册失败</string>
-    <string name="photo_temp_save_failed">照片临时保存失败</string>
+    <!-- Photo processing related -->
+    <string name="processing_photo_message">Processing photo...</string>
+    <string name="camera_unavailable">Camera unavailable</string>
+    <string name="gallery_unavailable">Gallery unavailable</string>
+    <string name="open_camera_failed">Failed to open camera</string>
+    <string name="open_gallery_failed">Failed to open gallery</string>
+    <string name="photo_temp_save_failed">Failed to save photo temporarily</string>
     
-    <!-- 权限相关消息 -->
-    <string name="camera_permission_required">需要相机权限才能拍摄个人资料照片</string>
-    <string name="storage_permission_required">需要存储权限才能选择个人资料照片</string>
+    <!-- Permission related messages -->
+    <string name="camera_permission_required">Camera permission needed to take profile photo</string>
+    <string name="storage_permission_required">Storage permission needed to select profile photo</string>
     
-    <string name="initialization_failed">初始化失败，请重启应用</string>
-    <string name="profile_not_found">未找到用户个人资料</string>
+    <string name="initialization_failed">Initialization failed, please restart app</string>
+    <string name="profile_not_found">User profile not found</string>
     
     <string name="phone_mask_prefix">****</string>
     
-    <string name="profile_edit_page_title_description">编辑个人资料页面标题</string>
-    <string name="profile_photo_area_title_description">个人资料照片区域标题</string>
-    <string name="basic_info_area_title_description">基本信息编辑区域标题</string>
-    <string name="registration_info_area_title_description">注册信息编辑区域标题</string>
-    <string name="change_photo_button_description">点击更改个人资料照片</string>
-    <string name="remove_photo_button_description">点击删除个人资料照片</string>
-    <string name="full_name_input_description">完整姓名输入框</string>
-    <string name="gender_selection_description">性别选择下拉框</string>
-    <string name="birth_date_selection_description">出生日期选择框</string>
-    <string name="username_input_description">用户名输入框</string>
-    <string name="email_input_description">邮箱地址输入框</string>
-    <string name="phone_input_description">电话号码输入框</string>
-    <string name="save_profile_button_description">点击保存个人资料修改</string>
-    <string name="cancel_edit_button_description">取消编辑并返回</string>
-    <string name="loading_profile_description">正在保存个人资料信息</string>
-    <string name="profile_message_description">个人资料编辑状态提示信息</string>
-    <string name="user_profile_photo_description">用户个人资料照片</string>
+    <string name="profile_edit_page_title_description">Edit profile page title</string>
+    <string name="profile_photo_area_title_description">Profile photo area title</string>
+    <string name="basic_info_area_title_description">Basic info edit area title</string>
+    <string name="registration_info_area_title_description">Registration info edit area title</string>
+    <string name="change_photo_button_description">Tap to change profile photo</string>
+    <string name="remove_photo_button_description">Tap to remove profile photo</string>
+    <string name="full_name_input_description">Full name input field</string>
+    <string name="gender_selection_description">Gender selection dropdown</string>
+    <string name="birth_date_selection_description">Birth date picker</string>
+    <string name="username_input_description">Username input field</string>
+    <string name="email_input_description">Email address input field</string>
+    <string name="phone_input_description">Phone number input field</string>
+    <string name="save_profile_button_description">Tap to save profile changes</string>
+    <string name="cancel_edit_button_description">Cancel edit and return</string>
+    <string name="loading_profile_description">Saving profile info</string>
+    <string name="profile_message_description">Profile edit status message</string>
+    <string name="user_profile_photo_description">User profile photo</string>
     
-    <string name="confirm_delete_photo_title">确认删除</string>
-    <string name="confirm_delete_photo_message">您确定要删除个人资料照片吗？</string>
+    <string name="confirm_delete_photo_title">Confirm Delete</string>
+    <string name="confirm_delete_photo_message">Are you sure you want to delete profile photo?</string>
     
-    <string name="registration_info_updated_successfully">注册信息更新成功</string>
+    <string name="registration_info_updated_successfully">Registration info updated successfully</string>
     
-    <string name="validator_name_empty">姓名不能为空</string>
-    <string name="validator_name_too_long">姓名长度不能超过%d个字符</string>
-    <string name="validator_name_invalid_format">姓名只能包含中文、英文字母、空格、连字符和撇号</string>
-    <string name="validator_gender_empty">请选择性别</string>
-    <string name="validator_gender_invalid">请选择有效的性别选项</string>
-    <string name="validator_birth_date_empty">出生日期不能为空</string>
-    <string name="validator_birth_date_invalid_format">出生日期格式不正确，请使用YYYY-MM-DD格式</string>
-    <string name="validator_birth_date_future">出生日期不能是未来日期</string>
-    <string name="validator_birth_date_too_young">用户年龄必须至少%d岁</string>
-    <string name="validator_birth_date_too_old">用户年龄不能超过%d岁</string>
-    <string name="validator_username_empty">用户名不能为空</string>
-    <string name="validator_username_invalid_length">用户名长度必须在%1$d-%2$d个字符之间</string>
-    <string name="validator_username_invalid_format">用户名只能包含字母、数字和下划线</string>
-    <string name="validator_email_empty">邮箱地址不能为空</string>
-    <string name="validator_email_invalid_format">邮箱地址格式不正确</string>
-    <string name="validator_phone_empty">电话号码不能为空</string>
-    <string name="validator_phone_invalid_format">电话号码格式不正确，请输入有效的中国手机号码</string>
-    <string name="validator_photo_path_invalid">照片路径格式不正确</string>
-    <string name="validator_photo_format_unsupported">照片文件格式不支持，请使用JPG、PNG或GIF格式</string>
-    <string name="validator_profile_empty">个人资料不能为空</string>
+    <string name="validator_name_empty">Name cannot be empty</string>
+    <string name="validator_name_too_long">Name length cannot exceed %d characters</string>
+    <string name="validator_name_invalid_format">Name can only contain Chinese, English letters, spaces, hyphens and apostrophes</string>
+    <string name="validator_gender_empty">Please select gender</string>
+    <string name="validator_gender_invalid">Please select valid gender option</string>
+    <string name="validator_birth_date_empty">Birth date cannot be empty</string>
+    <string name="validator_birth_date_invalid_format">Birth date format incorrect, please use YYYY-MM-DD format</string>
+    <string name="validator_birth_date_future">Birth date cannot be in the future</string>
+    <string name="validator_birth_date_too_young">User age must be at least %d years</string>
+    <string name="validator_birth_date_too_old">User age cannot exceed %d years</string>
+    <string name="validator_username_empty">Username cannot be empty</string>
+    <string name="validator_username_invalid_length">Username length must be between %1$d-%2$d characters</string>
+    <string name="validator_username_invalid_format">Username can only contain letters, numbers and underscores</string>
+    <string name="validator_email_empty">Email address cannot be empty</string>
+    <string name="validator_email_invalid_format">Email address format is incorrect</string>
+    <string name="validator_phone_empty">Phone number cannot be empty</string>
+    <string name="validator_phone_invalid_format">Phone number format incorrect, please enter valid Chinese mobile number</string>
+    <string name="validator_photo_path_invalid">Photo path format incorrect</string>
+    <string name="validator_photo_format_unsupported">Photo file format not supported, please use JPG, PNG or GIF format</string>
+    <string name="validator_profile_empty">Profile cannot be empty</string>
     
-    <string name="field_name_full_name">姓名</string>
-    <string name="field_name_gender">性别</string>
-    <string name="field_name_birth_date">出生日期</string>
-    <string name="field_name_username">用户名</string>
-    <string name="field_name_email">邮箱</string>
-    <string name="field_name_phone">电话号码</string>
-    <string name="field_name_profile_photo">个人资料照片</string>
-    <string name="field_name_profile">个人资料</string>
+    <string name="field_name_full_name">Name</string>
+    <string name="field_name_gender">Gender</string>
+    <string name="field_name_birth_date">Birth Date</string>
+    <string name="field_name_username">Username</string>
+    <string name="field_name_email">Email</string>
+    <string name="field_name_phone">Phone</string>
+    <string name="field_name_profile_photo">Profile Photo</string>
+    <string name="field_name_profile">Profile</string>
     
-    <!-- 主界面相关字符串 -->
-    <string name="profile_button">个人资料</string>
-    <string name="profile_button_description">查看和编辑个人资料</string>
-    <string name="profile_menu_title">个人资料</string>
-    <string name="logout_menu_title">退出登录</string>
-    <string name="profile_completion_title">完善个人资料</string>
-    <string name="profile_completion_message">为了更好地为您提供个性化服务，建议您完善个人资料信息。现在就去设置吗？</string>
-    <string name="setup_now">立即设置</string>
-    <string name="setup_later">稍后再说</string>
-    <string name="logout_confirmation_title">退出登录</string>
-    <string name="logout_confirmation_message">您确定要退出当前账户吗？</string>
-    <string name="clear_login_info_title">清除登录信息</string>
-    <string name="clear_login_info_message">是否同时清除保存的登录信息？</string>
-    <string name="clear">清除</string>
-    <string name="keep">保留</string>
-    <string name="exit_app_title">退出应用</string>
-    <string name="exit_app_message">您确定要退出药物提醒助手吗？</string>
-    <string name="user_info_error">无法获取用户信息</string>
+    <!-- Main interface related strings -->
+    <string name="profile_button">Profile</string>
+    <string name="profile_button_description">View and edit profile</string>
+    <string name="profile_menu_title">Profile</string>
+    <string name="logout_menu_title">Logout</string>
+    <string name="profile_completion_title">Complete Profile</string>
+    <string name="profile_completion_message">To provide better personalized service, we recommend completing your profile. Set up now?</string>
+    <string name="setup_now">Set Up Now</string>
+    <string name="setup_later">Later</string>
+    <string name="logout_confirmation_title">Logout</string>
+    <string name="logout_confirmation_message">Are you sure you want to logout from current account?</string>
+    <string name="clear_login_info_title">Clear Login Info</string>
+    <string name="clear_login_info_message">Also clear saved login information?</string>
+    <string name="clear">Clear</string>
+    <string name="keep">Keep</string>
+    <string name="exit_app_title">Exit App</string>
+    <string name="exit_app_message">Are you sure you want to exit Medication Reminder Assistant?</string>
+    <string name="user_info_error">Unable to get user info</string>
     
-    <!-- 用药记录相关字符串 -->
-    <string name="intake_record_title">用药记录</string>
-    <string name="intake_record_button">用药记录</string>
-    <string name="intake_record_button_description">查看用药记录列表</string>
-    <string name="no_intake_records_message">暂无用药记录，开始添加药物提醒吧</string>
+    <!-- Medication intake record related strings -->
+    <string name="intake_record_title">Intake Records</string>
+    <string name="intake_record_button">Intake Records</string>
+    <string name="intake_record_button_description">View medication intake records</string>
+    <string name="no_intake_records_message">No intake records, start adding medication reminders</string>
     
-    <!-- 用药记录详情相关字符串 -->
-    <string name="intake_record_detail_title">用药记录详情</string>
-    <string name="intake_time_label">服用时间</string>
-    <string name="dosage_taken_label">服用剂量</string>
-    <string name="record_info_label">记录信息</string>
-    <string name="intake_record_readonly_notice">此记录为历史数据，仅供查看，无法修改</string>
-    <string name="record_id_format">记录编号：#%d</string>
-    <string name="back_button">返回</string>
-    <string name="retry_button">重试</string>
-    <string name="dosage_unit_format">%d 片</string>
-    <string name="intake_record_not_found">未找到该用药记录</string>
+    <!-- Medication intake record detail related strings -->
+    <string name="intake_record_detail_title">Intake Record Details</string>
+    <string name="intake_time_label">Intake Time</string>
+    <string name="dosage_taken_label">Dosage Taken</string>
+    <string name="record_info_label">Record Info</string>
+    <string name="intake_record_readonly_notice">This is historical data, view only, cannot modify</string>
+    <string name="record_id_format">Record ID: #%d</string>
+    <string name="back_button">Back</string>
+    <string name="retry_button">Retry</string>
+    <string name="dosage_unit_format">%d pieces</string>
+    <string name="intake_record_not_found">Intake record not found</string>
 
-    <!-- 健康日记相关字符串 -->
-    <string name="health_diary_title">健康日记</string>
-    <string name="health_diary_list_title">我的健康日记</string>
-    <string name="add_diary_button">添加日记</string>
-    <string name="add_diary_description">点击添加新的健康日记</string>
-    <string name="no_diary_message">暂无健康日记</string>
-    <string name="no_diary_description">点击下方按钮记录您的第一条健康日记</string>
-    <string name="diary_content_preview">内容预览</string>
-    <string name="diary_created_at">记录于 %s</string>
-    <string name="diary_updated_at">更新于 %s</string>
-    <string name="view_diary_details">查看日记详情</string>
-    <string name="diary_loading">正在加载日记...</string>
-    <string name="diary_load_error">日记加载失败，请重试</string>
-    <string name="diary_empty_content">暂无内容</string>
+    <!-- Health diary related strings -->
+    <string name="health_diary_title">Health Diary</string>
+    <string name="health_diary_list_title">My Health Diary</string>
+    <string name="add_diary_button">Add Diary</string>
+    <string name="add_diary_description">Tap to add new health diary</string>
+    <string name="no_diary_message">No health diary</string>
+    <string name="no_diary_description">Tap button below to record your first health diary</string>
+    <string name="diary_content_preview">Content Preview</string>
+    <string name="diary_created_at">Recorded at %s</string>
+    <string name="diary_updated_at">Updated at %s</string>
+    <string name="view_diary_details">View Diary Details</string>
+    <string name="diary_loading">Loading diary...</string>
+    <string name="diary_load_error">Diary load failed, please retry</string>
+    <string name="diary_empty_content">No content</string>
     
-    <!-- 健康日记详情相关字符串 -->
-    <string name="health_diary_detail_title">日记详情</string>
-    <string name="diary_content_label">日记内容</string>
-    <string name="diary_created_time_label">创建时间：</string>
-    <string name="diary_updated_time_label">修改时间：</string>
-    <string name="edit_diary">编辑日记</string>
-    <string name="delete_diary">删除日记</string>
-    <string name="edit_diary_description">编辑当前日记内容</string>
-    <string name="delete_diary_description">删除当前日记</string>
-    <string name="confirm_delete_diary_title">确认删除</string>
-    <string name="confirm_delete_diary_message">您确定要删除这条健康日记吗？删除后无法恢复。</string>
-    <string name="diary_delete_failed">日记删除失败，请重试</string>
-    <string name="diary_detail_loading">正在加载日记详情...</string>
-    <string name="diary_detail_load_error">日记详情加载失败</string>
-    <string name="diary_not_found">未找到该日记</string>
-    <string name="back_to_list">返回列表</string>
-    <string name="back_to_list_description">返回健康日记列表</string>
+    <!-- Health diary detail related strings -->
+    <string name="health_diary_detail_title">Diary Details</string>
+    <string name="diary_content_label">Diary Content</string>
+    <string name="diary_created_time_label">Created:</string>
+    <string name="diary_updated_time_label">Modified:</string>
+    <string name="edit_diary">Edit Diary</string>
+    <string name="delete_diary">Delete Diary</string>
+    <string name="edit_diary_description">Edit current diary content</string>
+    <string name="delete_diary_description">Delete current diary</string>
+    <string name="confirm_delete_diary_title">Confirm Delete</string>
+    <string name="confirm_delete_diary_message">Are you sure you want to delete this health diary? Cannot be recovered after deletion.</string>
+    <string name="diary_delete_failed">Diary deletion failed, please retry</string>
+    <string name="diary_detail_loading">Loading diary details...</string>
+    <string name="diary_detail_load_error">Diary details load failed</string>
+    <string name="diary_not_found">Diary not found</string>
+    <string name="back_to_list">Back to List</string>
+    <string name="back_to_list_description">Return to health diary list</string>
     
-    <!-- 健康日记编辑相关字符串 -->
-    <string name="add_health_diary_title">添加健康日记</string>
-    <string name="edit_health_diary_title">编辑健康日记</string>
-    <string name="diary_content_hint">请输入您的健康状况、症状或感受...</string>
-    <string name="diary_content_description">健康日记内容输入框</string>
-    <string name="save_diary">保存日记</string>
-    <string name="save_diary_description">保存健康日记内容</string>
-    <string name="cancel_edit">取消</string>
-    <string name="cancel_edit_description">取消编辑并返回</string>
-    <string name="diary_save_success">日记保存成功</string>
-    <string name="diary_save_failed">日记保存失败，请重试</string>
-    <string name="diary_update_success">日记更新成功</string>
-    <string name="diary_update_failed">日记更新失败，请重试</string>
-    <string name="diary_content_empty">请输入日记内容</string>
-    <string name="diary_content_too_long">日记内容不能超过5000字</string>
-    <string name="diary_saving">正在保存日记...</string>
-    <string name="diary_updating">正在更新日记...</string>
+    <!-- Health diary editing related strings -->
+    <string name="add_health_diary_title">Add Health Diary</string>
+    <string name="edit_health_diary_title">Edit Health Diary</string>
+    <string name="diary_content_hint">Enter your health condition, symptoms or feelings...</string>
+    <string name="diary_content_description">Health diary content input field</string>
+    <string name="save_diary">Save Diary</string>
+    <string name="save_diary_description">Save health diary content</string>
+    <string name="cancel_edit">Cancel</string>
+    <string name="cancel_edit_description">Cancel edit and return</string>
+    <string name="diary_save_success">Diary saved successfully</string>
+    <string name="diary_save_failed">Diary save failed, please retry</string>
+    <string name="diary_update_success">Diary updated successfully</string>
+    <string name="diary_update_failed">Diary update failed, please retry</string>
+    <string name="diary_content_empty">Please enter diary content</string>
+    <string name="diary_content_too_long">Diary content cannot exceed 5000 characters</string>
+    <string name="diary_saving">Saving diary...</string>
+    <string name="diary_updating">Updating diary...</string>
     
-    <!-- 健康日记错误处理相关字符串 -->
-    <string name="error_diary_database_failed">数据库操作失败，请重试</string>
-    <string name="error_diary_network_failed">网络连接异常，请检查网络设置</string>
-    <string name="error_diary_permission_denied">权限不足，无法执行此操作</string>
-    <string name="error_diary_storage_full">存储空间不足，请清理后重试</string>
-    <string name="error_diary_system_error">系统错误，请重启应用后重试</string>
-    <string name="error_diary_user_not_logged_in">用户未登录，请重新登录</string>
-    <string name="error_diary_invalid_data">数据格式错误，请检查输入</string>
-    <string name="error_diary_operation_timeout">操作超时，请重试</string>
-    <string name="error_diary_concurrent_modification">数据已被其他操作修改，请刷新后重试</string>
-    <string name="error_diary_unknown">未知错误，请联系技术支持</string>
+    <!-- Health diary error handling related strings -->
+    <string name="error_diary_database_failed">Database operation failed, please retry</string>
+    <string name="error_diary_network_failed">Network connection error, please check network settings</string>
+    <string name="error_diary_permission_denied">Insufficient permissions, cannot perform this operation</string>
+    <string name="error_diary_storage_full">Insufficient storage, please clear space and retry</string>
+    <string name="error_diary_system_error">System error, please restart app and retry</string>
+    <string name="error_diary_user_not_logged_in">User not logged in, please login again</string>
+    <string name="error_diary_invalid_data">Data format error, please check input</string>
+    <string name="error_diary_operation_timeout">Operation timeout, please retry</string>
+    <string name="error_diary_concurrent_modification">Data modified by other operation, please refresh and retry</string>
+    <string name="error_diary_unknown">Unknown error, please contact support</string>
     
-    <!-- 加载状态相关字符串 -->
-    <string name="loading_diary_list">正在加载日记列表...</string>
-    <string name="loading_diary_detail">正在加载日记详情...</string>
-    <string name="loading_save_diary">正在保存日记...</string>
-    <string name="loading_update_diary">正在更新日记...</string>
-    <string name="loading_delete_diary">正在删除日记...</string>
-    <string name="loading_please_wait">请稍候...</string>
+    <!-- Loading state related strings -->
+    <string name="loading_diary_list">Loading diary list...</string>
+    <string name="loading_diary_detail">Loading diary details...</string>
+    <string name="loading_save_diary">Saving diary...</string>
+    <string name="loading_update_diary">Updating diary...</string>
+    <string name="loading_delete_diary">Deleting diary...</string>
+    <string name="loading_please_wait">Please wait...</string>
     
-    <!-- 重试和刷新相关字符串 -->
-    <string name="retry_load_diary">重新加载</string>
-    <string name="retry_save_diary">重新保存</string>
-    <string name="retry_operation">重试</string>
-    <string name="refresh_diary_list">刷新列表</string>
-    <string name="refresh_diary_detail">刷新详情</string>
+    <!-- Retry and refresh related strings -->
+    <string name="retry_load_diary">Reload</string>
+    <string name="retry_save_diary">Resave</string>
+    <string name="retry_operation">Retry</string>
+    <string name="refresh_diary_list">Refresh List</string>
+    <string name="refresh_diary_detail">Refresh Details</string>
     
-    <!-- 用户友好的错误提示 -->
-    <string name="friendly_error_network">网络似乎有点问题，请检查网络连接后重试</string>
-    <string name="friendly_error_storage">设备存储空间不足，请清理一些文件后重试</string>
-    <string name="friendly_error_permission">抱歉，没有足够的权限执行此操作</string>
-    <string name="friendly_error_timeout">操作时间过长，请稍后重试</string>
-    <string name="friendly_error_data">输入的数据格式不正确，请检查后重新输入</string>
-    <string name="friendly_error_system">系统出现了一些问题，建议重启应用后重试</string>
-    <string name="friendly_error_login">登录状态已过期，请重新登录</string>
-    <string name="friendly_error_general">操作失败，请稍后重试</string>
+    <!-- User-friendly error messages -->
+    <string name="friendly_error_network">Network seems to have issues, please check connection and retry</string>
+    <string name="friendly_error_storage">Device storage insufficient, please clear some files and retry</string>
+    <string name="friendly_error_permission">Sorry, insufficient permissions to perform this operation</string>
+    <string name="friendly_error_timeout">Operation taking too long, please retry later</string>
+    <string name="friendly_error_data">Input data format incorrect, please check and re-enter</string>
+    <string name="friendly_error_system">System has some issues, recommend restarting app and retry</string>
+    <string name="friendly_error_login">Login status expired, please login again</string>
+    <string name="friendly_error_general">Operation failed, please retry later</string>
     
-    <!-- 成功操作提示 -->
-    <string name="success_diary_added">健康日记添加成功</string>
-    <string name="success_diary_updated">健康日记更新成功</string>
-    <string name="success_diary_deleted">健康日记删除成功</string>
-    <string name="success_diary_loaded">日记加载完成</string>
-    <string name="success_operation_completed">操作完成</string>
+    <!-- Success operation messages -->
+    <string name="success_diary_added">Health diary added successfully</string>
+    <string name="success_diary_updated">Health diary updated successfully</string>
+    <string name="success_diary_deleted">Health diary deleted successfully</string>
+    <string name="success_diary_loaded">Diary loaded successfully</string>
+    <string name="success_operation_completed">Operation completed</string>
 
-  <!-- 用药提醒 -->
-  <string name="reminder_notification_title">用药提醒</string>
-  <string name="reminder_notification_text">到点提醒：请按时服药</string>
-  <string name="reminder_action_snooze">延迟10分钟</string>
-  <string name="reminder_action_taken">已服用</string>
-  <string name="schedule_save_success">用药计划已保存并开始提醒</string>
-  <string name="schedule_save_failed">用药计划保存失败</string>
-  <string name="exact_alarm_permission_tip">为了确保准时提醒，请授权精准闹钟</string>
-  <string name="notification_permission_tip">为保证提醒可见，请在系统设置中开启通知权限</string>
+  <!-- Medication reminders -->
+  <string name="reminder_notification_title">Medication Reminder</string>
+  <string name="reminder_notification_text">Time to take medication</string>
+  <string name="reminder_action_snooze">Snooze 10 min</string>
+  <string name="reminder_action_taken">Taken</string>
+  <string name="schedule_save_success">Medication schedule saved and reminders started</string>
+  <string name="schedule_save_failed">Medication schedule save failed</string>
+  <string name="exact_alarm_permission_tip">To ensure timely reminders, please grant exact alarm permission</string>
+  <string name="notification_permission_tip">To ensure reminders are visible, please enable notification permission in system settings</string>
 
-  <!-- 登录相关字符串 -->
-  <string name="login_title">用户登录</string>
-  <string name="login_button_loading">登录中…</string>
-  <string name="login_button_text">立即登录</string>
-  <string name="login_success_message">登录成功！正在为您准备应用界面…</string>
-  <string name="remember_me_checkbox">记住我</string>
-  <string name="login_error_prefix">登录错误: </string>
-  <string name="login_success_prefix">恭喜您！</string>
+  <!-- Login related strings -->
+  <string name="login_title">User Login</string>
+  <string name="login_button_loading">Logging in…</string>
+  <string name="login_button_text">Login Now</string>
+  <string name="login_success_message">Login successful! Preparing app interface…</string>
+  <string name="remember_me_checkbox">Remember me</string>
+  <string name="login_error_prefix">Login error: </string>
+  <string name="login_success_prefix">Congratulations! </string>
   
-  <!-- 注册相关字符串 -->
-  <string name="register_title">用户注册</string>
-  <string name="register_success_message">注册成功！请使用您的账户登录</string>
-  <string name="register_error_prefix">注册错误: </string>
-  <string name="register_success_prefix">恭喜您！</string>
-  <string name="initialization_error">初始化失败: %s</string>
-  <string name="input_validation_error">请检查并修正上述输入错误</string>
-  <string name="username_required">请输入用户名</string>
-  <string name="phone_required">请输入手机号</string>
-  <string name="email_required">请输入邮箱</string>
-  <string name="password_required">请输入密码</string>
-  <string name="field_error_username">用户名</string>
-  <string name="field_error_phone">手机</string>
-  <string name="field_error_email">邮箱</string>
-  <string name="field_error_password">密码</string>
-  <string name="parameter_error_switch_to_add">参数错误，切换到新增模式</string>
+  <!-- Registration related strings -->
+  <string name="register_title">User Registration</string>
+  <string name="register_success_message">Registration successful! Please login with your account</string>
+  <string name="register_error_prefix">Registration error: </string>
+  <string name="register_success_prefix">Congratulations! </string>
+  <string name="initialization_error">Initialization failed: %s</string>
+  <string name="input_validation_error">Please check and fix input errors above</string>
+  <string name="username_required">Please enter username</string>
+  <string name="phone_required">Please enter phone number</string>
+  <string name="email_required">Please enter email</string>
+  <string name="password_required">Please enter password</string>
+  <string name="field_error_username">Username</string>
+  <string name="field_error_phone">Phone</string>
+  <string name="field_error_email">Email</string>
+  <string name="field_error_password">Password</string>
+  <string name="parameter_error_switch_to_add">Parameter error, switching to add mode</string>
   
-  <!-- 主界面相关字符串 -->
-  <string name="main_title">药物提醒助手</string>
-  <string name="welcome_back_message">欢迎回来，%s！</string>
-  <string name="welcome_default_message">欢迎使用药物提醒助手！</string>
-  <string name="login_time_label">登录时间：%s</string>
-  <string name="health_partner_message">您的健康管理伙伴</string>
-  <string name="logout_dialog_title">退出登录</string>
-  <string name="logout_dialog_message">您确定要退出当前账户吗？</string>
-  <string name="clear_login_dialog_title">清除登录信息</string>
-  <string name="clear_login_dialog_message">是否同时清除保存的登录信息？</string>
-  <string name="clear_login_positive">清除</string>
-  <string name="keep_login_negative">保留</string>
-  <string name="exit_app_dialog_title">退出应用</string>
-  <string name="exit_app_dialog_message">您确定要退出药物提醒助手吗？</string>
-  <string name="cannot_get_user_info">无法获取用户信息</string>
+  <!-- Main interface related strings -->
+  <string name="main_title">Medication Reminder Assistant</string>
+  <string name="welcome_back_message">Welcome back, %s!</string>
+  <string name="welcome_default_message">Welcome to Medication Reminder Assistant!</string>
+  <string name="login_time_label">Login time: %s</string>
+  <string name="health_partner_message">Your health management partner</string>
+  <string name="logout_dialog_title">Logout</string>
+  <string name="logout_dialog_message">Are you sure you want to logout from current account?</string>
+  <string name="clear_login_dialog_title">Clear Login Info</string>
+  <string name="clear_login_dialog_message">Also clear saved login information?</string>
+  <string name="clear_login_positive">Clear</string>
+  <string name="keep_login_negative">Keep</string>
+  <string name="exit_app_dialog_title">Exit App</string>
+  <string name="exit_app_dialog_message">Are you sure you want to exit Medication Reminder Assistant?</string>
+  <string name="cannot_get_user_info">Unable to get user info</string>
   
-  <!-- 药物详情相关字符串 -->
-  <string name="medication_detail_title">药物详情</string>
-  <string name="medication_color_display">颜色：%s</string>
-  <string name="medication_dosage_form_display">剂型：%s</string>
-  <string name="medication_created_time">添加时间：%s</string>
-  <string name="medication_updated_time">更新时间：%s</string>
-  <string name="medication_photo_content_description">药物照片</string>
-  <string name="default_medication_icon_content_description">默认药物图标</string>
-  <string name="medication_unit_default">片</string>
+  <!-- Medication details related strings -->
+  <string name="medication_detail_title">Medication Details</string>
+  <string name="medication_color_display">Color: %s</string>
+  <string name="medication_dosage_form_display">Form: %s</string>
+  <string name="medication_created_time">Added: %s</string>
+  <string name="medication_updated_time">Updated: %s</string>
+  <string name="medication_photo_content_description">Medication photo</string>
+  <string name="default_medication_icon_content_description">Default medication icon</string>
+  <string name="medication_unit_default">Piece</string>
   <string name="dosage_per_intake_display">%1$d %2$s</string>
   <string name="low_stock_threshold_display">%1$d %2$s</string>
   
-  <!-- 药物添加/编辑相关字符串 -->
-  <string name="photo_upload_selected">%s (已选择)</string>
-  <string name="character_count_helper">还可输入 %d 个字符</string>
-  <string name="confirm_delete_photo_dialog_message">您确定要删除这张照片吗？</string>
-  <string name="photo_deleted_message">照片已删除</string>
+  <!-- Medication add/edit related strings -->
+  <string name="photo_upload_selected">%s (Selected)</string>
+  <string name="character_count_helper">%d characters remaining</string>
+  <string name="confirm_delete_photo_dialog_message">Are you sure you want to delete this photo?</string>
+  <string name="photo_deleted_message">Photo deleted</string>
   <string name="temp_photos_directory">temp_photos</string>
   <string name="temp_photos_create_error">Failed to create temp photos directory</string>
   
-  <!-- 个人资料相关字符串 -->
-  <string name="profile_updated_message">个人资料已更新</string>
-  <string name="profile_error_prefix">个人资料错误: </string>
-  <string name="profile_success_prefix">恭喜您！</string>
-  <string name="date_format_display">yyyy年MM月dd日</string>
+  <!-- Profile related strings -->
+  <string name="profile_updated_message">Profile updated</string>
+  <string name="profile_error_prefix">Profile error: </string>
+  <string name="profile_success_prefix">Congratulations! </string>
+  <string name="date_format_display">yyyy-MM-dd</string>
   <string name="date_format_storage">yyyy-MM-dd</string>
-  <string name="datetime_format_display">yyyy年MM月dd日 HH:mm</string>
+  <string name="datetime_format_display">yyyy-MM-dd HH:mm</string>
   <string name="gender_case_male">male</string>
   <string name="gender_case_female">female</string>
   <string name="gender_case_prefer_not_to_say">prefer_not_to_say</string>
-  <string name="gender_chinese_male">男性</string>
-  <string name="gender_chinese_female">女性</string>
-  <string name="gender_chinese_prefer_not_to_say">不愿透露</string>
-  <string name="error_message_content_description">错误提示: %s</string>
-  <string name="success_message_content_description">成功提示: %s</string>
+  <string name="gender_chinese_male">Male</string>
+  <string name="gender_chinese_female">Female</string>
+  <string name="gender_chinese_prefer_not_to_say">Prefer not to say</string>
+  <string name="error_message_content_description">Error message: %s</string>
+  <string name="success_message_content_description">Success message: %s</string>
   <string name="profile_photo_bitmap_key">data</string>
   
-  <!-- 健康日记相关字符串 -->
-  <string name="add_health_diary_page_title">添加健康日记</string>
-  <string name="edit_health_diary_page_title">编辑健康日记</string>
-  <string name="diary_content_placeholder">请输入您的健康状况、症状或感受…</string>
-  <string name="diary_load_success_contains">加载成功</string>
-  <string name="diary_operation_success_contains">成功</string>
-  <string name="diary_delete_success_contains">删除</string>
-  <string name="diary_add_operation">添加日记</string>
-  <string name="diary_update_operation">更新日记</string>
-  <string name="diary_save_operation">保存</string>
-  <string name="diary_update_operation_text">更新</string>
-  <string name="diary_does_not_exist">日记不存在</string>
-  <string name="diary_operation_error">日记操作</string>
+  <!-- Health diary related strings -->
+  <string name="add_health_diary_page_title">Add Health Diary</string>
+  <string name="edit_health_diary_page_title">Edit Health Diary</string>
+  <string name="diary_content_placeholder">Enter your health condition, symptoms or feelings…</string>
+  <string name="diary_load_success_contains">Load successful</string>
+  <string name="diary_operation_success_contains">Success</string>
+  <string name="diary_delete_success_contains">Delete</string>
+  <string name="diary_add_operation">Add Diary</string>
+  <string name="diary_update_operation">Update Diary</string>
+  <string name="diary_save_operation">Save</string>
+  <string name="diary_update_operation_text">Update</string>
+  <string name="diary_does_not_exist">Diary doesn\'t exist</string>
+  <string name="diary_operation_error">Diary operation</string>
   
-  <!-- 健康日记列表相关字符串 -->
-  <string name="diary_list_load_success">日记加载成功，共%d条</string>
-  <string name="diary_list_load_error">加载日记列表</string>
-  <string name="diary_list_refresh_start">开始刷新日记列表</string>
-  <string name="diary_list_viewmodel_status">ViewModel状态: %s</string>
-  <string name="diary_list_adapter_status">Adapter状态: %s</string>
-  <string name="diary_list_viewmodel_initialized">已初始化</string>
-  <string name="diary_list_viewmodel_not_initialized">未初始化</string>
-  <string name="diary_list_adapter_initialized">已初始化，当前数据量: %d</string>
-  <string name="diary_list_adapter_not_initialized">未初始化</string>
-  <string name="diary_list_received_data">收到日记列表数据: %s</string>
-  <string name="diary_list_data_count">%d条</string>
+  <!-- Health diary list related strings -->
+  <string name="diary_list_load_success">Diary loaded successfully, total %d</string>
+  <string name="diary_list_load_error">Load diary list</string>
+  <string name="diary_list_refresh_start">Start refreshing diary list</string>
+  <string name="diary_list_viewmodel_status">ViewModel status: %s</string>
+  <string name="diary_list_adapter_status">Adapter status: %s</string>
+  <string name="diary_list_viewmodel_initialized">Initialized</string>
+  <string name="diary_list_viewmodel_not_initialized">Not initialized</string>
+  <string name="diary_list_adapter_initialized">Initialized, current data count: %d</string>
+  <string name="diary_list_adapter_not_initialized">Not initialized</string>
+  <string name="diary_list_received_data">Received diary list data: %s</string>
+  <string name="diary_list_data_count">%d items</string>
   <string name="diary_list_data_null">null</string>
-  <string name="diary_list_show_list">显示日记列表，共%d条</string>
-  <string name="diary_list_show_empty">显示空状态 - 数据为空或null</string>
-  <string name="diary_list_no_logged_user">没有已登录用户</string>
-  <string name="diary_list_login_required">请先登录后再查看健康日记</string>
-  <string name="diary_list_logged_user_info">已有登录用户: %1$s (ID: %2$d)</string>
-  <string name="diary_list_user_diary_count">用户 %1$s 有 %2$d 条日记</string>
-  <string name="diary_list_check_user_status_failed">检查用户状态失败</string>
-  <string name="diary_list_check_user_status_error">检查用户状态失败: %s</string>
-  <string name="diary_list_activity_resume">Activity onResume，开始刷新数据</string>
-  <string name="diary_list_check_login_status">检查用户登录状态</string>
-  <string name="diary_list_activity_create_start">Activity onCreate 开始</string>
-  <string name="diary_list_activity_create_complete">Activity onCreate 完成，开始加载数据</string>
-  <string name="diary_add_success_message">添加</string>
+  <string name="diary_list_show_list">Show diary list, total %d</string>
+  <string name="diary_list_show_empty">Show empty state - data is empty or null</string>
+  <string name="diary_list_no_logged_user">No logged in user</string>
+  <string name="diary_list_login_required">Please login first to view health diary</string>
+  <string name="diary_list_logged_user_info">Logged in user: %1$s (ID: %2$d)</string>
+  <string name="diary_list_user_diary_count">User %1$s has %2$d diaries</string>
+  <string name="diary_list_check_user_status_failed">Check user status failed</string>
+  <string name="diary_list_check_user_status_error">Check user status failed: %s</string>
+  <string name="diary_list_activity_resume">Activity onResume, start refreshing data</string>
+  <string name="diary_list_check_login_status">Check user login status</string>
+  <string name="diary_list_activity_create_start">Activity onCreate start</string>
+  <string name="diary_list_activity_create_complete">Activity onCreate complete, start loading data</string>
+  <string name="diary_add_success_message">Add</string>
   
-  <!-- 用药记录相关字符串 -->
-  <string name="intake_record_list_create">创建用药记录列表页面</string>
-  <string name="intake_record_ui_init_complete">UI组件初始化完成</string>
-  <string name="intake_record_actionbar_setup_complete">标题栏设置完成</string>
-  <string name="intake_record_viewmodel_init_complete">ViewModel初始化完成</string>
-  <string name="intake_record_recyclerview_setup_complete">RecyclerView设置完成</string>
-  <string name="intake_record_data_observer_setup_complete">数据观察设置完成</string>
-  <string name="intake_record_loading_indicator_setup_complete">加载指示器设置完成</string>
-  <string name="intake_record_show_empty_state">显示空状态</string>
-  <string name="intake_record_show_list">显示用药记录列表，数量: %d</string>
-  <string name="intake_record_received_data">接收到用药记录数据，数量: %d</string>
-  <string name="intake_record_loading_state_change">加载状态变化: %s</string>
-  <string name="intake_record_received_error">接收到错误消息: %s</string>
-  <string name="intake_record_received_success">接收到成功消息: %s</string>
-  <string name="intake_record_list_content_description">用药记录列表</string>
-  <string name="intake_record_empty_message_content_description">暂无用药记录提示</string>
-  <string name="intake_record_loading_message">正在加载用药记录…</string>
-  <string name="intake_record_load_failed_message">加载失败: %s</string>
-  <string name="intake_record_load_failed_content_description">加载失败提示: %s</string>
-  <string name="intake_record_clicked">用药记录被点击: %1$s (ID: %2$d)</string>
-  <string name="intake_record_page_resume">页面恢复，刷新数据</string>
-  <string name="intake_record_page_destroy">页面销毁</string>
-  <string name="intake_record_navigate_back">返回上一页面</string>
-  <string name="intake_record_back_pressed">用户按下返回键</string>
+  <!-- Medication intake record related strings -->
+  <string name="intake_record_list_create">Create medication intake record list page</string>
+  <string name="intake_record_ui_init_complete">UI components initialization complete</string>
+  <string name="intake_record_actionbar_setup_complete">ActionBar setup complete</string>
+  <string name="intake_record_viewmodel_init_complete">ViewModel initialization complete</string>
+  <string name="intake_record_recyclerview_setup_complete">RecyclerView setup complete</string>
+  <string name="intake_record_data_observer_setup_complete">Data observer setup complete</string>
+  <string name="intake_record_loading_indicator_setup_complete">Loading indicator setup complete</string>
+  <string name="intake_record_show_empty_state">Show empty state</string>
+  <string name="intake_record_show_list">Show medication intake record list, count: %d</string>
+  <string name="intake_record_received_data">Received intake record data, count: %d</string>
+  <string name="intake_record_loading_state_change">Loading state change: %s</string>
+  <string name="intake_record_received_error">Received error message: %s</string>
+  <string name="intake_record_received_success">Received success message: %s</string>
+  <string name="intake_record_list_content_description">Medication intake record list</string>
+  <string name="intake_record_empty_message_content_description">No intake records prompt</string>
+  <string name="intake_record_loading_message">Loading intake records…</string>
+  <string name="intake_record_load_failed_message">Load failed: %s</string>
+  <string name="intake_record_load_failed_content_description">Load failed prompt: %s</string>
+  <string name="intake_record_clicked">Intake record clicked: %1$s (ID: %2$d)</string>
+  <string name="intake_record_page_resume">Page resume, refresh data</string>
+  <string name="intake_record_page_destroy">Page destroy</string>
+  <string name="intake_record_navigate_back">Navigate back to previous page</string>
+  <string name="intake_record_back_pressed">User pressed back key</string>
   
-  <!-- 用药记录详情相关字符串 -->
-  <string name="intake_record_detail_create">创建用药记录详情页面</string>
-  <string name="intake_record_detail_param_validation_failed">参数验证失败，关闭页面</string>
-  <string name="intake_record_detail_date_formatter_init">日期格式化器初始化完成</string>
-  <string name="intake_record_detail_get_intent_params">获取Intent参数 - recordId: %1$d, medicationName: %2$s</string>
-  <string name="intake_record_detail_invalid_record_id">无效的记录ID: %d</string>
-  <string name="intake_record_detail_invalid_record_id_message">无效的记录ID</string>
-  <string name="intake_record_detail_ui_init_complete">UI组件初始化完成</string>
-  <string name="intake_record_detail_actionbar_setup_complete">标题栏设置完成</string>
-  <string name="intake_record_detail_viewmodel_init_complete">ViewModel初始化完成</string>
-  <string name="intake_record_detail_event_listener_setup_complete">事件监听器设置完成</string>
-  <string name="intake_record_detail_data_observer_setup_complete">数据观察设置完成</string>
-  <string name="intake_record_detail_loading_indicator_setup_complete">加载指示器设置完成</string>
-  <string name="intake_record_detail_user_click_retry">用户点击重试按钮</string>
-  <string name="intake_record_detail_user_click_back">用户点击返回按钮</string>
-  <string name="intake_record_detail_received_data">接收到用药记录数据: %s</string>
-  <string name="intake_record_detail_loading_state_change">加载状态变化: %s</string>
-  <string name="intake_record_detail_received_error">接收到错误消息: %s</string>
-  <string name="intake_record_detail_received_success">接收到成功消息: %s</string>
-  <string name="intake_record_detail_load_data_start">开始加载用药记录数据，ID: %d</string>
-  <string name="intake_record_detail_display_record">显示用药记录详情: %s</string>
-  <string name="intake_record_detail_display_complete">用药记录详情显示完成</string>
-  <string name="intake_record_detail_display_error">显示用药记录详情时发生错误</string>
-  <string name="intake_record_detail_display_error_message">显示记录详情时发生错误：%s</string>
-  <string name="intake_record_detail_date_format_error">日期格式化失败</string>
-  <string name="intake_record_detail_time_format_error">时间格式错误</string>
-  <string name="intake_record_detail_show_content_state">显示内容状态</string>
-  <string name="intake_record_detail_show_error_state">显示错误状态：%s</string>
-  <string name="intake_record_detail_hide_error_state">隐藏错误状态</string>
-  <string name="intake_record_detail_loading_dialog_message">正在加载用药记录详情…</string>
-  <string name="intake_record_detail_show_error_and_finish">显示错误并关闭页面: %s</string>
-  <string name="intake_record_detail_page_resume">页面恢复</string>
-  <string name="intake_record_detail_page_destroy">页面销毁</string>
-  <string name="intake_record_detail_actionbar_back_clicked">标题栏返回按钮被点击</string>
-  <string name="intake_record_detail_back_pressed">用户按下返回键</string>
-  <string name="intake_record_detail_medication_name_content_description">药物名称：%s</string>
-  <string name="intake_record_detail_intake_time_content_description">服用时间：%s</string>
-  <string name="intake_record_detail_dosage_content_description">服用剂量：%s</string>
-  <string name="intake_record_detail_record_id_content_description">记录编号：%d</string>
-  <string name="intake_record_detail_error_content_description">错误信息：%s</string>
-  <string name="intake_record_detail_status_format">MedicationIntakeRecordDetailActivity状态: recordId=%1$d, 加载中=%2$s, 显示错误=%3$s</string>
+  <!-- Medication intake record detail related strings -->
+  <string name="intake_record_detail_create">Create medication intake record detail page</string>
+  <string name="intake_record_detail_param_validation_failed">Parameter validation failed, close page</string>
+  <string name="intake_record_detail_date_formatter_init">Date formatter initialization complete</string>
+  <string name="intake_record_detail_get_intent_params">Get Intent parameters - recordId: %1$d, medicationName: %2$s</string>
+  <string name="intake_record_detail_invalid_record_id">Invalid record ID: %d</string>
+  <string name="intake_record_detail_invalid_record_id_message">Invalid record ID</string>
+  <string name="intake_record_detail_ui_init_complete">UI components initialization complete</string>
+  <string name="intake_record_detail_actionbar_setup_complete">ActionBar setup complete</string>
+  <string name="intake_record_detail_viewmodel_init_complete">ViewModel initialization complete</string>
+  <string name="intake_record_detail_event_listener_setup_complete">Event listener setup complete</string>
+  <string name="intake_record_detail_data_observer_setup_complete">Data observer setup complete</string>
+  <string name="intake_record_detail_loading_indicator_setup_complete">Loading indicator setup complete</string>
+  <string name="intake_record_detail_user_click_retry">User clicked retry button</string>
+  <string name="intake_record_detail_user_click_back">User clicked back button</string>
+  <string name="intake_record_detail_received_data">Received intake record data: %s</string>
+  <string name="intake_record_detail_loading_state_change">Loading state change: %s</string>
+  <string name="intake_record_detail_received_error">Received error message: %s</string>
+  <string name="intake_record_detail_received_success">Received success message: %s</string>
+  <string name="intake_record_detail_load_data_start">Start loading intake record data, ID: %d</string>
+  <string name="intake_record_detail_display_record">Display intake record details: %s</string>
+  <string name="intake_record_detail_display_complete">Intake record details display complete</string>
+  <string name="intake_record_detail_display_error">Error occurred while displaying intake record details</string>
+  <string name="intake_record_detail_display_error_message">Error occurred while displaying record details: %s</string>
+  <string name="intake_record_detail_date_format_error">Date formatting failed</string>
+  <string name="intake_record_detail_time_format_error">Time format error</string>
+  <string name="intake_record_detail_show_content_state">Show content state</string>
+  <string name="intake_record_detail_show_error_state">Show error state: %s</string>
+  <string name="intake_record_detail_hide_error_state">Hide error state</string>
+  <string name="intake_record_detail_loading_dialog_message">Loading intake record details…</string>
+  <string name="intake_record_detail_show_error_and_finish">Show error and close page: %s</string>
+  <string name="intake_record_detail_page_resume">Page resume</string>
+  <string name="intake_record_detail_page_destroy">Page destroy</string>
+  <string name="intake_record_detail_actionbar_back_clicked">ActionBar back button clicked</string>
+  <string name="intake_record_detail_back_pressed">User pressed back key</string>
+  <string name="intake_record_detail_medication_name_content_description">Medication name: %s</string>
+  <string name="intake_record_detail_intake_time_content_description">Intake time: %s</string>
+  <string name="intake_record_detail_dosage_content_description">Dosage: %s</string>
+  <string name="intake_record_detail_record_id_content_description">Record ID: %d</string>
+  <string name="intake_record_detail_error_content_description">Error message: %s</string>
+
+  <!-- Medication schedule related strings -->
+  <string name="schedule_missing_medication_id">Missing medication ID</string>
+  <string name="schedule_save_button_text">Save Changes</string>
+  <string name="schedule_time_input_hint">Please enter at least one time, e.g. 08:00,20:00</string>
   
-  <!-- 用药计划相关字符串 -->
-  <string name="schedule_missing_medication_id">缺少药品ID</string>
-  <string name="schedule_save_button_text">保存修改</string>
-  <string name="schedule_time_input_hint">请至少填写一个时间，如 08:00,20:00</string>
+  <!-- Validation related strings -->
+  <string name="validation_failed_default">Validation failed</string>
   
-  <!-- 验证相关字符串 -->
-  <string name="validation_failed_default">验证失败</string>
-  
-  <!-- 日志相关字符串 -->
+  <!-- Log related strings -->
   <string name="log_tag_register_activity">RegisterActivity</string>
   <string name="log_tag_health_diary_list">HealthDiaryList</string>
   <string name="log_tag_medication_intake_record_list">MedicationIntakeRecordListActivity</string>
@@ -684,7 +683,7 @@
   <string name="log_oncreate_completed">onCreate completed successfully</string>
   <string name="log_oncreate_error">Error in onCreate</string>
   
-  <!-- Intent 参数键名 -->
+  <!-- Intent parameter keys -->
   <string name="intent_key_medication_id">medication_id</string>
   <string name="intent_key_edit_medication_id">edit_medication_id</string>
   <string name="intent_key_record_id">record_id</string>
@@ -697,145 +696,144 @@
   <string name="intent_key_mode">mode</string>
   <string name="intent_key_schedule_id">schedule_id</string>
   
-  <!-- 模式常量 -->
+  <!-- Mode constants -->
   <string name="mode_add">add</string>
   <string name="mode_edit">edit</string>
   
-  <!-- 广播 Action -->
+  <!-- Broadcast Actions -->
   <string name="action_remind">com.medication.reminders.ACTION_REMIND</string>
   <string name="action_snooze">com.medication.reminders.ACTION_SNOOZE</string>
   <string name="action_taken">com.medication.reminders.ACTION_TAKEN</string>
   
-  <!-- 通知渠道 -->
+  <!-- Notification channels -->
   <string name="notification_channel_id">medication_reminder_channel</string>
   
-  <!-- 空值显示 -->
+  <!-- Empty value display -->
   <string name="empty_string"></string>
 
-  <!-- ProfileEditActivity 相关字符串 -->
-  <string name="profile_edit_success_contains">成功</string>
-  <string name="profile_edit_field_name">姓名</string>
-  <string name="profile_edit_field_gender">性别</string>
-  <string name="profile_edit_field_birth_date">出生日期</string>
-  <string name="profile_edit_field_birth_date_alt">生日</string>
-  <string name="profile_edit_field_username">用户名</string>
-  <string name="profile_edit_field_email">邮箱</string>
-  <string name="profile_edit_field_email_alt">邮件</string>
-  <string name="profile_edit_field_phone">手机</string>
-  <string name="profile_edit_field_phone_alt">电话</string>
-  <string name="profile_edit_error_content_description">错误提示: %s</string>
-  <string name="profile_edit_error_announcement">个人资料编辑错误: %s</string>
-  <string name="profile_edit_success_content_description">成功提示: %s</string>
-  <string name="profile_edit_success_announcement">恭喜您！%s</string>
+  <!-- ProfileEditActivity related strings -->
+  <string name="profile_edit_success_contains">Success</string>
+  <string name="profile_edit_field_name">Name</string>
+  <string name="profile_edit_field_gender">Gender</string>
+  <string name="profile_edit_field_birth_date">Birth Date</string>
+  <string name="profile_edit_field_birth_date_alt">Birthday</string>
+  <string name="profile_edit_field_username">Username</string>
+  <string name="profile_edit_field_email">Email</string>
+  <string name="profile_edit_field_email_alt">Email</string>
+  <string name="profile_edit_field_phone">Phone</string>
+  <string name="profile_edit_field_phone_alt">Phone</string>
+  <string name="profile_edit_error_content_description">Error message: %s</string>
+  <string name="profile_edit_error_announcement">Profile edit error: %s</string>
+  <string name="profile_edit_success_content_description">Success message: %s</string>
+  <string name="profile_edit_success_announcement">Congratulations! %s</string>
 
-  <!-- ReminderReceiver 相关字符串 -->
-  <string name="reminder_notification_content">到点提醒：请按时服药</string>
-  <string name="reminder_action_snooze_text">延迟10分钟</string>
-  <string name="reminder_action_taken_text">已服用</string>
-  <string name="reminder_channel_name">用药提醒</string>
+  <!-- ReminderReceiver related strings -->
+  <string name="reminder_notification_content">Time to take medication</string>
+  <string name="reminder_action_snooze_text">Snooze 10 min</string>
+  <string name="reminder_action_taken_text">Taken</string>
+  <string name="reminder_channel_name">Medication Reminder</string>
 
-  <!-- ViewModel 相关字符串 -->
+  <!-- ViewModel related strings -->
   <!-- AddMedicationViewModel -->
-  <string name="medication_unit_default_pill">片</string>
-  <string name="medication_name_required">药物名称是必需的</string>
-  <string name="medication_name_too_long">药物名称不能超过100个字符</string>
-  <string name="medication_color_required">请选择药物颜色</string>
-  <string name="medication_dosage_form_required">请选择药物剂型</string>
-  <string name="medication_total_quantity_invalid">总量必须是非负整数</string>
-  <string name="medication_remaining_quantity_invalid">剩余量必须是非负整数，且不能大于总量</string>
-  <string name="medication_unit_required">请选择单位</string>
-  <string name="medication_dosage_per_intake_invalid">每次用量必须是正整数</string>
-  <string name="medication_dosage_per_intake_exceeds_remaining">每次用量不能大于剩余量</string>
-  <string name="medication_low_stock_threshold_invalid">库存提醒阈值必须是非负整数</string>
-  <string name="medication_low_stock_threshold_exceeds_total">库存提醒阈值不能大于总量</string>
-  <string name="medication_form_validation_error">请检查并修正表单中的错误</string>
+  <string name="medication_unit_default_pill">Piece</string>
+  <string name="medication_name_required">Medication name is required</string>
+  <string name="medication_name_too_long">Medication name cannot exceed 100 characters</string>
+  <string name="medication_color_required">Please select medication color</string>
+  <string name="medication_dosage_form_required">Please select dosage form</string>
+  <string name="medication_total_quantity_invalid">Total quantity must be non-negative integer</string>
+  <string name="medication_remaining_quantity_invalid">Remaining quantity must be non-negative and not exceed total</string>
+  <string name="medication_unit_required">Please select unit</string>
+  <string name="medication_dosage_per_intake_invalid">Dosage per dose must be positive integer</string>
+  <string name="medication_dosage_per_intake_exceeds_remaining">Dosage per dose cannot exceed remaining quantity</string>
+  <string name="medication_low_stock_threshold_invalid">Low stock threshold must be non-negative integer</string>
+  <string name="medication_low_stock_threshold_exceeds_total">Low stock threshold cannot exceed total quantity</string>
+  <string name="medication_form_validation_error">Please check and fix form errors</string>
 
   <!-- MedicationIntakeRecordViewModel -->
-  <string name="intake_record_load_success">用药记录加载成功</string>
-  <string name="intake_record_load_failed">加载用药记录失败: %s</string>
-  <string name="intake_record_refreshed">用药记录已刷新</string>
-  <string name="intake_record_viewmodel_status">MedicationIntakeRecordViewModel状态: Repository=%1$s, 线程池=%2$s, 测试模式=%3$s</string>
-  <string name="intake_record_repository_connected">已连接</string>
-  <string name="intake_record_repository_disconnected">未连接</string>
-  <string name="intake_record_thread_pool_running">运行中</string>
-  <string name="intake_record_thread_pool_stopped">已停止</string>
+  <string name="intake_record_load_success">Intake records loaded successfully</string>
+  <string name="intake_record_load_failed">Failed to load intake records: %s</string>
+  <string name="intake_record_refreshed">Intake records refreshed</string>
+  <string name="intake_record_repository_connected">Connected</string>
+  <string name="intake_record_repository_disconnected">Disconnected</string>
+  <string name="intake_record_thread_pool_running">Running</string>
+  <string name="intake_record_thread_pool_stopped">Stopped</string>
 
   <!-- UserViewModel -->
-  <string name="user_error_username">用户名</string>
-  <string name="user_error_username_exists">存在</string>
-  <string name="user_error_username_format">格式</string>
-  <string name="user_error_user_not_exists">用户不存在</string>
-  <string name="user_error_password">密码</string>
-  <string name="user_error_password_wrong">错误</string>
-  <string name="user_error_password_strength">强度</string>
-  <string name="user_error_email">邮箱</string>
-  <string name="user_error_email_format">格式</string>
-  <string name="user_error_phone">电话</string>
-  <string name="user_error_phone_format">格式</string>
-  <string name="user_error_login">登录</string>
-  <string name="user_error_login_failed">失败</string>
-  <string name="user_error_attempts">尝试次数</string>
-  <string name="user_error_account">账户</string>
-  <string name="user_error_account_locked">锁定</string>
-  <string name="user_error_database">数据库</string>
-  <string name="user_error_network">网络</string>
-  <string name="user_error_session">会话</string>
-  <string name="user_error_session_expired">过期</string>
-  <string name="user_error_profile">个人资料</string>
-  <string name="user_error_profile_update">更新</string>
-  <string name="user_auto_login_success">自动登录成功</string>
-  <string name="user_logout_success">登出成功</string>
-  <string name="user_logout_failed">登出失败：%s</string>
-  <string name="user_registration_success">注册成功</string>
-  <string name="user_registration_success_with_id">用户注册成功，用户ID: %d</string>
-  <string name="user_registration_error">注册过程中发生错误</string>
-  <string name="user_registration_error_retry">注册过程中发生错误，请重试</string>
-  <string name="user_username_empty">用户名不能为空</string>
-  <string name="user_login_success">登录成功</string>
-  <string name="user_login_welcome">欢迎回来，%s</string>
-  <string name="user_login_error">登录过程中发生错误</string>
-  <string name="user_login_error_retry">登录过程中发生错误，请重试</string>
-  <string name="user_login_validation_both_empty">请输入用户名和密码</string>
-  <string name="user_login_validation_username_empty">请输入用户名</string>
-  <string name="user_login_validation_password_empty">请输入密码</string>
+  <string name="user_error_username">Username</string>
+  <string name="user_error_username_exists">Exists</string>
+  <string name="user_error_username_format">Format</string>
+  <string name="user_error_user_not_exists">User doesn\'t exist</string>
+  <string name="user_error_password">Password</string>
+  <string name="user_error_password_wrong">Wrong</string>
+  <string name="user_error_password_strength">Strength</string>
+  <string name="user_error_email">Email</string>
+  <string name="user_error_email_format">Format</string>
+  <string name="user_error_phone">Phone</string>
+  <string name="user_error_phone_format">Format</string>
+  <string name="user_error_login">Login</string>
+  <string name="user_error_login_failed">Failed</string>
+  <string name="user_error_attempts">Attempts</string>
+  <string name="user_error_account">Account</string>
+  <string name="user_error_account_locked">Locked</string>
+  <string name="user_error_database">Database</string>
+  <string name="user_error_network">Network</string>
+  <string name="user_error_session">Session</string>
+  <string name="user_error_session_expired">Expired</string>
+  <string name="user_error_profile">Profile</string>
+  <string name="user_error_profile_update">Update</string>
+  <string name="user_auto_login_success">Auto login successful</string>
+  <string name="user_logout_success">Logout successful</string>
+  <string name="user_logout_failed">Logout failed: %s</string>
+  <string name="user_registration_success">Registration successful</string>
+  <string name="user_registration_success_with_id">User registration successful, User ID: %d</string>
+  <string name="user_registration_error">Error occurred during registration</string>
+  <string name="user_registration_error_retry">Error occurred during registration, please retry</string>
+  <string name="user_username_empty">Username cannot be empty</string>
+  <string name="user_login_success">Login successful</string>
+  <string name="user_login_welcome">Welcome back, %s</string>
+  <string name="user_login_error">Error occurred during login</string>
+  <string name="user_login_error_retry">Error occurred during login, please retry</string>
+  <string name="user_login_validation_both_empty">Please enter username and password</string>
+  <string name="user_login_validation_username_empty">Please enter username</string>
+  <string name="user_login_validation_password_empty">Please enter password</string>
 
   <!-- HealthDiaryViewModel -->
-  <string name="diary_viewmodel_init_livedata">初始化用户日记LiveData连接</string>
-  <string name="diary_viewmodel_init_count">初始化日记数量LiveData连接</string>
-  <string name="diary_viewmodel_refresh_success">数据刷新成功，获取到 %d 条日记</string>
-  <string name="diary_viewmodel_refresh_failed">数据刷新失败: %s</string>
-  <string name="diary_viewmodel_data_failed">获取数据失败：%s</string>
-  <string name="diary_viewmodel_connection_error">数据连接异常</string>
-  <string name="diary_viewmodel_connection_error_detail">数据连接异常：%s</string>
-  <string name="diary_add_success">日记添加成功</string>
-  <string name="diary_add_failed">添加日记失败：%s</string>
-  <string name="diary_id_invalid">日记ID无效</string>
-  <string name="diary_get_failed">获取日记失败：%s</string>
-  <string name="diary_object_null">日记对象不能为空</string>
-  <string name="diary_delete_success">日记删除成功</string>
-  <string name="diary_load_success">日记加载成功</string>
-  <string name="diary_search_keyword_empty">搜索关键词不能为空</string>
-  <string name="diary_search_success">搜索完成，找到 %d 条日记</string>
-  <string name="diary_search_failed">搜索失败：%s</string>
-  <string name="diary_time_range_invalid">开始时间不能晚于结束时间</string>
-  <string name="diary_query_success">查询完成，找到 %d 条日记</string>
-  <string name="diary_query_failed">查询失败：%s</string>
-  <string name="diary_refresh_start">开始刷新日记数据</string>
+  <string name="diary_viewmodel_init_livedata">Initialize user diary LiveData connection</string>
+  <string name="diary_viewmodel_init_count">Initialize diary count LiveData connection</string>
+  <string name="diary_viewmodel_refresh_success">Data refresh successful, got %d diaries</string>
+  <string name="diary_viewmodel_refresh_failed">Data refresh failed: %s</string>
+  <string name="diary_viewmodel_data_failed">Failed to get data: %s</string>
+  <string name="diary_viewmodel_connection_error">Data connection error</string>
+  <string name="diary_viewmodel_connection_error_detail">Data connection error: %s</string>
+  <string name="diary_add_success">Diary added successfully</string>
+  <string name="diary_add_failed">Failed to add diary: %s</string>
+  <string name="diary_id_invalid">Diary ID invalid</string>
+  <string name="diary_get_failed">Failed to get diary: %s</string>
+  <string name="diary_object_null">Diary object cannot be null</string>
+  <string name="diary_delete_success">Diary deleted successfully</string>
+  <string name="diary_load_success">Diary loaded successfully</string>
+  <string name="diary_search_keyword_empty">Search keyword cannot be empty</string>
+  <string name="diary_search_success">Search completed, found %d diaries</string>
+  <string name="diary_search_failed">Search failed: %s</string>
+  <string name="diary_time_range_invalid">Start time cannot be later than end time</string>
+  <string name="diary_query_success">Query completed, found %d diaries</string>
+  <string name="diary_query_failed">Query failed: %s</string>
+  <string name="diary_refresh_start">Start refreshing diary data</string>
 
-  <!-- UserViewModel 更多字符串 -->
-  <string name="user_password_current_empty">请输入当前密码</string>
-  <string name="user_password_new_empty">请输入新密码</string>
-  <string name="user_password_new_too_short">新密码至少需要6个字符</string>
-  <string name="user_password_new_too_long">新密码不能超过20个字符</string>
-  <string name="user_password_same_as_old">新密码不能与当前密码相同</string>
-  <string name="user_password_change_success">密码修改成功</string>
-  <string name="user_password_change_failed">密码修改失败：%s</string>
-  <string name="user_profile_info_empty">用户资料信息不能为空</string>
-  <string name="user_profile_update_success">个人资料更新成功</string>
-  <string name="user_profile_update_failed">个人资料更新失败：%s</string>
-  <string name="user_current_user_not_found">未找到当前用户信息</string>
-  <string name="user_photo_uri_empty">照片URI不能为空</string>
-  <string name="error_user_not_found">未找到当前用户信息</string>
-  <string name="error_photo_uri_empty">照片URI不能为空</string>
-  <string name="error_get_current_user_failed">获取当前用户失败：%s</string>
+  <!-- UserViewModel more strings -->
+  <string name="user_password_current_empty">Please enter current password</string>
+  <string name="user_password_new_empty">Please enter new password</string>
+  <string name="user_password_new_too_short">New password needs at least 6 characters</string>
+  <string name="user_password_new_too_long">New password cannot exceed 20 characters</string>
+  <string name="user_password_same_as_old">New password cannot be same as current password</string>
+  <string name="user_password_change_success">Password changed successfully</string>
+  <string name="user_password_change_failed">Password change failed: %s</string>
+  <string name="user_profile_info_empty">User profile info cannot be empty</string>
+  <string name="user_profile_update_success">Profile updated successfully</string>
+  <string name="user_profile_update_failed">Profile update failed: %s</string>
+  <string name="user_current_user_not_found">Current user info not found</string>
+  <string name="user_photo_uri_empty">Photo URI cannot be empty</string>
+  <string name="error_user_not_found">Current user info not found</string>
+  <string name="error_photo_uri_empty">Photo URI cannot be empty</string>
+  <string name="error_get_current_user_failed">Failed to get current user: %s</string>
 </resources>

@@ -350,17 +350,7 @@ public class MedicationIntakeRecordViewModel extends AndroidViewModel {
         return isTestMode;
     }
     
-    /**
-     * 获取Repository实例状态信息
-     * @return 状态信息字符串
-     */
-    public String getViewModelStatus() {
-        return getApplication().getString(com.medication.reminders.R.string.intake_record_viewmodel_status, 
-            (intakeRecordRepository != null ? getApplication().getString(com.medication.reminders.R.string.intake_record_repository_connected) : getApplication().getString(com.medication.reminders.R.string.intake_record_repository_disconnected)),
-            (executorService != null && !executorService.isShutdown() ? getApplication().getString(com.medication.reminders.R.string.intake_record_thread_pool_running) : getApplication().getString(com.medication.reminders.R.string.intake_record_thread_pool_stopped)),
-            isTestMode);
-    }
-    
+
     // ========== 生命周期管理 ==========
     
     /**

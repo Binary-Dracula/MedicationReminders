@@ -474,13 +474,4 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
     public boolean isShowingError() {
         return errorStateLayout != null && errorStateLayout.getVisibility() == View.VISIBLE;
     }
-    
-    /**
-     * 获取页面状态信息（用于调试）
-     * @return 状态信息字符串
-     */
-    public String getPageStatus() {
-        return getString(R.string.intake_record_detail_status_format, 
-            recordId, isLoading(), isShowingError());
-    }
 }
