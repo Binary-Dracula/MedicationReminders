@@ -48,7 +48,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication_intake_record_list);
         
-        Log.d(TAG, "创建用药记录列表页面");
+        Log.d(TAG, getString(R.string.intake_record_list_create));
         
         // 初始化UI组件
         initializeViews();
@@ -83,7 +83,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         // 初始化数据列表
         intakeRecords = new ArrayList<>();
         
-        Log.d(TAG, "UI组件初始化完成");
+        Log.d(TAG, getString(R.string.intake_record_ui_init_complete));
     }
     
     /**
@@ -95,7 +95,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         
-        Log.d(TAG, "标题栏设置完成");
+        Log.d(TAG, getString(R.string.intake_record_actionbar_setup_complete));
     }
     
     /**
@@ -103,7 +103,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
      */
     private void initializeViewModel() {
         viewModel = new ViewModelProvider(this).get(MedicationIntakeRecordViewModel.class);
-        Log.d(TAG, "ViewModel初始化完成");
+        Log.d(TAG, getString(R.string.intake_record_viewmodel_init_complete));
     }
     
     /**
@@ -119,9 +119,9 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         recyclerViewIntakeRecords.setAdapter(adapter);
         
         // 设置无障碍描述
-        recyclerViewIntakeRecords.setContentDescription("用药记录列表");
+        recyclerViewIntakeRecords.setContentDescription(getString(R.string.intake_record_list_content_description));
         
-        Log.d(TAG, "RecyclerView设置完成");
+        Log.d(TAG, getString(R.string.intake_record_recyclerview_setup_complete));
     }
     
     /**
@@ -130,20 +130,20 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
     private void observeData() {
         // 观察所有用药记录
         viewModel.getAllIntakeRecords().observe(this, records -> {
-            Log.d(TAG, "接收到用药记录数据，数量: " + (records != null ? records.size() : 0));
+            Log.d(TAG, getString(R.string.intake_record_received_data, (records != null ? records.size() : 0)));
             updateIntakeRecordsList(records);
         });
         
         // 观察加载状态
         viewModel.getIsLoading().observe(this, isLoading -> {
-            Log.d(TAG, "加载状态变化: " + isLoading);
+            Log.d(TAG, getString(R.string.intake_record_loading_state_change, String.valueOf(isLoading)));
             updateLoadingState(isLoading);
         });
         
         // 观察错误消息
         viewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage != null && !errorMessage.isEmpty()) {
-                Log.e(TAG, "接收到错误消息: " + errorMessage);
+                Log.e(TAG, getString(R.string.intake_record_received_error, errorMessage));
                 showErrorMessage(errorMessage);
             }
         });
@@ -151,12 +151,12 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         // 观察成功消息
         viewModel.getSuccessMessage().observe(this, successMessage -> {
             if (successMessage != null && !successMessage.isEmpty()) {
-                Log.d(TAG, "接收到成功消息: " + successMessage);
+                Log.d(TAG, getString(R.string.intake_record_received_success, successMessage));
                 // 可以在这里显示成功提示，但对于列表页面通常不需要
             }
         });
         
-        Log.d(TAG, "数据观察设置完成");
+        Log.d(TAG, getString(R.string.intake_record_data_observer_setup_complete));
     }
     
     /**
@@ -164,7 +164,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
      */
     private void setupLoadingIndicator() {
         // 加载管理器已在initializeViews中初始化
-        Log.d(TAG, "加载指示器设置完成");
+        Log.d(TAG, getString(R.string.intake_record_loading_indicator_setup_complete));
     }
     
     /**
@@ -175,11 +175,11 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         if (records == null || records.isEmpty()) {
             // 显示空状态
             showEmptyState();
-            Log.d(TAG, "显示空状态");
+            Log.d(TAG, getString(R.string.intake_record_show_empty_state));
         } else {
             // 显示记录列表
             showRecordsList(records);
-            Log.d(TAG, "显示用药记录列表，数量: " + records.size());
+            Log.d(TAG, getString(R.string.intake_record_show_list, records.size()));
         }
     }
     
@@ -192,7 +192,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         
         if (tvEmptyMessage != null) {
             tvEmptyMessage.setText(getString(R.string.no_intake_records_message));
-            tvEmptyMessage.setContentDescription("暂无用药记录提示");
+            tvEmptyMessage.setContentDescription(getString(R.string.intake_record_empty_message_content_description));
         }
     }
     
@@ -217,7 +217,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
     private void updateLoadingState(boolean isLoading) {
         if (loadingManager != null) {
             if (isLoading) {
-                loadingManager.showProgressDialog("正在加载用药记录...");
+                loadingManager.showProgressDialog(getString(R.string.intake_record_loading_message));
             } else {
                 loadingManager.hideProgressDialog();
             }
@@ -233,8 +233,8 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
         // 这里简单地在空状态中显示错误信息
         showEmptyState();
         if (tvEmptyMessage != null) {
-            tvEmptyMessage.setText("加载失败: " + errorMessage);
-            tvEmptyMessage.setContentDescription("加载失败提示: " + errorMessage);
+            tvEmptyMessage.setText(getString(R.string.intake_record_load_failed_message, errorMessage));
+            tvEmptyMessage.setContentDescription(getString(R.string.intake_record_load_failed_content_description, errorMessage));
         }
     }
     
@@ -246,12 +246,12 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
      */
     @Override
     public void onIntakeRecordClick(MedicationIntakeRecord record) {
-        Log.d(TAG, "用药记录被点击: " + record.getMedicationName() + " (ID: " + record.getId() + ")");
+        Log.d(TAG, getString(R.string.intake_record_clicked, record.getMedicationName(), record.getId()));
         
         // 导航到用药记录详情页面
         Intent intent = new Intent(this, MedicationIntakeRecordDetailActivity.class);
-        intent.putExtra("record_id", record.getId());
-        intent.putExtra("medication_name", record.getMedicationName());
+        intent.putExtra(getString(R.string.intent_key_record_id), record.getId());
+        intent.putExtra(getString(R.string.intent_key_medication_name), record.getMedicationName());
         startActivity(intent);
     }
     
@@ -260,7 +260,7 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "页面恢复，刷新数据");
+        Log.d(TAG, getString(R.string.intake_record_page_resume));
         
         // 页面恢复时刷新数据
         if (viewModel != null) {
@@ -277,21 +277,21 @@ public class MedicationIntakeRecordListActivity extends AppCompatActivity implem
             loadingManager.cleanup();
         }
         
-        Log.d(TAG, "页面销毁");
+        Log.d(TAG, getString(R.string.intake_record_page_destroy));
     }
     
     // ========== 导航方法 ==========
     
     @Override
     public boolean onSupportNavigateUp() {
-        Log.d(TAG, "返回上一页面");
+        Log.d(TAG, getString(R.string.intake_record_navigate_back));
         onBackPressed();
         return true;
     }
     
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "用户按下返回键");
+        Log.d(TAG, getString(R.string.intake_record_back_pressed));
         super.onBackPressed();
     }
 }

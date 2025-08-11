@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             
             // 设置标题
             if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle("用户注册");
+                getSupportActionBar().setTitle(getString(R.string.register_title));
             }
             
             // 初始化UserViewModel
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (Exception e) {
             android.util.Log.e("RegisterActivity", "Error in onCreate", e);
             // 如果出错，显示错误信息但不崩溃
-            Toast.makeText(this, "初始化失败: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.initialization_error, e.getMessage()), Toast.LENGTH_LONG).show();
         }
     }
     
@@ -158,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onChanged(String registrationStatus) {
                 if (registrationStatus != null && !registrationStatus.isEmpty()) {
-                    if (registrationStatus.contains("成功")) {
+                    if (registrationStatus.contains(getString(R.string.diary_operation_success_contains))) {
                         showSuccess(registrationStatus);
                     } else {
                         showError(registrationStatus);
@@ -248,7 +248,7 @@ public class RegisterActivity extends AppCompatActivity {
         
         // 验证所有字段
         if (!validateAllFields()) {
-            showError("请检查并修正上述输入错误");
+            showError(getString(R.string.input_validation_error));
             return;
         }
         
@@ -285,7 +285,7 @@ public class RegisterActivity extends AppCompatActivity {
         
         // 验证用户名
         if (username.isEmpty()) {
-            binding.tilUsername.setError("请输入用户名");
+            binding.tilUsername.setError(getString(R.string.username_required));
             isValid = false;
         } else {
             com.medication.reminders.models.ProfileValidationResult result = UserValidator.validateUsername(username);
@@ -299,7 +299,7 @@ public class RegisterActivity extends AppCompatActivity {
         
         // 验证手机号
         if (phone.isEmpty()) {
-            binding.tilPhone.setError("请输入手机号");
+            binding.tilPhone.setError(getString(R.string.phone_required));
             isValid = false;
         } else {
             com.medication.reminders.models.ProfileValidationResult result = UserValidator.validatePhoneNumber(phone);
@@ -313,7 +313,7 @@ public class RegisterActivity extends AppCompatActivity {
         
         // 验证邮箱
         if (email.isEmpty()) {
-            binding.tilEmail.setError("请输入邮箱");
+            binding.tilEmail.setError(getString(R.string.email_required));
             isValid = false;
         } else {
             com.medication.reminders.models.ProfileValidationResult result = UserValidator.validateEmail(email);
@@ -327,7 +327,7 @@ public class RegisterActivity extends AppCompatActivity {
         
         // 验证密码
         if (password.isEmpty()) {
-            binding.tilPassword.setError("请输入密码");
+            binding.tilPassword.setError(getString(R.string.password_required));
             isValid = false;
         } else {
             com.medication.reminders.models.ProfileValidationResult result = UserValidator.validatePassword(password);
@@ -358,13 +358,13 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void showFieldValidationErrors(String validationError) {
         // 根据错误消息内容判断是哪个字段的错误
-        if (validationError.contains("用户名")) {
+        if (validationError.contains(getString(R.string.field_error_username))) {
             binding.tilUsername.setError(validationError);
-        } else if (validationError.contains("手机") || validationError.contains("电话")) {
+        } else if (validationError.contains(getString(R.string.field_error_phone)) || validationError.contains("电话")) {
             binding.tilPhone.setError(validationError);
-        } else if (validationError.contains("邮箱") || validationError.contains("邮件")) {
+        } else if (validationError.contains(getString(R.string.field_error_email)) || validationError.contains("邮件")) {
             binding.tilEmail.setError(validationError);
-        } else if (validationError.contains("密码")) {
+        } else if (validationError.contains(getString(R.string.field_error_password))) {
             binding.tilPassword.setError(validationError);
         }
     }
@@ -429,8 +429,8 @@ public class RegisterActivity extends AppCompatActivity {
             .start();
         
         // 为老年用户添加无障碍播报
-        binding.tvMessage.setContentDescription("错误提示: " + message);
-        binding.tvMessage.announceForAccessibility("注册错误: " + message);
+        binding.tvMessage.setContentDescription(getString(R.string.error_message_content_description, message));
+        binding.tvMessage.announceForAccessibility(getString(R.string.register_error_prefix) + message);
     }
     
     /**
@@ -451,8 +451,8 @@ public class RegisterActivity extends AppCompatActivity {
             .start();
         
         // 为老年用户添加无障碍播报
-        binding.tvMessage.setContentDescription("成功提示: " + message);
-        binding.tvMessage.announceForAccessibility("恭喜您！" + message);
+        binding.tvMessage.setContentDescription(getString(R.string.success_message_content_description, message));
+        binding.tvMessage.announceForAccessibility(getString(R.string.register_success_prefix) + message);
         
         // 添加成功动画效果
         addSuccessAnimation(binding.tvMessage);
@@ -486,13 +486,13 @@ public class RegisterActivity extends AppCompatActivity {
      * 注册成功后导航到登录页面
      */
     private void navigateToLoginWithSuccess() {
-        Toast.makeText(this, "注册成功！请使用您的账户登录", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.register_success_message), Toast.LENGTH_LONG).show();
         
         Intent intent = new Intent(this, LoginActivity.class);
         // 将注册的用户名传递给登录页面，方便用户登录
         String username = getInputText(binding.etUsername);
-        intent.putExtra("registered_username", username);
-        intent.putExtra("registration_success", true);
+        intent.putExtra(getString(R.string.intent_key_registered_username), username);
+        intent.putExtra(getString(R.string.intent_key_registration_success), true);
         
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

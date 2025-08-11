@@ -84,7 +84,7 @@ public class ReminderReceiver extends BroadcastReceiver {
     private void showNotification(Context context, long scheduleId, long medicationId) {
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm == null) return;
-        ensureChannel(nm);
+        ensureChannel(context, nm);
 
         // 延迟10分钟
         Intent snooze = new Intent(context, ReminderReceiver.class);
@@ -107,19 +107,19 @@ public class ReminderReceiver extends BroadcastReceiver {
         NotificationCompat.Builder b = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_medication_default)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText("到点提醒：请按时服药")
+                .setContentText(context.getString(R.string.reminder_notification_content))
                 .setContentIntent(contentPi)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .addAction(R.drawable.ic_arrow_back, "延迟10分钟", snoozePi)
-                .addAction(R.drawable.ic_add_medication, "已服用", takenPi);
+                .addAction(R.drawable.ic_arrow_back, context.getString(R.string.reminder_action_snooze_text), snoozePi)
+                .addAction(R.drawable.ic_add_medication, context.getString(R.string.reminder_action_taken_text), takenPi);
 
         nm.notify((int) scheduleId, b.build());
     }
 
-    private void ensureChannel(NotificationManager nm) {
+    private void ensureChannel(Context context, NotificationManager nm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel ch = new NotificationChannel(CHANNEL_ID, "用药提醒", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel ch = new NotificationChannel(CHANNEL_ID, context.getString(R.string.reminder_channel_name), NotificationManager.IMPORTANCE_HIGH);
             ch.enableLights(true);
             ch.setLightColor(Color.GREEN);
             ch.enableVibration(true);

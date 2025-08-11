@@ -73,7 +73,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication_intake_record_detail);
         
-        Log.d(TAG, "创建用药记录详情页面");
+        Log.d(TAG, getString(R.string.intake_record_detail_create));
         
         // 初始化日期格式化器
         initializeDateFormatter();
@@ -83,7 +83,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         
         // 验证参数有效性
         if (!validateParameters()) {
-            Log.e(TAG, "参数验证失败，关闭页面");
+            Log.e(TAG, getString(R.string.intake_record_detail_param_validation_failed));
             finish();
             return;
         }
@@ -114,8 +114,8 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      * 初始化日期格式化器
      */
     private void initializeDateFormatter() {
-        dateTimeFormatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA);
-        Log.d(TAG, "日期格式化器初始化完成");
+        dateTimeFormatter = new SimpleDateFormat(getString(R.string.datetime_format_display), Locale.CHINA);
+        Log.d(TAG, getString(R.string.intake_record_detail_date_formatter_init));
     }
     
     /**
@@ -126,7 +126,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
             recordId = getIntent().getLongExtra(EXTRA_RECORD_ID, -1);
             medicationName = getIntent().getStringExtra(EXTRA_MEDICATION_NAME);
             
-            Log.d(TAG, "获取Intent参数 - recordId: " + recordId + ", medicationName: " + medicationName);
+            Log.d(TAG, getString(R.string.intake_record_detail_get_intent_params, recordId, medicationName));
         }
     }
     
@@ -136,8 +136,8 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      */
     private boolean validateParameters() {
         if (recordId <= 0) {
-            Log.e(TAG, "无效的记录ID: " + recordId);
-            showErrorAndFinish("无效的记录ID");
+            Log.e(TAG, getString(R.string.intake_record_detail_invalid_record_id, recordId));
+            showErrorAndFinish(getString(R.string.intake_record_detail_invalid_record_id_message));
             return false;
         }
         
@@ -168,7 +168,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         // 初始化加载管理器
         loadingManager = LoadingIndicator.createManager(this);
         
-        Log.d(TAG, "UI组件初始化完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_ui_init_complete));
     }
     
     /**
@@ -180,7 +180,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         
-        Log.d(TAG, "标题栏设置完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_actionbar_setup_complete));
     }
     
     /**
@@ -188,7 +188,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      */
     private void initializeViewModel() {
         viewModel = new ViewModelProvider(this).get(MedicationIntakeRecordViewModel.class);
-        Log.d(TAG, "ViewModel初始化完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_viewmodel_init_complete));
     }
     
     /**
@@ -197,17 +197,17 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
     private void setupEventListeners() {
         // 重试按钮点击事件
         btnRetry.setOnClickListener(v -> {
-            Log.d(TAG, "用户点击重试按钮");
+            Log.d(TAG, getString(R.string.intake_record_detail_user_click_retry));
             loadIntakeRecordData();
         });
         
         // 返回按钮点击事件
         btnBack.setOnClickListener(v -> {
-            Log.d(TAG, "用户点击返回按钮");
+            Log.d(TAG, getString(R.string.intake_record_detail_user_click_back));
             onBackPressed();
         });
         
-        Log.d(TAG, "事件监听器设置完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_event_listener_setup_complete));
     }
     
     /**
@@ -216,7 +216,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
     private void observeData() {
         // 观察选中的用药记录
         viewModel.getSelectedIntakeRecord().observe(this, record -> {
-            Log.d(TAG, "接收到用药记录数据: " + (record != null ? record.getMedicationName() : "null"));
+            Log.d(TAG, getString(R.string.intake_record_detail_received_data, (record != null ? record.getMedicationName() : "null")));
             if (record != null) {
                 displayIntakeRecord(record);
             }
@@ -224,14 +224,14 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         
         // 观察加载状态
         viewModel.getIsLoading().observe(this, isLoading -> {
-            Log.d(TAG, "加载状态变化: " + isLoading);
+            Log.d(TAG, getString(R.string.intake_record_detail_loading_state_change, String.valueOf(isLoading)));
             updateLoadingState(isLoading);
         });
         
         // 观察错误消息
         viewModel.getErrorMessage().observe(this, errorMessage -> {
             if (errorMessage != null && !errorMessage.isEmpty()) {
-                Log.e(TAG, "接收到错误消息: " + errorMessage);
+                Log.e(TAG, getString(R.string.intake_record_detail_received_error, errorMessage));
                 showErrorState(errorMessage);
             }
         });
@@ -239,13 +239,13 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         // 观察成功消息
         viewModel.getSuccessMessage().observe(this, successMessage -> {
             if (successMessage != null && !successMessage.isEmpty()) {
-                Log.d(TAG, "接收到成功消息: " + successMessage);
+                Log.d(TAG, getString(R.string.intake_record_detail_received_success, successMessage));
                 // 成功加载后显示内容
                 showContentState();
             }
         });
         
-        Log.d(TAG, "数据观察设置完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_data_observer_setup_complete));
     }
     
     /**
@@ -253,14 +253,14 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      */
     private void setupLoadingIndicator() {
         // 加载管理器已在initializeViews中初始化
-        Log.d(TAG, "加载指示器设置完成");
+        Log.d(TAG, getString(R.string.intake_record_detail_loading_indicator_setup_complete));
     }
     
     /**
      * 加载用药记录数据
      */
     private void loadIntakeRecordData() {
-        Log.d(TAG, "开始加载用药记录数据，ID: " + recordId);
+        Log.d(TAG, getString(R.string.intake_record_detail_load_data_start, recordId));
         
         // 隐藏错误状态
         hideErrorState();
@@ -274,44 +274,44 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      * @param record 用药记录对象
      */
     private void displayIntakeRecord(MedicationIntakeRecord record) {
-        Log.d(TAG, "显示用药记录详情: " + record.toString());
+        Log.d(TAG, getString(R.string.intake_record_detail_display_record, record.toString()));
         
         try {
             // 显示药物名称
             if (tvMedicationName != null) {
                 tvMedicationName.setText(record.getMedicationName());
-                tvMedicationName.setContentDescription("药物名称：" + record.getMedicationName());
+                tvMedicationName.setContentDescription(getString(R.string.intake_record_detail_medication_name_content_description, record.getMedicationName()));
             }
             
             // 显示服用时间
             if (tvIntakeTime != null) {
                 String formattedTime = formatDateTime(record.getIntakeTime());
                 tvIntakeTime.setText(formattedTime);
-                tvIntakeTime.setContentDescription("服用时间：" + formattedTime);
+                tvIntakeTime.setContentDescription(getString(R.string.intake_record_detail_intake_time_content_description, formattedTime));
             }
             
             // 显示服用剂量
             if (tvDosageTaken != null) {
                 String dosageText = getString(R.string.dosage_unit_format, record.getDosageTaken());
                 tvDosageTaken.setText(dosageText);
-                tvDosageTaken.setContentDescription("服用剂量：" + dosageText);
+                tvDosageTaken.setContentDescription(getString(R.string.intake_record_detail_dosage_content_description, dosageText));
             }
             
             // 显示记录ID
             if (tvRecordId != null) {
                 String recordIdText = getString(R.string.record_id_format, record.getId());
                 tvRecordId.setText(recordIdText);
-                tvRecordId.setContentDescription("记录编号：" + record.getId());
+                tvRecordId.setContentDescription(getString(R.string.intake_record_detail_record_id_content_description, record.getId()));
             }
             
             // 显示内容区域
             showContentState();
             
-            Log.d(TAG, "用药记录详情显示完成");
+            Log.d(TAG, getString(R.string.intake_record_detail_display_complete));
             
         } catch (Exception e) {
-            Log.e(TAG, "显示用药记录详情时发生错误", e);
-            showErrorState("显示记录详情时发生错误：" + e.getMessage());
+            Log.e(TAG, getString(R.string.intake_record_detail_display_error), e);
+            showErrorState(getString(R.string.intake_record_detail_display_error_message, e.getMessage()));
         }
     }
     
@@ -325,8 +325,8 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
             Date date = new Date(timestamp);
             return dateTimeFormatter.format(date);
         } catch (Exception e) {
-            Log.e(TAG, "日期格式化失败", e);
-            return "时间格式错误";
+            Log.e(TAG, getString(R.string.intake_record_detail_date_format_error), e);
+            return getString(R.string.intake_record_detail_time_format_error);
         }
     }
     
@@ -338,7 +338,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
             contentScrollView.setVisibility(View.VISIBLE);
         }
         hideErrorState();
-        Log.d(TAG, "显示内容状态");
+        Log.d(TAG, getString(R.string.intake_record_detail_show_content_state));
     }
     
     /**
@@ -359,10 +359,10 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         // 设置错误消息
         if (tvErrorMessage != null) {
             tvErrorMessage.setText(errorMessage);
-            tvErrorMessage.setContentDescription("错误信息：" + errorMessage);
+            tvErrorMessage.setContentDescription(getString(R.string.intake_record_detail_error_content_description, errorMessage));
         }
         
-        Log.d(TAG, "显示错误状态：" + errorMessage);
+        Log.d(TAG, getString(R.string.intake_record_detail_show_error_state, errorMessage));
     }
     
     /**
@@ -372,7 +372,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
         if (errorStateLayout != null) {
             errorStateLayout.setVisibility(View.GONE);
         }
-        Log.d(TAG, "隐藏错误状态");
+        Log.d(TAG, getString(R.string.intake_record_detail_hide_error_state));
     }
     
     /**
@@ -382,7 +382,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
     private void updateLoadingState(boolean isLoading) {
         if (loadingManager != null) {
             if (isLoading) {
-                loadingManager.showProgressDialog("正在加载用药记录详情...");
+                loadingManager.showProgressDialog(getString(R.string.intake_record_detail_loading_dialog_message));
             } else {
                 loadingManager.hideProgressDialog();
             }
@@ -394,7 +394,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      * @param errorMessage 错误消息
      */
     private void showErrorAndFinish(String errorMessage) {
-        Log.e(TAG, "显示错误并关闭页面: " + errorMessage);
+        Log.e(TAG, getString(R.string.intake_record_detail_show_error_and_finish, errorMessage));
         
         // 可以显示Toast或对话框
         // 这里简单地关闭页面
@@ -406,7 +406,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "页面恢复");
+        Log.d(TAG, getString(R.string.intake_record_detail_page_resume));
         
         // 页面恢复时可以刷新数据，但对于详情页面通常不需要
         // 如果需要实时更新，可以在这里重新加载数据
@@ -421,21 +421,21 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
             loadingManager.cleanup();
         }
         
-        Log.d(TAG, "页面销毁");
+        Log.d(TAG, getString(R.string.intake_record_detail_page_destroy));
     }
     
     // ========== 导航方法 ==========
     
     @Override
     public boolean onSupportNavigateUp() {
-        Log.d(TAG, "标题栏返回按钮被点击");
+        Log.d(TAG, getString(R.string.intake_record_detail_actionbar_back_clicked));
         onBackPressed();
         return true;
     }
     
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "用户按下返回键");
+        Log.d(TAG, getString(R.string.intake_record_detail_back_pressed));
         super.onBackPressed();
     }
     
@@ -480,7 +480,7 @@ public class MedicationIntakeRecordDetailActivity extends AppCompatActivity {
      * @return 状态信息字符串
      */
     public String getPageStatus() {
-        return String.format("MedicationIntakeRecordDetailActivity状态: recordId=%d, 加载中=%s, 显示错误=%s", 
+        return getString(R.string.intake_record_detail_status_format, 
             recordId, isLoading(), isShowingError());
     }
 }

@@ -76,7 +76,7 @@ public class AddMedicationActivity extends AppCompatActivity {
         setupClickListeners();
 
         // 如果是编辑模式，尝试加载已有药物数据
-        long editId = getIntent().getLongExtra("edit_medication_id", -1);
+        long editId = getIntent().getLongExtra(getString(R.string.intent_key_edit_medication_id), -1);
         if (editId > 0) {
             viewModel.getMedicationById(editId).observe(this, medication -> {
                 if (medication != null) {
@@ -170,7 +170,7 @@ public class AddMedicationActivity extends AppCompatActivity {
                 int length = s.length();
                 if (length > 90) { // Warning at 90 characters (limit is 100)
                     binding.medicationNameLayout.setHelperText(
-                        String.format("还可输入 %d 个字符", 100 - length));
+                        getString(R.string.character_count_helper, 100 - length));
                 } else {
                     binding.medicationNameLayout.setHelperText(null);
                 }
@@ -732,10 +732,10 @@ public class AddMedicationActivity extends AppCompatActivity {
      */
     private File createImageFile() throws IOException {
         String fileName = PhotoUtils.generateUniqueFilename();
-        File storageDir = new File(getFilesDir(), "temp_photos");
+        File storageDir = new File(getFilesDir(), getString(R.string.temp_photos_directory));
         
         if (!storageDir.exists() && !storageDir.mkdirs()) {
-            throw new IOException("Failed to create temp photos directory");
+            throw new IOException(getString(R.string.temp_photos_create_error));
         }
         
         return new File(storageDir, fileName);
@@ -1005,7 +1005,7 @@ public class AddMedicationActivity extends AppCompatActivity {
     private void confirmDeletePhoto() {
         new AlertDialog.Builder(this)
             .setTitle(getString(R.string.confirm_delete_title))
-            .setMessage("您确定要删除这张照片吗？")
+            .setMessage(getString(R.string.confirm_delete_photo_dialog_message))
             .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                 deleteCurrentPhoto();
             })
@@ -1026,7 +1026,7 @@ public class AddMedicationActivity extends AppCompatActivity {
             viewModel.clearPhoto();
             
             // Show confirmation
-            Toast.makeText(this, "照片已删除", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.photo_deleted_message), Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -1080,7 +1080,7 @@ public class AddMedicationActivity extends AppCompatActivity {
      */
     private void updatePhotoButtonText(boolean hasPhoto) {
         if (hasPhoto) {
-            binding.uploadPhotoButton.setText(getString(R.string.upload_photo) + " (已选择)");
+            binding.uploadPhotoButton.setText(getString(R.string.photo_upload_selected, getString(R.string.upload_photo)));
         } else {
             binding.uploadPhotoButton.setText(getString(R.string.upload_photo));
         }

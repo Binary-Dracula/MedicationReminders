@@ -430,62 +430,62 @@ public class UserViewModel extends AndroidViewModel {
         String message = errorMessage.toLowerCase().trim();
         
         // 用户名相关错误
-        if (message.contains("用户名") && message.contains("存在")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_username)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_username_exists))) {
             return UserError.USERNAME_EXISTS;
         }
-        if (message.contains("用户名") && message.contains("格式")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_username)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_username_format))) {
             return UserError.INVALID_USERNAME;
         }
-        if (message.contains("用户不存在")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_user_not_exists))) {
             return UserError.USER_NOT_FOUND;
         }
         
         // 密码相关错误
-        if (message.contains("密码") && message.contains("错误")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_password)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_password_wrong))) {
             return UserError.WRONG_PASSWORD;
         }
-        if (message.contains("密码") && message.contains("强度")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_password)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_password_strength))) {
             return UserError.WEAK_PASSWORD;
         }
         
         // 邮箱相关错误
-        if (message.contains("邮箱") && message.contains("格式")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_email)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_email_format))) {
             return UserError.INVALID_EMAIL;
         }
         
         // 电话相关错误
-        if (message.contains("电话") && message.contains("格式")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_phone)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_phone_format))) {
             return UserError.INVALID_PHONE;
         }
         
         // 登录相关错误
-        if (message.contains("登录") && message.contains("失败")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_login)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_login_failed))) {
             return UserError.LOGIN_FAILED;
         }
-        if (message.contains("尝试次数")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_attempts))) {
             return UserError.TOO_MANY_ATTEMPTS;
         }
-        if (message.contains("账户") && message.contains("锁定")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_account)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_account_locked))) {
             return UserError.ACCOUNT_LOCKED;
         }
         
         // 数据库相关错误
-        if (message.contains("数据库")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_database))) {
             return UserError.DATABASE_ERROR;
         }
         
         // 网络相关错误
-        if (message.contains("网络")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_network))) {
             return UserError.NETWORK_ERROR;
         }
         
         // 会话相关错误
-        if (message.contains("会话") && message.contains("过期")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_session)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_session_expired))) {
             return UserError.SESSION_EXPIRED;
         }
         
         // 个人资料相关错误
-        if (message.contains("个人资料") && message.contains("更新")) {
+        if (message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_profile)) && message.contains(getApplication().getString(com.medication.reminders.R.string.user_error_profile_update))) {
             return UserError.PROFILE_UPDATE_FAILED;
         }
         
@@ -534,7 +534,7 @@ public class UserViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(User user) {
                 loginSuccess.setValue(true);
-                loginStatus.setValue("自动登录成功");
+                loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_auto_login_success));
             }
             
             @Override
@@ -555,7 +555,7 @@ public class UserViewModel extends AndroidViewModel {
                 public void onSuccess(User user) {
                     postToMainThread(() -> {
                         loginSuccess.setValue(true);
-                        loginStatus.setValue("自动登录成功");
+                        loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_auto_login_success));
                     });
                 }
                 
@@ -597,12 +597,12 @@ public class UserViewModel extends AndroidViewModel {
                 resetLoginStatus();
                 resetRegistrationStatus();
                 resetProfileUpdateStatus();
-                setSuccess("登出成功");
+                setSuccess(getApplication().getString(com.medication.reminders.R.string.user_logout_success));
             }
             
             @Override
             public void onError(String error) {
-                setError("登出失败：" + error);
+                setError(getApplication().getString(com.medication.reminders.R.string.user_logout_failed, error));
             }
         });
     }
@@ -620,14 +620,14 @@ public class UserViewModel extends AndroidViewModel {
                         resetLoginStatus();
                         resetRegistrationStatus();
                         resetProfileUpdateStatus();
-                        setSuccess("登出成功");
+                        setSuccess(getApplication().getString(com.medication.reminders.R.string.user_logout_success));
                     });
                 }
                 
                 @Override
                 public void onError(String error) {
                     postToMainThread(() -> {
-                        setError("登出失败：" + error);
+                        setError(getApplication().getString(com.medication.reminders.R.string.user_logout_failed, error));
                     });
                 }
             });
@@ -686,8 +686,8 @@ public class UserViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(Long userId) {
                     registrationSuccess.setValue(true);
-                    registrationStatus.setValue("注册成功");
-                    setSuccess("用户注册成功，用户ID: " + userId);
+                    registrationStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_registration_success));
+                    setSuccess(getApplication().getString(com.medication.reminders.R.string.user_registration_success_with_id, userId));
                 }
                 
                 @Override
@@ -700,8 +700,8 @@ public class UserViewModel extends AndroidViewModel {
             
         } catch (Exception e) {
             registrationSuccess.setValue(false);
-            registrationStatus.setValue("注册过程中发生错误");
-            setError("注册过程中发生错误，请重试");
+            registrationStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_registration_error));
+            setError(getApplication().getString(com.medication.reminders.R.string.user_registration_error_retry));
         }
     }
     
@@ -733,8 +733,8 @@ public class UserViewModel extends AndroidViewModel {
                     public void onSuccess(Long userId) {
                         postToMainThread(() -> {
                             registrationSuccess.setValue(true);
-                            registrationStatus.setValue("注册成功");
-                            setSuccess("用户注册成功，用户ID: " + userId);
+                            registrationStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_registration_success));
+                            setSuccess(getApplication().getString(com.medication.reminders.R.string.user_registration_success_with_id, userId));
                         });
                     }
                     
@@ -751,8 +751,8 @@ public class UserViewModel extends AndroidViewModel {
             } catch (Exception e) {
                 postToMainThread(() -> {
                     registrationSuccess.setValue(false);
-                    registrationStatus.setValue("注册过程中发生错误");
-                    setError("注册过程中发生错误，请重试");
+                    registrationStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_registration_error));
+                    setError(getApplication().getString(com.medication.reminders.R.string.user_registration_error_retry));
                 });
             }
         });
@@ -766,7 +766,7 @@ public class UserViewModel extends AndroidViewModel {
      */
     public void checkUsernameExists(String username, RepositoryCallback<Boolean> callback) {
         if (username == null || username.trim().isEmpty()) {
-            callback.onError("用户名不能为空");
+            callback.onError(getApplication().getString(com.medication.reminders.R.string.user_username_empty));
             return;
         }
         
@@ -900,8 +900,8 @@ public class UserViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(User user) {
                     loginSuccess.setValue(true);
-                    loginStatus.setValue("登录成功");
-                    setSuccess("欢迎回来，" + user.getUsername());
+                    loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_login_success));
+                    setSuccess(getApplication().getString(com.medication.reminders.R.string.user_login_welcome, user.getUsername()));
                 }
                 
                 @Override
@@ -914,8 +914,8 @@ public class UserViewModel extends AndroidViewModel {
             
         } catch (Exception e) {
             loginSuccess.setValue(false);
-            loginStatus.setValue("登录过程中发生错误");
-            setError("登录过程中发生错误，请重试");
+            loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_login_error));
+            setError(getApplication().getString(com.medication.reminders.R.string.user_login_error_retry));
         }
     }
     
@@ -946,8 +946,8 @@ public class UserViewModel extends AndroidViewModel {
                     public void onSuccess(User user) {
                         postToMainThread(() -> {
                             loginSuccess.setValue(true);
-                            loginStatus.setValue("登录成功");
-                            setSuccess("欢迎回来，" + user.getUsername());
+                            loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_login_success));
+                            setSuccess(getApplication().getString(com.medication.reminders.R.string.user_login_welcome, user.getUsername()));
                         });
                     }
                     
@@ -964,8 +964,8 @@ public class UserViewModel extends AndroidViewModel {
             } catch (Exception e) {
                 postToMainThread(() -> {
                     loginSuccess.setValue(false);
-                    loginStatus.setValue("登录过程中发生错误");
-                    setError("登录过程中发生错误，请重试");
+                    loginStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_login_error));
+                    setError(getApplication().getString(com.medication.reminders.R.string.user_login_error_retry));
                 });
             }
         });
@@ -981,15 +981,15 @@ public class UserViewModel extends AndroidViewModel {
     public String validateLoginForm(String username, String password) {
         // 检查空值
         if (username == null && password == null) {
-            return "请输入用户名和密码";
+            return getApplication().getString(com.medication.reminders.R.string.user_login_validation_both_empty);
         }
         
         if (username == null || username.trim().isEmpty()) {
-            return password == null || password.trim().isEmpty() ? "请输入用户名和密码" : "请输入用户名";
+            return password == null || password.trim().isEmpty() ? getApplication().getString(com.medication.reminders.R.string.user_login_validation_both_empty) : getApplication().getString(com.medication.reminders.R.string.user_login_validation_username_empty);
         }
         
         if (password == null || password.trim().isEmpty()) {
-            return "请输入密码";
+            return getApplication().getString(com.medication.reminders.R.string.user_login_validation_password_empty);
         }
         
         // 使用统一的UserValidator进行基本格式验证
@@ -1022,27 +1022,27 @@ public class UserViewModel extends AndroidViewModel {
         
         // 验证输入
         if (oldPassword == null || oldPassword.trim().isEmpty()) {
-            setError("请输入当前密码");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_password_current_empty));
             return;
         }
         
         if (newPassword == null || newPassword.trim().isEmpty()) {
-            setError("请输入新密码");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_password_new_empty));
             return;
         }
         
         if (newPassword.trim().length() < 6) {
-            setError("新密码至少需要6个字符");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_password_new_too_short));
             return;
         }
         
         if (newPassword.trim().length() > 20) {
-            setError("新密码不能超过20个字符");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_password_new_too_long));
             return;
         }
         
         if (oldPassword.equals(newPassword)) {
-            setError("新密码不能与当前密码相同");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_password_same_as_old));
             return;
         }
         
@@ -1063,12 +1063,12 @@ public class UserViewModel extends AndroidViewModel {
         userRepository.changePassword(oldPassword, newPassword, new RepositoryCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
-                setSuccess("密码修改成功");
+                setSuccess(getApplication().getString(com.medication.reminders.R.string.user_password_change_success));
             }
             
             @Override
             public void onError(String error) {
-                setError("密码修改失败：" + error);
+                setError(getApplication().getString(com.medication.reminders.R.string.user_password_change_failed, error));
             }
         });
     }
@@ -1084,14 +1084,14 @@ public class UserViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(Boolean result) {
                     postToMainThread(() -> {
-                        setSuccess("密码修改成功");
+                        setSuccess(getApplication().getString(com.medication.reminders.R.string.user_password_change_success));
                     });
                 }
                 
                 @Override
                 public void onError(String error) {
                     postToMainThread(() -> {
-                        setError("密码修改失败：" + error);
+                        setError(getApplication().getString(com.medication.reminders.R.string.user_password_change_failed, error));
                     });
                 }
             });
@@ -1107,7 +1107,7 @@ public class UserViewModel extends AndroidViewModel {
      */
     public void updateUserProfile(User user) {
         if (user == null) {
-            setError("用户资料信息不能为空");
+            setError(getApplication().getString(com.medication.reminders.R.string.user_profile_info_empty));
             return;
         }
         
@@ -1136,15 +1136,15 @@ public class UserViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(Boolean result) {
                 profileUpdateSuccess.setValue(true);
-                profileUpdateStatus.setValue("个人资料更新成功");
-                setSuccess("个人资料更新成功");
+                profileUpdateStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_profile_update_success));
+                setSuccess(getApplication().getString(com.medication.reminders.R.string.user_profile_update_success));
             }
             
             @Override
             public void onError(String error) {
                 profileUpdateSuccess.setValue(false);
                 profileUpdateStatus.setValue(error);
-                setError("个人资料更新失败：" + error);
+                setError(getApplication().getString(com.medication.reminders.R.string.user_profile_update_failed, error));
             }
         });
     }
@@ -1160,8 +1160,8 @@ public class UserViewModel extends AndroidViewModel {
                 public void onSuccess(Boolean result) {
                     postToMainThread(() -> {
                         profileUpdateSuccess.setValue(true);
-                        profileUpdateStatus.setValue("个人资料更新成功");
-                        setSuccess("个人资料更新成功");
+                        profileUpdateStatus.setValue(getApplication().getString(com.medication.reminders.R.string.user_profile_update_success));
+                        setSuccess(getApplication().getString(com.medication.reminders.R.string.user_profile_update_success));
                     });
                 }
                 
@@ -1170,7 +1170,7 @@ public class UserViewModel extends AndroidViewModel {
                     postToMainThread(() -> {
                         profileUpdateSuccess.setValue(false);
                         profileUpdateStatus.setValue(error);
-                        setError("个人资料更新失败：" + error);
+                        setError(getApplication().getString(com.medication.reminders.R.string.user_profile_update_failed, error));
                     });
                 }
             });
@@ -1197,7 +1197,7 @@ public class UserViewModel extends AndroidViewModel {
                 // 执行更新
                 updateUserProfile(currentUser);
             } else {
-                setError("未找到当前用户信息");
+                setError(getApplication().getString(com.medication.reminders.R.string.error_user_not_found));
             }
         });
     }
@@ -1225,7 +1225,7 @@ public class UserViewModel extends AndroidViewModel {
                 // 执行更新
                 updateUserProfile(currentUser);
             } else {
-                setError("未找到当前用户信息");
+                setError(getApplication().getString(com.medication.reminders.R.string.error_user_not_found));
             }
         });
     }
@@ -1246,7 +1246,7 @@ public class UserViewModel extends AndroidViewModel {
                 // 执行更新
                 updateUserProfile(currentUser);
             } else {
-                setError("未找到当前用户信息");
+                setError(getApplication().getString(com.medication.reminders.R.string.error_user_not_found));
             }
         });
     }
@@ -1278,7 +1278,7 @@ public class UserViewModel extends AndroidViewModel {
                 // 执行更新
                 updateUserProfile(currentUser);
             } else {
-                setError("未找到当前用户信息");
+                setError(getApplication().getString(com.medication.reminders.R.string.error_user_not_found));
             }
         });
     }
@@ -1290,7 +1290,7 @@ public class UserViewModel extends AndroidViewModel {
      */
     public void updateProfilePhoto(Uri photoUri) {
         if (photoUri == null) {
-            setError("照片URI不能为空");
+            setError(getApplication().getString(com.medication.reminders.R.string.error_photo_uri_empty));
             return;
         }
         
@@ -1304,7 +1304,7 @@ public class UserViewModel extends AndroidViewModel {
                 // 执行更新
                 updateUserProfile(currentUser);
             } else {
-                setError("未找到当前用户信息");
+                setError(getApplication().getString(com.medication.reminders.R.string.error_user_not_found));
             }
         });
     }
@@ -1335,7 +1335,7 @@ public class UserViewModel extends AndroidViewModel {
             
             @Override
             public void onError(String error) {
-                setError("获取当前用户失败：" + error);
+                setError(getApplication().getString(com.medication.reminders.R.string.error_get_current_user_failed, error));
             }
         });
     }
@@ -1354,7 +1354,7 @@ public class UserViewModel extends AndroidViewModel {
                 
                 @Override
                 public void onError(String error) {
-                    postToMainThread(() -> setError("获取当前用户失败：" + error));
+                    postToMainThread(() -> setError(getApplication().getString(com.medication.reminders.R.string.error_get_current_user_failed, error)));
                 }
             });
         });

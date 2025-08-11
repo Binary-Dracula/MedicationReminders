@@ -120,7 +120,7 @@ public class MedicationListActivity extends AppCompatActivity {
      */
     private void onMedicationClick(MedicationInfo medication) {
         Intent intent = new Intent(this, MedicationDetailActivity.class);
-        intent.putExtra("medication_id", medication.getId());
+        intent.putExtra(getString(R.string.intent_key_medication_id), medication.getId());
         startActivity(intent);
     }
     

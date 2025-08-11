@@ -103,9 +103,9 @@ public class HealthDiaryDetailActivity extends AppCompatActivity {
         // 观察操作结果
         viewModel.getOperationResult().observe(this, result -> {
             if (result != null && !result.isEmpty()) {
-                if (result.contains("成功")) {
+                if (result.contains(getString(R.string.diary_operation_success_contains))) {
                     ErrorHandler.showSuccessToast(this, result);
-                    if (result.contains("删除")) {
+                    if (result.contains(getString(R.string.diary_delete_success_contains))) {
                         // 删除成功，设置结果并返回列表页面
                         setResult(RESULT_OK);
                         finish();
@@ -135,7 +135,7 @@ public class HealthDiaryDetailActivity extends AppCompatActivity {
             
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 showError(errorMessage);
-                ErrorHandler.showErrorToast(this, new Exception(errorMessage), "日记操作");
+                ErrorHandler.showErrorToast(this, new Exception(errorMessage), getString(R.string.diary_operation_error));
             }
         });
         
@@ -145,7 +145,7 @@ public class HealthDiaryDetailActivity extends AppCompatActivity {
             
             if (successMessage != null && !successMessage.isEmpty()) {
                 ErrorHandler.showSuccessToast(this, successMessage);
-                if (successMessage.contains("删除")) {
+                if (successMessage.contains(getString(R.string.diary_delete_success_contains))) {
                     setResult(RESULT_OK);
                     finish();
                 }
@@ -155,7 +155,7 @@ public class HealthDiaryDetailActivity extends AppCompatActivity {
         // 观察删除成功状态
         viewModel.getDeleteSuccess().observe(this, isSuccess -> {
             if (isSuccess != null && isSuccess) {
-                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, "删除");
+                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, getString(R.string.diary_delete_success_contains));
                 setResult(RESULT_OK);
                 finish();
             }
@@ -212,7 +212,7 @@ public class HealthDiaryDetailActivity extends AppCompatActivity {
      * 格式化日期时间
      */
     private String formatDateTime(long timestamp) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat(getString(R.string.datetime_format_display), Locale.CHINA);
         return formatter.format(new Date(timestamp));
     }
     

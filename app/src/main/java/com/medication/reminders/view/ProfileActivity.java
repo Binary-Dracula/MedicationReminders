@@ -66,8 +66,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         
         // 初始化日期格式化器
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        displayDateFormatter = new SimpleDateFormat("yyyy年MM月dd日", Locale.getDefault());
+        dateFormatter = new SimpleDateFormat(getString(R.string.date_format_storage), Locale.getDefault());
+        displayDateFormatter = new SimpleDateFormat(getString(R.string.date_format_display), Locale.getDefault());
         
         // 初始化UserViewModel
         initializeViewModel();
@@ -164,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onChanged(String updateStatus) {
                 if (updateStatus != null && !updateStatus.isEmpty()) {
-                    if (updateStatus.contains("成功")) {
+                    if (updateStatus.contains(getString(R.string.diary_operation_success_contains))) {
                         showSuccessMessage(updateStatus);
                     } else {
                         showErrorMessage(updateStatus);
@@ -179,7 +179,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onChanged(Boolean updateSuccess) {
                 if (updateSuccess != null && updateSuccess) {
                     // 个人资料更新成功，UI会自动通过currentUser LiveData更新
-                    Toast.makeText(ProfileActivity.this, "个人资料已更新", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, getString(R.string.profile_updated_message), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -196,7 +196,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Bundle extras = result.getData().getExtras();
                     if (extras != null) {
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        Bitmap imageBitmap = (Bitmap) extras.get(getString(R.string.profile_photo_bitmap_key));
                         if (imageBitmap != null) {
                             // 将Bitmap保存为临时文件并更新个人资料照片
                             saveBitmapAndUpdatePhoto(imageBitmap);
@@ -560,7 +560,7 @@ public class ProfileActivity extends AppCompatActivity {
         
         if (requestCode == 1001 && resultCode == RESULT_OK) {
             // 编辑成功后，UserViewModel会自动通过LiveData更新UI
-            Toast.makeText(this, "个人资料已更新", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.profile_updated_message), Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -670,8 +670,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .start();
             
             // 为老年用户添加无障碍播报
-            binding.tvMessage.setContentDescription("错误提示: " + message);
-            binding.tvMessage.announceForAccessibility("个人资料错误: " + message);
+            binding.tvMessage.setContentDescription(getString(R.string.error_message_content_description, message));
+            binding.tvMessage.announceForAccessibility(getString(R.string.profile_error_prefix) + message);
             
             // 同时显示Toast提示
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -699,8 +699,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .start();
             
             // 为老年用户添加无障碍播报
-            binding.tvMessage.setContentDescription("成功提示: " + message);
-            binding.tvMessage.announceForAccessibility("恭喜您！" + message);
+            binding.tvMessage.setContentDescription(getString(R.string.success_message_content_description, message));
+            binding.tvMessage.announceForAccessibility(getString(R.string.profile_success_prefix) + message);
             
             // 添加成功动画效果
             addSuccessAnimation(binding.tvMessage);

@@ -60,7 +60,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_diary_list);
         
-        android.util.Log.d("HealthDiaryList", "Activity onCreate 开始");
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_activity_create_start));
         
         // 初始化视图组件
         initViews();
@@ -83,7 +83,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
         // 设置ActionBar
         setupActionBar();
         
-        android.util.Log.d("HealthDiaryList", "Activity onCreate 完成，开始加载数据");
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_activity_create_complete));
         
         // 先检查用户登录状态，然后加载数据
         checkUserLoginStatus();
@@ -141,25 +141,25 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
     private void setupObservers() {
         // 观察日记列表数据
         viewModel.getUserDiaries().observe(this, diaries -> {
-            android.util.Log.d("HealthDiaryList", "收到日记列表数据: " + (diaries != null ? diaries.size() + "条" : "null"));
+            android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_received_data, (diaries != null ? diaries.size() + getString(R.string.diary_list_data_count) : getString(R.string.diary_list_data_null))));
             
             // 隐藏加载指示器
             loadingManager.hideAll();
             hideAllStates();
             
             if (diaries != null && !diaries.isEmpty()) {
-                android.util.Log.d("HealthDiaryList", "显示日记列表，共" + diaries.size() + "条");
+                android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_show_list, diaries.size()));
                 // 显示日记列表
                 adapter.updateDiaries(diaries);
                 recyclerViewHealthDiary.setVisibility(View.VISIBLE);
                 
                 // 显示成功加载消息（仅在刷新时）
                 if (isRefreshing) {
-                    ErrorHandler.showSuccessToast(this, "日记加载成功，共" + diaries.size() + "条");
+                    ErrorHandler.showSuccessToast(this, getString(R.string.diary_list_load_success, diaries.size()));
                     isRefreshing = false;
                 }
             } else {
-                android.util.Log.d("HealthDiaryList", "显示空状态 - 数据为空或null");
+                android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_show_empty));
                 // 显示空状态
                 showEmptyState();
                 if (isRefreshing) {
@@ -172,7 +172,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
         viewModel.getOperationResult().observe(this, result -> {
             if (result != null && !result.isEmpty()) {
                 // 根据结果类型显示不同的提示
-                if (result.contains("成功")) {
+                if (result.contains(getString(R.string.diary_operation_success_contains))) {
                     ErrorHandler.showSuccessToast(this, result);
                 } else {
                     ErrorHandler.showInfoToast(this, result);
@@ -200,7 +200,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
             
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 showErrorState(errorMessage);
-                ErrorHandler.showErrorToast(this, new Exception(errorMessage), "加载日记列表");
+                ErrorHandler.showErrorToast(this, new Exception(errorMessage), getString(R.string.diary_list_load_error));
             }
         });
         
@@ -304,13 +304,13 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
      * 刷新日记列表
      */
     private void refreshDiaryList() {
-        android.util.Log.d("HealthDiaryList", "开始刷新日记列表");
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_refresh_start));
         isRefreshing = true;
         showLoadingState();
         
         // 添加调试信息
-        android.util.Log.d("HealthDiaryList", "ViewModel状态: " + (viewModel != null ? "已初始化" : "未初始化"));
-        android.util.Log.d("HealthDiaryList", "Adapter状态: " + (adapter != null ? "已初始化，当前数据量: " + adapter.getItemCount() : "未初始化"));
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_viewmodel_status, (viewModel != null ? getString(R.string.diary_list_viewmodel_initialized) : getString(R.string.diary_list_viewmodel_not_initialized))));
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_adapter_status, (adapter != null ? getString(R.string.diary_list_adapter_initialized, adapter.getItemCount()) : getString(R.string.diary_list_adapter_not_initialized))));
         
         viewModel.refreshDiaries();
     }
@@ -357,7 +357,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
                 case REQUEST_ADD_DIARY:
                     // 添加日记成功，刷新列表
                     refreshDiaryList();
-                    ErrorHandler.HealthDiary.showDiarySuccessMessage(this, "添加");
+                    ErrorHandler.HealthDiary.showDiarySuccessMessage(this, getString(R.string.diary_add_success_message));
                     break;
                 case REQUEST_VIEW_DIARY:
                     // 从详情页返回，可能有编辑或删除操作，刷新列表
@@ -373,7 +373,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
     @Override
     protected void onResume() {
         super.onResume();
-        android.util.Log.d("HealthDiaryList", "Activity onResume，开始刷新数据");
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_activity_resume));
         
         // 检查用户登录状态
         checkUserLoginStatus();
@@ -386,7 +386,7 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
      * 检查用户登录状态
      */
     private void checkUserLoginStatus() {
-        android.util.Log.d("HealthDiaryList", "检查用户登录状态");
+        android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_check_login_status));
         
         // 异步检查用户登录状态
         new Thread(() -> {
@@ -400,24 +400,24 @@ public class HealthDiaryListActivity extends AppCompatActivity implements Health
                 com.medication.reminders.database.entity.User currentUser = userDao.getCurrentLoggedInUser();
                 
                 if (currentUser == null) {
-                    android.util.Log.w("HealthDiaryList", "没有已登录用户");
+                    android.util.Log.w(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_no_logged_user));
                     
                     // 在主线程显示提示信息
                     runOnUiThread(() -> {
-                        showErrorState("请先登录后再查看健康日记");
+                        showErrorState(getString(R.string.diary_list_login_required));
                     });
                 } else {
-                    android.util.Log.d("HealthDiaryList", "已有登录用户: " + currentUser.getUsername() + " (ID: " + currentUser.getId() + ")");
+                    android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_logged_user_info, currentUser.getUsername(), currentUser.getId()));
                     
                     // 检查该用户是否有日记数据
                     com.medication.reminders.database.dao.HealthDiaryDao diaryDao = database.healthDiaryDao();
                     int diaryCount = diaryDao.getDiaryCountByUserIdSync(currentUser.getId());
-                    android.util.Log.d("HealthDiaryList", "用户 " + currentUser.getUsername() + " 有 " + diaryCount + " 条日记");
+                    android.util.Log.d(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_user_diary_count, currentUser.getUsername(), diaryCount));
                 }
             } catch (Exception e) {
-                android.util.Log.e("HealthDiaryList", "检查用户状态失败", e);
+                android.util.Log.e(getString(R.string.log_tag_health_diary_list), getString(R.string.diary_list_check_user_status_failed), e);
                 runOnUiThread(() -> {
-                    showErrorState("检查用户状态失败: " + e.getMessage());
+                    showErrorState(getString(R.string.diary_list_check_user_status_error, e.getMessage()));
                 });
             }
         }).start();

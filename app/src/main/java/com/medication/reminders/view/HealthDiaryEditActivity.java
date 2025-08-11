@@ -119,7 +119,7 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
             if (diaryId == -1) {
                 // 编辑模式但没有传入有效ID，切换到新增模式
                 currentMode = MODE_ADD;
-                Toast.makeText(this, "参数错误，切换到新增模式", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.parameter_error_switch_to_add), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -129,12 +129,12 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
      */
     private void setupUI() {
         if (MODE_ADD.equals(currentMode)) {
-            setTitle("添加健康日记");
+            setTitle(getString(R.string.add_health_diary_page_title));
             // 新增模式：输入框为空
             editTextContent.setText("");
-            editTextContent.setHint("请输入您的健康状况、症状或感受...");
+            editTextContent.setHint(getString(R.string.diary_content_placeholder));
         } else {
-            setTitle("编辑健康日记");
+            setTitle(getString(R.string.edit_health_diary_page_title));
             // 编辑模式：加载现有内容
             loadDiaryContent();
         }
@@ -160,7 +160,7 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
                     editTextContent.setText(diary.getContent());
                     editTextContent.setSelection(diary.getContent().length()); // 光标移到末尾
                 } else {
-                    ErrorHandler.showErrorToast(this, new Exception("日记不存在"), "加载日记");
+                    ErrorHandler.showErrorToast(this, new Exception(getString(R.string.diary_does_not_exist)), getString(R.string.diary_load_success_contains));
                     finish();
                 }
             });
@@ -188,10 +188,10 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
         // 观察操作结果（仅用于显示信息，不处理界面关闭）
         viewModel.getOperationResult().observe(this, result -> {
             if (result != null && !result.isEmpty()) {
-                if (result.contains("加载成功")) {
+                if (result.contains(getString(R.string.diary_load_success_contains))) {
                     // 加载成功不显示Toast，也不关闭界面
                     // 用户应该看到加载的内容并继续编辑
-                } else if (result.contains("成功")) {
+                } else if (result.contains(getString(R.string.diary_operation_success_contains))) {
                     // 成功消息显示Toast但不关闭界面
                     // 界面关闭由具体的成功状态观察者处理
                     ErrorHandler.showSuccessToast(this, result);
@@ -220,7 +220,7 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
             
             if (errorMessage != null && !errorMessage.isEmpty()) {
                 ErrorHandler.showErrorToast(this, new Exception(errorMessage), 
-                    MODE_ADD.equals(currentMode) ? "添加日记" : "更新日记");
+                    MODE_ADD.equals(currentMode) ? getString(R.string.diary_add_operation) : getString(R.string.diary_update_operation));
             }
         });
         
@@ -243,7 +243,7 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
             if (isSuccess != null && isSuccess) {
                 hideLoadingState();
                 isSaving = false;
-                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, "添加");
+                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, getString(R.string.diary_add_success_message));
                 setResult(RESULT_OK);
                 finish();
             }
@@ -254,7 +254,7 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
             if (isSuccess != null && isSuccess) {
                 hideLoadingState();
                 isSaving = false;
-                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, "更新");
+                ErrorHandler.HealthDiary.showDiarySuccessMessage(this, getString(R.string.diary_update_operation_text));
                 setResult(RESULT_OK);
                 finish();
             }
@@ -287,11 +287,11 @@ public class HealthDiaryEditActivity extends AppCompatActivity {
         
         if (MODE_ADD.equals(currentMode)) {
             // 新增模式：创建新日记
-            showSavingState("保存");
+            showSavingState(getString(R.string.diary_save_operation));
             viewModel.addDiary(content);
         } else {
             // 编辑模式：更新现有日记
-            showSavingState("更新");
+            showSavingState(getString(R.string.diary_update_operation_text));
             viewModel.updateDiary(diaryId, content);
         }
     }

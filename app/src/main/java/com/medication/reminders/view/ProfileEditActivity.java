@@ -86,8 +86,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         
         // 初始化日期格式化器
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        displayDateFormatter = new SimpleDateFormat("yyyy年MM月dd日", Locale.getDefault());
+        dateFormatter = new SimpleDateFormat(getString(R.string.date_format_storage), Locale.getDefault());
+        displayDateFormatter = new SimpleDateFormat(getString(R.string.date_format_display), Locale.getDefault());
         
         // 初始化UserViewModel
         initializeViewModel();
@@ -191,7 +191,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(String updateStatus) {
                 if (updateStatus != null && !updateStatus.isEmpty()) {
-                    if (updateStatus.contains("成功")) {
+                    if (updateStatus.contains(getString(R.string.profile_edit_success_contains))) {
                         showSuccessMessage(updateStatus);
                     } else {
                         showErrorMessage(updateStatus);
@@ -261,7 +261,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Bundle extras = result.getData().getExtras();
                     if (extras != null) {
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        Bitmap imageBitmap = (Bitmap) extras.get(getString(R.string.profile_photo_bitmap_key));
                         if (imageBitmap != null) {
                             // 将Bitmap保存为临时文件并更新个人资料照片
                             saveBitmapAndUpdatePhoto(imageBitmap);
@@ -580,17 +580,17 @@ public class ProfileEditActivity extends AppCompatActivity {
      */
     private void showFieldValidationErrors(String validationError) {
         // 根据错误消息内容判断是哪个字段的错误
-        if (validationError.contains("姓名")) {
+        if (validationError.contains(getString(R.string.profile_edit_field_name))) {
             binding.tilFullName.setError(validationError);
-        } else if (validationError.contains("性别")) {
+        } else if (validationError.contains(getString(R.string.profile_edit_field_gender))) {
             binding.tilGender.setError(validationError);
-        } else if (validationError.contains("出生日期") || validationError.contains("生日")) {
+        } else if (validationError.contains(getString(R.string.profile_edit_field_birth_date)) || validationError.contains(getString(R.string.profile_edit_field_birth_date_alt))) {
             binding.tilBirthDate.setError(validationError);
-        } else if (validationError.contains("用户名")) {
+        } else if (validationError.contains(getString(R.string.profile_edit_field_username))) {
             binding.tilUsername.setError(validationError);
-        } else if (validationError.contains("邮箱") || validationError.contains("邮件")) {
+        } else if (validationError.contains(getString(R.string.profile_edit_field_email)) || validationError.contains(getString(R.string.profile_edit_field_email_alt))) {
             binding.tilEmail.setError(validationError);
-        } else if (validationError.contains("手机") || validationError.contains("电话")) {
+        } else if (validationError.contains(getString(R.string.profile_edit_field_phone)) || validationError.contains(getString(R.string.profile_edit_field_phone_alt))) {
             binding.tilPhoneNumber.setError(validationError);
         }
     }
@@ -963,8 +963,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .start();
             
             // 为老年用户添加无障碍播报
-            binding.tvMessage.setContentDescription("错误提示: " + message);
-            binding.tvMessage.announceForAccessibility("个人资料编辑错误: " + message);
+            binding.tvMessage.setContentDescription(getString(R.string.profile_edit_error_content_description, message));
+            binding.tvMessage.announceForAccessibility(getString(R.string.profile_edit_error_announcement, message));
             
             // 同时显示Toast提示
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -995,8 +995,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                 .start();
             
             // 为老年用户添加无障碍播报
-            binding.tvMessage.setContentDescription("成功提示: " + message);
-            binding.tvMessage.announceForAccessibility("恭喜您！" + message);
+            binding.tvMessage.setContentDescription(getString(R.string.profile_edit_success_content_description, message));
+            binding.tvMessage.announceForAccessibility(getString(R.string.profile_edit_success_announcement, message));
             
             // 添加成功动画效果
             addSuccessAnimation(binding.tvMessage);

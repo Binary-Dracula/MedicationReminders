@@ -219,7 +219,7 @@ public class MedicationIntakeRecordViewModel extends AndroidViewModel {
                 runOnMainThread(() -> {
                     selectedIntakeRecord.setValue(record);
                     setLoading(false);
-                    setSuccessMessage("用药记录加载成功");
+                    setSuccessMessage(getApplication().getString(com.medication.reminders.R.string.intake_record_load_success));
                 });
             }
             
@@ -227,7 +227,7 @@ public class MedicationIntakeRecordViewModel extends AndroidViewModel {
             public void onError(String error) {
                 runOnMainThread(() -> {
                     setLoading(false);
-                    setErrorMessage("加载用药记录失败: " + error);
+                    setErrorMessage(getApplication().getString(com.medication.reminders.R.string.intake_record_load_failed, error));
                 });
             }
         });
@@ -264,7 +264,7 @@ public class MedicationIntakeRecordViewModel extends AndroidViewModel {
         
         runOnMainThread(() -> {
             setLoading(false);
-            setSuccessMessage("用药记录已刷新");
+            setSuccessMessage(getApplication().getString(com.medication.reminders.R.string.intake_record_refreshed));
         });
     }
     
@@ -355,9 +355,9 @@ public class MedicationIntakeRecordViewModel extends AndroidViewModel {
      * @return 状态信息字符串
      */
     public String getViewModelStatus() {
-        return String.format("MedicationIntakeRecordViewModel状态: Repository=%s, 线程池=%s, 测试模式=%s", 
-            (intakeRecordRepository != null ? "已连接" : "未连接"),
-            (executorService != null && !executorService.isShutdown() ? "运行中" : "已停止"),
+        return getApplication().getString(com.medication.reminders.R.string.intake_record_viewmodel_status, 
+            (intakeRecordRepository != null ? getApplication().getString(com.medication.reminders.R.string.intake_record_repository_connected) : getApplication().getString(com.medication.reminders.R.string.intake_record_repository_disconnected)),
+            (executorService != null && !executorService.isShutdown() ? getApplication().getString(com.medication.reminders.R.string.intake_record_thread_pool_running) : getApplication().getString(com.medication.reminders.R.string.intake_record_thread_pool_stopped)),
             isTestMode);
     }
     

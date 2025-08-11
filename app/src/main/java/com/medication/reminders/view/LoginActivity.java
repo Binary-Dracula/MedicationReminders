@@ -2,8 +2,8 @@ package com.medication.reminders.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.medication.reminders.R;
 import com.medication.reminders.databinding.ActivityLoginBinding;
 import com.medication.reminders.viewmodels.UserViewModel;
-import com.medication.reminders.utils.ExactAlarmPermissionHelper;
 
 /**
  * LoginActivity 类，用于处理用户登录界面。
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     private void setupUI() {
         // 设置标题
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("用户登录");
+            getSupportActionBar().setTitle(getString(R.string.login_title));
         }
         
         // 设置初始可见性状态
@@ -105,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String loginStatus) {
                 if (loginStatus != null && !loginStatus.isEmpty()) {
-                    if (loginStatus.contains("成功")) {
+                    if (loginStatus.contains(getString(R.string.diary_operation_success_contains))) {
                         showSuccess(loginStatus);
                     } else {
                         showError(loginStatus);
@@ -190,8 +189,8 @@ public class LoginActivity extends AppCompatActivity {
             .start();
         
         // 为老年用户添加无障碍播报
-        binding.tvMessage.setContentDescription("错误提示: " + message);
-        binding.tvMessage.announceForAccessibility("登录错误: " + message);
+        binding.tvMessage.setContentDescription(getString(R.string.error_message_content_description, message));
+        binding.tvMessage.announceForAccessibility(getString(R.string.login_error_prefix) + message);
         
         // 添加抖动动画以吸引注意力
         addShakeAnimation(binding.tvMessage);
@@ -215,8 +214,8 @@ public class LoginActivity extends AppCompatActivity {
             .start();
         
         // 为老年用户添加无障碍播报
-        binding.tvMessage.setContentDescription("成功提示: " + message);
-        binding.tvMessage.announceForAccessibility("恭喜您！" + message);
+        binding.tvMessage.setContentDescription(getString(R.string.success_message_content_description, message));
+        binding.tvMessage.announceForAccessibility(getString(R.string.login_success_prefix) + message);
         
         // 添加成功动画效果
         addSuccessAnimation(binding.tvMessage);
@@ -234,7 +233,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void showLoading() {
         binding.btnLogin.setEnabled(false);
-        binding.btnLogin.setText("登录中...");
+        binding.btnLogin.setText(getString(R.string.login_button_loading));
     }
     
     /**
@@ -242,7 +241,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void hideLoading() {
         binding.btnLogin.setEnabled(true);
-        binding.btnLogin.setText("立即登录");
+        binding.btnLogin.setText(getString(R.string.login_button_text));
     }
     
     /**
@@ -325,7 +324,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void navigateToMain() {
         // 向用户显示友好消息
-        Toast.makeText(this, "登录成功！正在为您准备应用界面...", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.login_success_message), Toast.LENGTH_LONG).show();
         
         // 为 MainActivity 创建 Intent
         Intent intent = new Intent(this, MainActivity.class);
@@ -333,8 +332,8 @@ public class LoginActivity extends AppCompatActivity {
         
         // 将用户信息添加到 Intent 以提供个性化体验
         String username = getInputText(binding.etUsername);
-        intent.putExtra("username", username);
-        intent.putExtra("login_time", System.currentTimeMillis());
+        intent.putExtra(getString(R.string.intent_key_username), username);
+        intent.putExtra(getString(R.string.intent_key_login_time), System.currentTimeMillis());
         
         startActivity(intent);
         

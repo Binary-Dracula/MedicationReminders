@@ -54,7 +54,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medication_detail);
         
         // Get medication ID from intent
-        medicationId = getIntent().getLongExtra("medication_id", -1);
+        medicationId = getIntent().getLongExtra(getString(R.string.intent_key_medication_id), -1);
         
         if (medicationId == -1) {
             finish();
@@ -113,7 +113,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
      */
     private void setupActionBar() {
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("药物详情");
+            getSupportActionBar().setTitle(getString(R.string.medication_detail_title));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -142,16 +142,16 @@ public class MedicationDetailActivity extends AppCompatActivity {
         
         // Display color
         String colorDisplay = getColorDisplayName(medication.getColor());
-        tvMedicationColor.setText("颜色：" + colorDisplay);
+        tvMedicationColor.setText(getString(R.string.medication_color_display, colorDisplay));
         
         // Display dosage form
         String dosageFormDisplay = getDosageFormDisplayName(medication.getDosageForm());
-        tvMedicationDosageForm.setText("剂型：" + dosageFormDisplay);
+        tvMedicationDosageForm.setText(getString(R.string.medication_dosage_form_display, dosageFormDisplay));
         
         // Display dates
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA);
-        tvCreatedDate.setText("添加时间：" + sdf.format(new Date(medication.getCreatedAt())));
-        tvUpdatedDate.setText("更新时间：" + sdf.format(new Date(medication.getUpdatedAt())));
+        SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.datetime_format_display), Locale.CHINA);
+        tvCreatedDate.setText(getString(R.string.medication_created_time, sdf.format(new Date(medication.getCreatedAt()))));
+        tvUpdatedDate.setText(getString(R.string.medication_updated_time, sdf.format(new Date(medication.getUpdatedAt()))));
         
         // Display photo
         displayMedicationPhoto(medication.getPhotoPath());
@@ -176,7 +176,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
             Bitmap bitmap = PhotoUtils.loadPhotoFromPath(photoPath);
             if (bitmap != null) {
                 ivMedicationPhoto.setImageBitmap(bitmap);
-                ivMedicationPhoto.setContentDescription("药物照片");
+                ivMedicationPhoto.setContentDescription(getString(R.string.medication_photo_content_description));
             } else {
                 setDefaultMedicationIcon();
             }
@@ -190,7 +190,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
      */
     private void setDefaultMedicationIcon() {
         ivMedicationPhoto.setImageResource(R.drawable.ic_medication_default);
-        ivMedicationPhoto.setContentDescription("默认药物图标");
+        ivMedicationPhoto.setContentDescription(getString(R.string.default_medication_icon_content_description));
     }
     
     /**
@@ -200,7 +200,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
     private void displayInventoryInformation(MedicationInfo medication) {
         int total = medication.getTotalQuantity();
         int remaining = medication.getRemainingQuantity();
-        String unit = medication.getUnit() == null ? "片" : medication.getUnit();
+        String unit = medication.getUnit() == null ? getString(R.string.medication_unit_default) : medication.getUnit();
         int percent = medication.getRemainingPercentage();
         int dosagePerIntake = medication.getDosagePerIntake();
         int lowStockThreshold = medication.getLowStockThreshold();
@@ -219,10 +219,10 @@ public class MedicationDetailActivity extends AppCompatActivity {
         }
         
         // 显示每次用量
-        tvDosagePerIntake.setText(dosagePerIntake + " " + unit);
+        tvDosagePerIntake.setText(getString(R.string.dosage_per_intake_display, dosagePerIntake, unit));
         
         // 显示库存提醒阈值
-        tvLowStockThreshold.setText(lowStockThreshold + " " + unit);
+        tvLowStockThreshold.setText(getString(R.string.low_stock_threshold_display, lowStockThreshold, unit));
     }
     
     /**
@@ -246,7 +246,7 @@ public class MedicationDetailActivity extends AppCompatActivity {
             tvInventoryWarningTitle.setText(getString(R.string.inventory_low_stock_title));
             tvInventoryWarningTitle.setTextColor(getResources().getColor(R.color.stock_low, null));
             
-            String unit = medication.getUnit() == null ? "片" : medication.getUnit();
+            String unit = medication.getUnit() == null ? getString(R.string.medication_unit_default) : medication.getUnit();
             String warningMessage = getString(R.string.inventory_low_stock_message, 
                 medication.getName(), 
                 medication.getRemainingQuantity(), 
@@ -267,14 +267,14 @@ public class MedicationDetailActivity extends AppCompatActivity {
     /** 跳转药物编辑页 */
     private void openEditPage() {
         Intent i = new Intent(this, AddMedicationActivity.class);
-        i.putExtra("edit_medication_id", medicationId);
+        i.putExtra(getString(R.string.intent_key_edit_medication_id), medicationId);
         startActivity(i);
     }
 
     /** 跳转提醒设置页 */
     private void openSchedulePage() {
         Intent i = new Intent(this, ScheduleEditActivity.class);
-        i.putExtra("medication_id", medicationId);
+        i.putExtra(getString(R.string.intent_key_medication_id), medicationId);
         startActivity(i);
     }
     

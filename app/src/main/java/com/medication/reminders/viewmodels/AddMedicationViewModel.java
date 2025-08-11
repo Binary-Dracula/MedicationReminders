@@ -26,7 +26,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private MutableLiveData<String> selectedDosageForm = new MutableLiveData<>("");
     private MutableLiveData<Integer> totalQuantity = new MutableLiveData<>(0);
     private MutableLiveData<Integer> remainingQuantity = new MutableLiveData<>(0);
-    private MutableLiveData<String> unit = new MutableLiveData<>("片");
+    private MutableLiveData<String> unit = new MutableLiveData<>(getApplication().getString(com.medication.reminders.R.string.medication_unit_default_pill));
     private MutableLiveData<String> photoPath = new MutableLiveData<>("");
     
     // 库存管理字段
@@ -262,9 +262,9 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateName() {
         String name = medicationName.getValue();
         if (name == null || name.trim().isEmpty()) {
-            nameError.postValue("药物名称是必需的");
+            nameError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_name_required));
         } else if (name.trim().length() > 100) {
-            nameError.postValue("药物名称不能超过100个字符");
+            nameError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_name_too_long));
         } else {
             nameError.postValue(null);
         }
@@ -276,7 +276,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateColor() {
         String color = selectedColor.getValue();
         if (color == null || color.trim().isEmpty()) {
-            colorError.postValue("请选择药物颜色");
+            colorError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_color_required));
         } else {
             colorError.postValue(null);
         }
@@ -288,7 +288,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
     private void validateDosageForm() {
         String dosageForm = selectedDosageForm.getValue();
         if (dosageForm == null || dosageForm.trim().isEmpty()) {
-            dosageFormError.postValue("请选择药物剂型");
+            dosageFormError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_dosage_form_required));
         } else {
             dosageFormError.postValue(null);
         }
@@ -303,41 +303,41 @@ public class AddMedicationViewModel extends AndroidViewModel {
 
         // 验证总量
         if (total == null || total < 0) {
-            totalQuantityError.postValue("总量必须是非负整数");
+            totalQuantityError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_total_quantity_invalid));
         } else {
             totalQuantityError.postValue(null);
         }
 
         // 验证剩余量
         if (remaining == null || remaining < 0) {
-            remainingQuantityError.postValue("剩余量必须是非负整数，且不能大于总量");
+            remainingQuantityError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_remaining_quantity_invalid));
         } else if (total != null && remaining != null && remaining > total) {
-            remainingQuantityError.postValue("剩余量必须是非负整数，且不能大于总量");
+            remainingQuantityError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_remaining_quantity_invalid));
         } else {
             remainingQuantityError.postValue(null);
         }
 
         // 验证单位
         if (u == null || u.trim().isEmpty()) {
-            unitError.postValue("请选择单位");
+            unitError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_unit_required));
         } else {
             unitError.postValue(null);
         }
         
         // 验证每次用量
         if (dosageIntake == null || dosageIntake <= 0) {
-            dosagePerIntakeError.postValue("每次用量必须是正整数");
+            dosagePerIntakeError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_dosage_per_intake_invalid));
         } else if (remaining != null && dosageIntake > remaining) {
-            dosagePerIntakeError.postValue("每次用量不能大于剩余量");
+            dosagePerIntakeError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_dosage_per_intake_exceeds_remaining));
         } else {
             dosagePerIntakeError.postValue(null);
         }
         
         // 验证库存提醒阈值
         if (stockThreshold == null || stockThreshold < 0) {
-            lowStockThresholdError.postValue("库存提醒阈值必须是非负整数");
+            lowStockThresholdError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_low_stock_threshold_invalid));
         } else if (total != null && stockThreshold > total) {
-            lowStockThresholdError.postValue("库存提醒阈值不能大于总量");
+            lowStockThresholdError.postValue(getApplication().getString(com.medication.reminders.R.string.medication_low_stock_threshold_exceeds_total));
         } else {
             lowStockThresholdError.postValue(null);
         }
@@ -383,7 +383,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
         
         // Validate all fields
         if (!validateAllFields()) {
-            errorMessage.postValue("请检查并修正表单中的错误");
+            errorMessage.postValue(getApplication().getString(com.medication.reminders.R.string.medication_form_validation_error));
             return;
         }
         
@@ -467,7 +467,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
         clearPhoto();
         totalQuantity.postValue(0);
         remainingQuantity.postValue(0);
-        unit.postValue("片");
+        unit.postValue(getApplication().getString(com.medication.reminders.R.string.medication_unit_default_pill));
         
         // 重置库存管理字段
         dosagePerIntake.postValue(1);
@@ -523,7 +523,7 @@ public class AddMedicationViewModel extends AndroidViewModel {
                (photo != null && !photo.trim().isEmpty()) ||
                (total != null && total > 0) ||
                (remaining != null && remaining > 0) ||
-               (u != null && !u.trim().isEmpty() && !"片".equals(u.trim())) ||
+               (u != null && !u.trim().isEmpty() && !getApplication().getString(com.medication.reminders.R.string.medication_unit_default_pill).equals(u.trim())) ||
                (dosageIntake != null && dosageIntake != 1) ||
                (stockThreshold != null && stockThreshold != 5);
     }

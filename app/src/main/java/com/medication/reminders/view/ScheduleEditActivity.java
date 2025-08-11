@@ -43,7 +43,7 @@ public class ScheduleEditActivity extends AppCompatActivity {
 
         medicationId = getIntent().getLongExtra("medication_id", -1);
         if (medicationId <= 0) {
-            Toast.makeText(this, "缺少药品ID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.schedule_missing_medication_id), Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -147,7 +147,7 @@ public class ScheduleEditActivity extends AppCompatActivity {
         cbSun.setChecked((mask & 1) != 0);
         dayOfMonthEdit.setText(String.valueOf(Math.max(0, s.getDayOfMonth())));
         intervalDaysEdit.setText(String.valueOf(Math.max(0, s.getIntervalDays())));
-        saveButton.setText("保存修改");
+        saveButton.setText(getString(R.string.schedule_save_button_text));
         saveButton.setTag(s);
     }
 
@@ -159,7 +159,7 @@ public class ScheduleEditActivity extends AppCompatActivity {
                 ReminderCycleType cycleType = ReminderCycleType.fromIndex(selectedIndex);
                 String timesCsv = timesEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(timesCsv)) {
-                    Toast.makeText(ScheduleEditActivity.this, "请至少填写一个时间，如 08:00,20:00", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ScheduleEditActivity.this, getString(R.string.schedule_time_input_hint), Toast.LENGTH_LONG).show();
                     return;
                 }
 

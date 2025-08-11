@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setupClickListeners();
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("药物提醒助手");
+            getSupportActionBar().setTitle(getString(R.string.main_title));
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
@@ -91,20 +91,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupUserInfo() {
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        long loginTime = intent.getLongExtra("login_time", System.currentTimeMillis());
+        String username = intent.getStringExtra(getString(R.string.intent_key_username));
+        long loginTime = intent.getLongExtra(getString(R.string.intent_key_login_time), System.currentTimeMillis());
 
         currentUsername = username;
 
         if (username != null && !username.isEmpty()) {
-            tvWelcome.setText("欢迎回来，" + username + "！");
+            tvWelcome.setText(getString(R.string.welcome_back_message, username));
 
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日 HH:mm", java.util.Locale.CHINA);
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(getString(R.string.datetime_format_display), java.util.Locale.CHINA);
             String formattedTime = sdf.format(new java.util.Date(loginTime));
-            tvUserInfo.setText("登录时间：" + formattedTime);
+            tvUserInfo.setText(getString(R.string.login_time_label, formattedTime));
         } else {
-            tvWelcome.setText("欢迎使用药物提醒助手！");
-            tvUserInfo.setText("您的健康管理伙伴");
+            tvWelcome.setText(getString(R.string.welcome_default_message));
+            tvUserInfo.setText(getString(R.string.health_partner_message));
         }
     }
 
@@ -127,33 +127,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigateToProfile() {
         if (currentUsername == null || currentUsername.isEmpty()) {
-            android.widget.Toast.makeText(this, "无法获取用户信息", android.widget.Toast.LENGTH_SHORT).show();
+            android.widget.Toast.makeText(this, getString(R.string.cannot_get_user_info), android.widget.Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("username", currentUsername);
+        intent.putExtra(getString(R.string.intent_key_username), currentUsername);
         startActivity(intent);
     }
 
     private void showLogoutConfirmation() {
         new AlertDialog.Builder(this)
-                .setTitle("退出登录")
-                .setMessage("您确定要退出当前账户吗？")
-                .setPositiveButton("确定", (dialog, which) -> performLogout())
-                .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+                .setTitle(getString(R.string.logout_dialog_title))
+                .setMessage(getString(R.string.logout_dialog_message))
+                .setPositiveButton(getString(R.string.confirm), (dialog, which) -> performLogout())
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
     private void performLogout() {
         new AlertDialog.Builder(this)
-                .setTitle("清除登录信息")
-                .setMessage("是否同时清除保存的登录信息？")
-                .setPositiveButton("清除", (dialog, which) -> {
+                .setTitle(getString(R.string.clear_login_dialog_title))
+                .setMessage(getString(R.string.clear_login_dialog_message))
+                .setPositiveButton(getString(R.string.clear_login_positive), (dialog, which) -> {
                     userRepository.clearSavedCredentials();
                     navigateToLogin();
                 })
-                .setNegativeButton("保留", (dialog, which) -> navigateToLogin())
+                .setNegativeButton(getString(R.string.keep_login_negative), (dialog, which) -> navigateToLogin())
                 .show();
     }
 
@@ -176,13 +176,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             new AlertDialog.Builder(this)
-                    .setTitle("退出应用")
-                    .setMessage("您确定要退出药物提醒助手吗？")
-                    .setPositiveButton("确定", (dialog, which) -> {
+                    .setTitle(getString(R.string.exit_app_dialog_title))
+                    .setMessage(getString(R.string.exit_app_dialog_message))
+                    .setPositiveButton(getString(R.string.confirm), (dialog, which) -> {
                         finish();
                         System.exit(0);
                     })
-                    .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
+                    .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss())
                     .show();
             return true;
         }
