@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-
+import com.medication.reminders.R;
 import com.medication.reminders.database.MedicationDatabase;
 import com.medication.reminders.database.dao.MedicationDao;
 import com.medication.reminders.database.dao.MedicationIntakeRecordDao;
@@ -25,7 +25,8 @@ import java.util.concurrent.Future;
  * Provides async database operations using ExecutorService
  */
 public class MedicationRepository {
-    
+
+    private Application application;
     private MedicationDao medicationDao;
     private MedicationIntakeRecordDao intakeRecordDao;
     private LiveData<List<MedicationInfo>> allMedications;
@@ -37,6 +38,7 @@ public class MedicationRepository {
      * @param application Application context for database initialization
      */
     public MedicationRepository(Application application) {
+        this.application = application;
         MedicationDatabase db = MedicationDatabase.getDatabase(application);
         medicationDao = db.medicationDao();
         intakeRecordDao = db.medicationIntakeRecordDao();
@@ -103,7 +105,7 @@ public class MedicationRepository {
                 }
             } catch (Exception e) {
                 if (callback != null) {
-                    callback.onError("数据库保存失败: " + e.getMessage());
+                    callback.onError(application.getString(R.string.error_database_save_failed) + e.getMessage());
                 }
             }
         });
@@ -148,7 +150,7 @@ public class MedicationRepository {
                 }
             } catch (Exception e) {
                 if (callback != null) {
-                    callback.onError("数据库保存失败: " + e.getMessage());
+                    callback.onError(application.getString(R.string.error_database_save_failed) + e.getMessage());
                 }
             }
         });

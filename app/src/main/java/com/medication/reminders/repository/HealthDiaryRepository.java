@@ -1,11 +1,12 @@
 package com.medication.reminders.repository;
 
-import android.content.Context;
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.medication.reminders.R;
 import com.medication.reminders.database.DatabaseErrorHandler;
 import com.medication.reminders.database.MedicationDatabase;
 import com.medication.reminders.database.dao.HealthDiaryDao;
@@ -30,7 +31,7 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
     
     private HealthDiaryDao healthDiaryDao;
     private UserDao userDao;
-    private Context context;
+    private Application context;
     private ExecutorService executorService;
     private UserRepository userRepository;
     
@@ -41,7 +42,7 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
      * 构造函数（支持单例和直接实例化）
      * @param context 应用程序上下文
      */
-    public HealthDiaryRepository(Context context) {
+    public HealthDiaryRepository(Application context) {
         initializeRepository(context);
     }
     
@@ -49,11 +50,11 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
      * 初始化Repository的通用方法
      * @param context 应用程序上下文
      */
-    private void initializeRepository(Context context) {
+    private void initializeRepository(Application context) {
+        this.context = context;
         MedicationDatabase database = MedicationDatabase.getDatabase(context);
         this.healthDiaryDao = database.healthDiaryDao();
         this.userDao = database.userDao();
-        this.context = context.getApplicationContext();
         this.executorService = Executors.newFixedThreadPool(2);
         this.userRepository = UserRepository.getInstance(context);
         
@@ -65,7 +66,7 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
      * @param context 应用程序上下文
      * @return HealthDiaryRepository实例
      */
-    public static HealthDiaryRepository getInstance(Context context) {
+    public static HealthDiaryRepository getInstance(Application context) {
         if (INSTANCE == null) {
             synchronized (HealthDiaryRepository.class) {
                 if (INSTANCE == null) {
@@ -110,7 +111,7 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
                 // 验证用户权限
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
@@ -193,31 +194,31 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
             try {
                 // 验证输入参数
                 if (diary == null) {
-                    callback.onError("日记对象不能为空");
+                    callback.onError(context.getString(R.string.error_diary_object_null));
                     return;
                 }
                 
                 if (diary.getContent() == null || diary.getContent().trim().isEmpty()) {
-                    callback.onError("日记内容不能为空");
+                    callback.onError(context.getString(R.string.error_diary_content_empty));
                     return;
                 }
                 
                 if (diary.getContent().length() > 5000) {
-                    callback.onError("日记内容不能超过5000字符");
+                    callback.onError(context.getString(R.string.error_diary_content_too_long));
                     return;
                 }
                 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 验证用户是否存在
                 User user = userDao.getUserById(currentUserId);
                 if (user == null) {
-                    callback.onError("用户不存在");
+                    callback.onError(context.getString(R.string.error_user_not_exists));
                     return;
                 }
                 
@@ -262,42 +263,42 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
             try {
                 // 验证输入参数
                 if (diary == null) {
-                    callback.onError("日记对象不能为空");
+                    callback.onError(context.getString(R.string.error_diary_object_null));
                     return;
                 }
                 
                 if (diary.getId() <= 0) {
-                    callback.onError("日记ID无效");
+                    callback.onError(context.getString(R.string.error_diary_id_invalid));
                     return;
                 }
                 
                 if (diary.getContent() == null || diary.getContent().trim().isEmpty()) {
-                    callback.onError("日记内容不能为空");
+                    callback.onError(context.getString(R.string.error_diary_content_empty));
                     return;
                 }
                 
                 if (diary.getContent().length() > 5000) {
-                    callback.onError("日记内容不能超过5000字符");
+                    callback.onError(context.getString(R.string.error_diary_content_too_long));
                     return;
                 }
                 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 检查日记是否存在
                 HealthDiary existingDiary = healthDiaryDao.getDiaryByIdSync(diary.getId());
                 if (existingDiary == null) {
-                    callback.onError("日记不存在");
+                    callback.onError(context.getString(R.string.error_diary_not_exists));
                     return;
                 }
                 
                 // 验证用户权限
                 if (existingDiary.getUserId() != currentUserId) {
-                    callback.onError("无权限修改此日记");
+                    callback.onError(context.getString(R.string.error_no_permission_modify_diary));
                     return;
                 }
                 
@@ -341,20 +342,20 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
             try {
                 // 验证输入参数
                 if (diary == null) {
-                    callback.onError("日记对象不能为空");
+                    callback.onError(context.getString(R.string.error_diary_object_null));
                     return;
                 }
                 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 验证用户权限
                 if (diary.getUserId() != currentUserId) {
-                    callback.onError("无权限删除此日记");
+                    callback.onError(context.getString(R.string.error_no_permission_delete_diary));
                     return;
                 }
                 
@@ -394,20 +395,20 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 获取日记
                 HealthDiary diary = healthDiaryDao.getDiaryByIdSync(diaryId);
                 if (diary == null) {
-                    callback.onError("日记不存在");
+                    callback.onError(context.getString(R.string.error_diary_not_exists));
                     return;
                 }
                 
                 // 验证用户权限
                 if (diary.getUserId() != currentUserId) {
-                    callback.onError("无权限访问此日记");
+                    callback.onError(context.getString(R.string.error_no_permission_access_diary));
                     return;
                 }
                 
@@ -548,13 +549,13 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 验证搜索关键词
                 if (searchQuery == null || searchQuery.trim().isEmpty()) {
-                    callback.onError("搜索关键词不能为空");
+                    callback.onError(context.getString(R.string.error_search_keyword_empty));
                     return;
                 }
                 
@@ -583,13 +584,13 @@ public class HealthDiaryRepository implements BaseDataAccess<HealthDiary, Long> 
                 // 验证用户身份
                 long currentUserId = getCurrentLoggedInUserId();
                 if (currentUserId <= 0) {
-                    callback.onError("用户未登录");
+                    callback.onError(context.getString(R.string.error_user_not_logged_in));
                     return;
                 }
                 
                 // 验证时间范围
                 if (startTime > endTime) {
-                    callback.onError("开始时间不能晚于结束时间");
+                    callback.onError(context.getString(R.string.error_invalid_time_range));
                     return;
                 }
                 

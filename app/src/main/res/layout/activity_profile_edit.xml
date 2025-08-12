@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_extended_contact_info"
                     style="@style/ProfileSectionTitle"
-                    android:contentDescription="扩展联系方式编辑区域标题" />
+                    android:contentDescription="@string/profile_extended_contact_info" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilSecondaryPhone"
@@ -191,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="备用电话">
+                    android:hint="@string/error_field_secondary_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etSecondaryPhone"
@@ -208,7 +208,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="紧急联系人姓名">
+                    android:hint="@string/error_field_emergency_contact_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmergencyContactName"
@@ -225,7 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="紧急联系人电话">
+                    android:hint="@string/error_field_emergency_contact_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmergencyContactPhone"
@@ -242,7 +242,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="与紧急联系人关系">
+                    android:hint="@string/error_field_emergency_contact_relation">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmergencyContactRelation"
@@ -267,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_address_info"
                     style="@style/ProfileSectionTitle"
-                    android:contentDescription="地址信息编辑区域标题" />
+                    android:contentDescription="@string/profile_address_info" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilAddress"
@@ -275,7 +275,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="详细地址">
+                    android:hint="@string/error_field_address">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
@@ -300,7 +300,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_medical_info"
                     style="@style/ProfileSectionTitle"
-                    android:contentDescription="医疗相关信息编辑区域标题" />
+                    android:contentDescription="@string/profile_medical_info" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilBloodType"
@@ -308,7 +308,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="血型">
+                    android:hint="@string/error_field_blood_type">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etBloodType"
@@ -325,7 +325,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="过敏信息">
+                    android:hint="@string/error_field_allergies">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAllergies"
@@ -342,7 +342,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="既往病史">
+                    android:hint="@string/error_field_medical_conditions">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etMedicalConditions"
@@ -359,7 +359,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="主治医生姓名">
+                    android:hint="@string/error_field_doctor_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDoctorName"
@@ -376,7 +376,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="主治医生电话">
+                    android:hint="@string/error_field_doctor_phone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDoctorPhone"
@@ -393,7 +393,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="常去医院名称">
+                    android:hint="@string/error_field_hospital_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etHospitalName"

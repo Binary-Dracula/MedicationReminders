@@ -18,6 +18,21 @@
     <string name="stock_status_out">Out of stock</string>
     <string name="inventory_warning_title">Stock Alert</string>
     <string name="inventory_out_of_stock_title">Out of Stock</string>
+    
+    <!-- Health Diary Repository -->
+    <string name="error_user_not_logged_in">User not logged in</string>
+    <string name="error_diary_not_exists">Diary does not exist</string>
+    <string name="error_no_permission_delete_diary">No permission to delete this diary</string>
+    <string name="error_diary_object_null">Diary object cannot be null</string>
+    <string name="error_diary_content_empty">Diary content cannot be empty</string>
+    <string name="error_diary_content_too_long">Diary content cannot exceed 5000 characters</string>
+    <string name="error_user_not_exists">User does not exist</string>
+    <string name="error_diary_id_invalid">Invalid diary ID</string>
+    <string name="error_no_permission_modify_diary">No permission to modify this diary</string>
+    <string name="error_no_permission_access_diary">No permission to access this diary</string>
+    <string name="error_search_keyword_empty">Search keyword cannot be empty</string>
+    <string name="error_invalid_time_range">Start time cannot be later than end time</string>
+    <string name="error_database_save_failed">Database save failed: </string>
     <string name="inventory_low_stock_title">Low Stock Alert</string>
     <string name="inventory_out_of_stock_message">Your %s is out of stock. Please replenish to avoid affecting your medication schedule</string>
     <string name="inventory_low_stock_message">Your %1$s has %2$d%3$s remaining, reaching the low stock threshold (%4$d%5$s). Please replenish soon</string>
@@ -92,7 +107,6 @@
     <string name="error_dosage_per_intake_invalid">Dosage per dose must be positive integer</string>
     <string name="error_low_stock_threshold_invalid">Low stock threshold must be non-negative integer</string>
     <string name="error_photo_save_failed">Photo save failed, please retry</string>
-    <string name="error_database_save_failed">Save failed, check storage and retry</string>
     <string name="error_storage_insufficient">Insufficient storage, clear space and retry</string>
     <string name="error_system_error">System error, restart app and retry</string>
     <string name="error_photo_load_failed">Photo load failed</string>
@@ -301,9 +315,6 @@
     <string name="profile_message_description">Profile edit status message</string>
     <string name="user_profile_photo_description">User profile photo</string>
     
-    <string name="confirm_delete_photo_title">Confirm Delete</string>
-    <string name="confirm_delete_photo_message">Are you sure you want to delete profile photo?</string>
-    
     <string name="registration_info_updated_successfully">Registration info updated successfully</string>
     
     <string name="validator_name_empty">Name cannot be empty</string>
@@ -495,8 +506,6 @@
   <string name="initialization_error">Initialization failed: %s</string>
   <string name="input_validation_error">Please check and fix input errors above</string>
   <string name="username_required">Please enter username</string>
-  <string name="phone_required">Please enter phone number</string>
-  <string name="email_required">Please enter email</string>
   <string name="password_required">Please enter password</string>
   <string name="field_error_username">Username</string>
   <string name="field_error_phone">Phone</string>
@@ -855,6 +864,8 @@
   <string name="register_login_link_content_description">Click to go to login page</string>
   <string name="register_loading_text">Registering...</string>
   <string name="register_loading_content_description">Processing registration info</string>
+    <string name="phone_required">Phone required</string>
+    <string name="email_required">Email required</string>
 
   <!-- Login Activity -->
   <string name="login_page_title">User Login</string>
@@ -942,6 +953,8 @@
   <string name="profile_remove_photo_button_content_description">Click to remove profile photo</string>
   <string name="profile_edit_button_content_description">Edit profile information</string>
   <string name="profile_logout_button_content_description">Logout from current account</string>
+    <string name="confirm_delete_photo_title">Confirm delete photo</string>
+    <string name="confirm_delete_photo_message">Delete photo</string>
 
   <!-- Profile Edit Activity -->
   <string name="profile_edit_photo_content_description">Profile photo</string>
@@ -1031,5 +1044,51 @@
   <string name="medication_empty_icon_content_description">No medications icon</string>
   <string name="profile_page_title_content_description">Profile page title</string>
   <string name="user_full_name_content_description">User full name</string>
+
+    <!-- UserValidator error messages -->
+    <string name="error_field_username">Username</string>
+    <string name="error_field_email">Email</string>
+    <string name="error_field_phone">Phone Number</string>
+    <string name="error_field_password">Password</string>
+    <string name="error_field_full_name">Full Name</string>
+    <string name="error_field_gender">Gender</string>
+    <string name="error_field_birth_date">Birth Date</string>
+    <string name="error_field_secondary_phone">Secondary Phone</string>
+    <string name="error_field_emergency_contact_name">Emergency Contact Name</string>
+    <string name="error_field_emergency_contact_phone">Emergency Contact Phone</string>
+    <string name="error_field_emergency_contact_relation">Emergency Contact Relation</string>
+    <string name="error_field_address">Address</string>
+    <string name="error_field_blood_type">Blood Type</string>
+    <string name="error_field_allergies">Allergies</string>
+    <string name="error_field_medical_conditions">Medical Conditions</string>
+    <string name="error_field_doctor_name">Doctor Name</string>
+    <string name="error_field_doctor_phone">Doctor Phone</string>
+    <string name="error_field_hospital_name">Hospital Name</string>
+
+    <string name="error_required_field_empty">%1$s cannot be empty</string>
+    <string name="error_invalid_length">%1$s length must be between %2$d and %3$d characters</string>
+    <string name="error_invalid_length_max">%1$s cannot exceed %2$d characters</string>
+    <string name="error_invalid_format">%1$s format is invalid</string>
+    <string name="error_invalid_date_format">%1$s format is invalid, please use YYYY-MM-DD</string>
+    <string name="error_invalid_date_future">%1$s cannot be a future date</string>
+    <string name="error_invalid_age_min">User must be at least %1$d years old</string>
+    <string name="error_invalid_age_max">User cannot be older than %1$d years</string>
+    <string name="error_invalid_gender">Please select a valid gender option</string>
+    <string name="error_invalid_blood_type">Blood type format is invalid (e.g., A+, O-)</string>
+    <string name="error_too_long">%1$s is too long</string>
+    <string name="error_password_too_short">Password must be at least %1$d characters</string>
+    <string name="error_password_too_long">Password cannot exceed %1$d characters</string>
+    <string name="error_username_invalid_chars">Username can only contain letters, numbers, and underscores</string>
+    <string name="error_name_invalid_chars">Name can only contain Chinese, English letters, spaces, hyphens, and apostrophes</string>
+    <string name="error_emergency_contact_name_required">Emergency contact name is required</string>
+    <string name="error_emergency_contact_phone_required">Emergency contact phone is required</string>
+    <string name="error_emergency_contact_relation_required">Emergency contact relation is required</string>
+    <string name="error_address_required">Address is required</string>
+    <string name="error_blood_type_required">Blood type is required</string>
+    <string name="error_allergies_required">Allergies information is required</string>
+    <string name="error_medical_conditions_required">Medical conditions information is required</string>
+    <string name="error_doctor_name_required">Doctor name is required</string>
+    <string name="error_doctor_phone_required">Doctor phone is required</string>
+    <string name="error_hospital_name_required">Hospital name is required</string>
 
 </resources>

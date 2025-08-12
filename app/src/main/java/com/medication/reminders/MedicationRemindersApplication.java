@@ -4,17 +4,20 @@ import android.app.Application;
 import android.os.Build;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 
 /**
  * Application class for MedicationReminders app
  * 应用程序全局初始化类
  */
 public class MedicationRemindersApplication extends Application {
-    
+    private static MedicationRemindersApplication instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        
+        instance = this;
+
         // 应用程序初始化完成
         System.out.println("MedicationReminders应用程序已启动");
 
@@ -32,5 +35,9 @@ public class MedicationRemindersApplication extends Application {
                 nm.createNotificationChannel(channel);
             }
         }
+    }
+
+    public static Context getAppContext() {
+        return instance.getApplicationContext();
     }
 }

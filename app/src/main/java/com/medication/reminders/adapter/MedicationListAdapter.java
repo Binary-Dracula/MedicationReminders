@@ -108,8 +108,8 @@ public class MedicationListAdapter extends RecyclerView.Adapter<MedicationListAd
             tvMedicationDetails.setText(details);
             
             // Set created date
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
-            String dateText = "添加于 " + sdf.format(new Date(medication.getCreatedAt()));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+            String dateText = "Recorded at " + sdf.format(new Date(medication.getCreatedAt()));
             tvCreatedDate.setText(dateText);
             
             // Set color indicator

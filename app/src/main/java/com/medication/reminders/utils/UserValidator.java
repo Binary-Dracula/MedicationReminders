@@ -2,6 +2,8 @@ package com.medication.reminders.utils;
 
 import android.content.Context;
 
+import com.medication.reminders.MedicationRemindersApplication;
+import com.medication.reminders.R;
 import com.medication.reminders.database.entity.User;
 import com.medication.reminders.models.ProfileValidationResult;
 
@@ -195,11 +197,15 @@ public class UserValidator {
     }
 
     public static ProfileValidationResult validateHospitalName(String name) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (name == null || name.trim().isEmpty()) {
             return ProfileValidationResult.success(); // Optional field
         }
         if (name.trim().length() > MAX_NAME_LENGTH) {
-            return ProfileValidationResult.failure("医院名称", "医院名称过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_hospital_name),
+                context.getString(R.string.error_invalid_length_max, context.getString(R.string.error_field_hospital_name), MAX_NAME_LENGTH),
+                ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -239,25 +245,26 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validateUsername(String username) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (username == null || username.trim().isEmpty()) {
-            return ProfileValidationResult.failure("用户名", "用户名不能为空", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_username),
+                context.getString(R.string.error_required_field_empty, context.getString(R.string.error_field_username)),
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
-        
         String trimmedUsername = username.trim();
-        
         if (trimmedUsername.length() < MIN_USERNAME_LENGTH || trimmedUsername.length() > MAX_USERNAME_LENGTH) {
-            return ProfileValidationResult.failure("用户名", 
-                "用户名长度必须在" + MIN_USERNAME_LENGTH + "-" + MAX_USERNAME_LENGTH + "个字符之间", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_username),
+                context.getString(R.string.error_invalid_length, context.getString(R.string.error_field_username), MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH),
                 ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
-        
         if (!USERNAME_PATTERN.matcher(trimmedUsername).matches()) {
-            return ProfileValidationResult.failure("用户名", 
-                "用户名只能包含字母、数字和下划线", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_username),
+                context.getString(R.string.error_username_invalid_chars),
                 ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
-        
         return ProfileValidationResult.success();
     }
 
@@ -267,18 +274,20 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validateEmail(String email) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (email == null || email.trim().isEmpty()) {
-            return ProfileValidationResult.failure("邮箱", "邮箱地址不能为空", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_email),
+                context.getString(R.string.error_required_field_empty, context.getString(R.string.error_field_email)),
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
-        
         String trimmedEmail = email.trim();
-        
         if (!EMAIL_PATTERN.matcher(trimmedEmail).matches()) {
-            return ProfileValidationResult.failure("邮箱", "邮箱地址格式不正确", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_email),
+                context.getString(R.string.error_invalid_format, context.getString(R.string.error_field_email)),
                 ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
-        
         return ProfileValidationResult.success();
     }
 
@@ -288,19 +297,20 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validatePhoneNumber(String phoneNumber) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-            return ProfileValidationResult.failure("电话号码", "电话号码不能为空", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_phone),
+                context.getString(R.string.error_required_field_empty, context.getString(R.string.error_field_phone)),
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
-        
         String trimmedPhone = phoneNumber.trim();
-        
         if (!PHONE_PATTERN.matcher(trimmedPhone).matches()) {
-            return ProfileValidationResult.failure("电话号码", 
-                "电话号码格式不正确，请输入有效的中国手机号码", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_phone),
+                context.getString(R.string.error_phone_invalid),
                 ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
-        
         return ProfileValidationResult.success();
     }
 
@@ -310,23 +320,25 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validatePassword(String password) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (password == null || password.isEmpty()) {
-            return ProfileValidationResult.failure("密码", "密码不能为空", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_password),
+                context.getString(R.string.error_required_field_empty, context.getString(R.string.error_field_password)),
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
-        
         if (password.length() < MIN_PASSWORD_LENGTH) {
-            return ProfileValidationResult.failure("密码", 
-                "密码至少需要" + MIN_PASSWORD_LENGTH + "个字符", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_password),
+                context.getString(R.string.error_password_too_short, MIN_PASSWORD_LENGTH),
                 ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
-        
         if (password.length() > MAX_PASSWORD_LENGTH) {
-            return ProfileValidationResult.failure("密码", 
-                "密码不能超过" + MAX_PASSWORD_LENGTH + "个字符", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_password),
+                context.getString(R.string.error_password_too_long, MAX_PASSWORD_LENGTH),
                 ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
-        
         return ProfileValidationResult.success();
     }
 
@@ -336,25 +348,26 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validateFullName(String fullName) {
+        Context context = MedicationRemindersApplication.getAppContext();
         if (fullName == null || fullName.trim().isEmpty()) {
-            return ProfileValidationResult.failure("姓名", "姓名不能为空", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_full_name),
+                context.getString(R.string.error_required_field_empty, context.getString(R.string.error_field_full_name)),
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
-        
         String trimmedName = fullName.trim();
-        
         if (trimmedName.length() > MAX_NAME_LENGTH) {
-            return ProfileValidationResult.failure("姓名", 
-                "姓名长度不能超过" + MAX_NAME_LENGTH + "个字符", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_full_name),
+                context.getString(R.string.error_invalid_length_max, context.getString(R.string.error_field_full_name), MAX_NAME_LENGTH),
                 ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
-        
         if (!NAME_PATTERN.matcher(trimmedName).matches()) {
-            return ProfileValidationResult.failure("姓名", 
-                "姓名只能包含中文、英文字母、空格、连字符和撇号", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_full_name),
+                context.getString(R.string.error_name_invalid_chars),
                 ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
-        
         return ProfileValidationResult.success();
     }
 
@@ -407,8 +420,11 @@ public class UserValidator {
         
         // 检查日期不能是未来日期
         Date currentDate = new Date();
+        Context context = MedicationRemindersApplication.getAppContext();
         if (parsedDate.after(currentDate)) {
-            return ProfileValidationResult.failure("出生日期", "出生日期不能是未来日期", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_birth_date),
+                context.getString(R.string.error_invalid_date_future, context.getString(R.string.error_field_birth_date)),
                 ProfileValidationResult.ValidationErrorType.INVALID_DATE);
         }
         
@@ -427,14 +443,15 @@ public class UserValidator {
         }
         
         if (age < MIN_AGE) {
-            return ProfileValidationResult.failure("出生日期", 
-                "用户年龄必须至少" + MIN_AGE + "岁", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_birth_date),
+                context.getString(R.string.error_invalid_age_min, MIN_AGE),
                 ProfileValidationResult.ValidationErrorType.INVALID_AGE);
         }
-        
         if (age > MAX_AGE) {
-            return ProfileValidationResult.failure("出生日期", 
-                "用户年龄不能超过" + MAX_AGE + "岁", 
+            return ProfileValidationResult.failure(
+                context.getString(R.string.error_field_birth_date),
+                context.getString(R.string.error_invalid_age_max, MAX_AGE),
                 ProfileValidationResult.ValidationErrorType.INVALID_AGE);
         }
         
@@ -447,29 +464,29 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validateProfilePhoto(String photoPath) {
-        // 个人资料照片是可选的，所以null/empty是有效的
+        // 个人���料照片是可选的，所以null/empty是有效的
         if (photoPath == null || photoPath.trim().isEmpty()) {
             return ProfileValidationResult.success();
         }
-        
+
         String trimmedPath = photoPath.trim();
-        
+
         // 基本路径验证 - 检查是否看起来像有效的文件路径
         if (!trimmedPath.contains("/") && !trimmedPath.contains("\\")) {
-            return ProfileValidationResult.failure("个人资料照片", 
-                "照片路径格式不正确", 
+            return ProfileValidationResult.failure("个人资料照片",
+                "照片路径格式不正确",
                 ProfileValidationResult.ValidationErrorType.FILE_ERROR);
         }
-        
+
         // 检查常见的图片文件扩展名
         String lowerPath = trimmedPath.toLowerCase();
         if (!lowerPath.endsWith(".jpg") && !lowerPath.endsWith(".jpeg") && 
             !lowerPath.endsWith(".png") && !lowerPath.endsWith(".gif")) {
-            return ProfileValidationResult.failure("个人资料照片", 
-                "照片文件格式不支持，请使用JPG、PNG或GIF格式", 
+            return ProfileValidationResult.failure("个人资料照片",
+                "照片文件格式不支持，请��用JPG、PNG或GIF格式",
                 ProfileValidationResult.ValidationErrorType.FILE_ERROR);
         }
-        
+
         return ProfileValidationResult.success();
     }
 
@@ -651,7 +668,7 @@ public class UserValidator {
 
     /**
      * 获取有效的性别选项
-     * @return 有效性别选项数组
+     * @return ��效性别选项数组
      */
     public static String[] getValidGenders() {
         return VALID_GENDERS.clone();
@@ -726,3 +743,4 @@ public class UserValidator {
         }
     }
 }
+

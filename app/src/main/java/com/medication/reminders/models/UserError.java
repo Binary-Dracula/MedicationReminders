@@ -8,80 +8,80 @@ package com.medication.reminders.models;
 public enum UserError {
     
     // ========== 注册验证错误 ==========
-    USERNAME_EXISTS("用户名已存在，请选择其他用户名"),
-    INVALID_USERNAME("用户名格式不正确，请使用3-20个字符，只能包含字母、数字和下划线"),
-    INVALID_EMAIL("邮箱格式不正确，请输入有效的邮箱地址"),
-    INVALID_PHONE("电话号码格式不正确，请输入有效的手机号码"),
-    WEAK_PASSWORD("密码强度不够，请使用6-20个字符，包含字母和数字"),
-    INVALID_FULL_NAME("姓名格式不正确，请输入2-20个字符的真实姓名"),
-    INVALID_BIRTH_DATE("出生日期格式不正确，请选择有效的日期"),
-    INVALID_GENDER("请选择性别"),
-    
+    USERNAME_EXISTS("Username already exists, please choose another username"),
+    INVALID_USERNAME("Invalid username format, please use 3-20 characters: letters, numbers, and underscores only"),
+    INVALID_EMAIL("Invalid email format, please enter a valid email address"),
+    INVALID_PHONE("Invalid phone number format, please enter a valid phone number"),
+    WEAK_PASSWORD("Password is too weak, please use 6-20 characters including letters and numbers"),
+    INVALID_FULL_NAME("Invalid full name format, please enter a real name of 2-20 characters"),
+    INVALID_BIRTH_DATE("Invalid birth date format, please select a valid date"),
+    INVALID_GENDER("Please select gender"),
+
     // ========== 登录错误 ==========
-    USER_NOT_FOUND("用户不存在，请检查用户名是否正确"),
-    WRONG_PASSWORD("密码错误，请重新输入"),
-    ACCOUNT_LOCKED("账户已被锁定，请稍后再试"),
-    TOO_MANY_ATTEMPTS("登录尝试次数过多，请稍后再试"),
-    LOGIN_FAILED("登录失败，请检查用户名和密码"),
-    
+    USER_NOT_FOUND("User not found, please check your username"),
+    WRONG_PASSWORD("Incorrect password, please try again"),
+    ACCOUNT_LOCKED("Account is locked, please try again later"),
+    TOO_MANY_ATTEMPTS("Too many login attempts, please try again later"),
+    LOGIN_FAILED("Login failed, please check your username and password"),
+
     // ========== 个人资料错误 ==========
-    PROFILE_UPDATE_FAILED("个人资料更新失败，请重试"),
-    INVALID_PROFILE_DATA("个人资料数据不完整或格式不正确"),
-    PHOTO_UPLOAD_FAILED("头像上传失败，请重试"),
-    INVALID_CONTACT_INFO("联系信息格式不正确"),
-    INVALID_MEDICAL_INFO("医疗信息格式不正确"),
-    INVALID_ADDRESS("地址信息格式不正确"),
-    
+    PROFILE_UPDATE_FAILED("Profile update failed, please try again"),
+    INVALID_PROFILE_DATA("Profile data is incomplete or incorrectly formatted"),
+    PHOTO_UPLOAD_FAILED("Photo upload failed, please try again"),
+    INVALID_CONTACT_INFO("Contact information is incorrectly formatted"),
+    INVALID_MEDICAL_INFO("Medical information is incorrectly formatted"),
+    INVALID_ADDRESS("Address information is incorrectly formatted"),
+
     // ========== 密码管理错误 ==========
-    CURRENT_PASSWORD_WRONG("当前密码不正确"),
-    NEW_PASSWORD_SAME("新密码不能与当前密码相同"),
-    PASSWORD_CHANGE_FAILED("密码修改失败，请重试"),
-    
+    CURRENT_PASSWORD_WRONG("Current password is incorrect"),
+    NEW_PASSWORD_SAME("New password cannot be the same as the current password"),
+    PASSWORD_CHANGE_FAILED("Password change failed, please try again"),
+
     // ========== 会话管理错误 ==========
-    SESSION_EXPIRED("会话已过期，请重新登录"),
-    LOGOUT_FAILED("登出失败，请重试"),
-    AUTO_LOGIN_FAILED("自动登录失败，请手动登录"),
-    
+    SESSION_EXPIRED("Session has expired, please log in again"),
+    LOGOUT_FAILED("Logout failed, please try again"),
+    AUTO_LOGIN_FAILED("Automatic login failed, please log in manually"),
+
     // ========== 数据验证错误 ==========
-    EMPTY_USERNAME("请输入用户名"),
-    EMPTY_PASSWORD("请输入密码"),
-    EMPTY_EMAIL("请输入邮箱地址"),
-    EMPTY_PHONE("请输入电话号码"),
-    EMPTY_FULL_NAME("请输入完整姓名"),
-    FORM_VALIDATION_FAILED("表单验证失败，请检查输入信息"),
-    
+    EMPTY_USERNAME("Please enter a username"),
+    EMPTY_PASSWORD("Please enter a password"),
+    EMPTY_EMAIL("Please enter an email address"),
+    EMPTY_PHONE("Please enter a phone number"),
+    EMPTY_FULL_NAME("Please enter your full name"),
+    FORM_VALIDATION_FAILED("Form validation failed, please check the input information"),
+
     // ========== 系统错误 ==========
-    DATABASE_ERROR("数据库操作失败，请重试"),
-    NETWORK_ERROR("网络连接失败，请检查网络设置"),
-    PERMISSION_DENIED("权限不足，无法执行此操作"),
-    FILE_OPERATION_ERROR("文件操作失败，请重试"),
-    UNKNOWN_ERROR("发生未知错误，请重试"),
-    
+    DATABASE_ERROR("Database operation failed, please try again"),
+    NETWORK_ERROR("Network connection failed, please check your network settings"),
+    PERMISSION_DENIED("Permission denied, unable to perform this operation"),
+    FILE_OPERATION_ERROR("File operation failed, please try again"),
+    UNKNOWN_ERROR("An unknown error occurred, please try again"),
+
     // ========== 业务逻辑错误 ==========
-    USER_ALREADY_LOGGED_IN("用户已登录"),
-    USER_NOT_LOGGED_IN("用户未登录，请先登录"),
-    OPERATION_NOT_ALLOWED("当前状态下不允许此操作"),
-    DATA_CONFLICT("数据冲突，请刷新后重试"),
-    RESOURCE_NOT_FOUND("请求的资源不存在"),
-    
+    USER_ALREADY_LOGGED_IN("User is already logged in"),
+    USER_NOT_LOGGED_IN("User is not logged in, please log in first"),
+    OPERATION_NOT_ALLOWED("This operation is not allowed in the current state"),
+    DATA_CONFLICT("Data conflict, please refresh and try again"),
+    RESOURCE_NOT_FOUND("The requested resource does not exist"),
+
     // ========== 输入限制错误 ==========
-    USERNAME_TOO_SHORT("用户名至少需要3个字符"),
-    USERNAME_TOO_LONG("用户名不能超过20个字符"),
-    PASSWORD_TOO_SHORT("密码至少需要6个字符"),
-    PASSWORD_TOO_LONG("密码不能超过20个字符"),
-    FULL_NAME_TOO_SHORT("姓名至少需要2个字符"),
-    FULL_NAME_TOO_LONG("姓名不能超过20个字符"),
-    PHONE_INVALID_LENGTH("电话号码长度不正确"),
-    EMAIL_TOO_LONG("邮箱地址过长"),
-    
+    USERNAME_TOO_SHORT("Username must be at least 3 characters long"),
+    USERNAME_TOO_LONG("Username cannot exceed 20 characters"),
+    PASSWORD_TOO_SHORT("Password must be at least 6 characters long"),
+    PASSWORD_TOO_LONG("Password cannot exceed 20 characters"),
+    FULL_NAME_TOO_SHORT("Full name must be at least 2 characters long"),
+    FULL_NAME_TOO_LONG("Full name cannot exceed 20 characters"),
+    PHONE_INVALID_LENGTH("Phone number length is incorrect"),
+    EMAIL_TOO_LONG("Email address is too long"),
+
     // ========== 特殊业务错误 ==========
-    EMERGENCY_CONTACT_REQUIRED("紧急联系人信息不完整"),
-    MEDICAL_INFO_INVALID("医疗信息格式不正确"),
-    DOCTOR_INFO_INVALID("医生信息格式不正确"),
-    HOSPITAL_INFO_INVALID("医院信息格式不正确"),
-    BLOOD_TYPE_INVALID("血型信息不正确"),
-    ALLERGY_INFO_INVALID("过敏信息格式不正确");
-    
+    EMERGENCY_CONTACT_REQUIRED("Emergency contact information is incomplete"),
+    MEDICAL_INFO_INVALID("Medical information format is incorrect"),
+    DOCTOR_INFO_INVALID("Doctor information format is incorrect"),
+    HOSPITAL_INFO_INVALID("Hospital information format is incorrect"),
+    BLOOD_TYPE_INVALID("Blood type information is incorrect"),
+    ALLERGY_INFO_INVALID("Allergy information format is incorrect");
+
     private final String message;
     
     /**
@@ -126,7 +126,7 @@ public enum UserError {
     }
     
     /**
-     * 检查是否为系统级错误
+     * 检查是���为系统级错误
      * @return 如果是系统级错误返回true，否则返回false
      */
     public boolean isSystemError() {
@@ -196,37 +196,7 @@ public enum UserError {
             return 1; // 低严重程度
         }
     }
-    
-    /**
-     * 获取建议的用户操作
-     * @return 建议用户采取的操作
-     */
-    public String getSuggestedAction() {
-        switch (this) {
-            case USERNAME_EXISTS:
-                return "请尝试其他用户名";
-            case INVALID_USERNAME:
-            case INVALID_EMAIL:
-            case INVALID_PHONE:
-            case WEAK_PASSWORD:
-            case INVALID_FULL_NAME:
-                return "请检查并修正输入格式";
-            case USER_NOT_FOUND:
-            case WRONG_PASSWORD:
-                return "请检查用户名和密码";
-            case ACCOUNT_LOCKED:
-            case TOO_MANY_ATTEMPTS:
-                return "请稍后再试";
-            case SESSION_EXPIRED:
-                return "请重新登录";
-            case DATABASE_ERROR:
-            case NETWORK_ERROR:
-                return "请检查网络连接后重试";
-            default:
-                return "请重试或联系客服";
-        }
-    }
-    
+
     @Override
     public String toString() {
         return "UserError{" +
