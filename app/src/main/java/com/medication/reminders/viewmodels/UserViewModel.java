@@ -67,6 +67,9 @@ public class UserViewModel extends AndroidViewModel {
     // 表单验证
     private MutableLiveData<String> formValidationError;
     
+    // ========== 记住用户相关字段 ==========
+    private MutableLiveData<LoginInfo> savedLoginInfo = new MutableLiveData<>();
+
     /**
      * 构造函数 - 初始化UserRepository和LiveData属性
      * @param application 应用程序实例
@@ -268,6 +271,17 @@ public class UserViewModel extends AndroidViewModel {
         return formValidationError;
     }
     
+    /**
+     * 获取保存的登录信息
+     * @return 保存的登录信息的LiveData
+     */
+    public LiveData<LoginInfo> getSavedLoginInfo() {
+        if (savedLoginInfo.getValue() == null) {
+            loadSavedLoginInfo();
+        }
+        return savedLoginInfo;
+    }
+
     // ========== 状态管理方法 ==========
     
     /**
@@ -1367,5 +1381,43 @@ public class UserViewModel extends AndroidViewModel {
      */
     private interface UserUpdateCallback {
         void onUserRetrieved(User user);
+    }
+
+    /**
+     * LoginInfo 数据类
+     * 用于保存登录时的用户名和密码
+     */
+    public static class LoginInfo {
+        private String username;
+        private String password;
+
+        public LoginInfo(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public String getUsername() { return username; }
+        public String getPassword() { return password; }
+    }
+
+    /**
+     * 从存储中加载保存的登录信息
+     * 异步从UserRepository中获取保存的登录信息
+     */
+    private void loadSavedLoginInfo() {
+        executorService.execute(() -> {
+            userRepository.getSavedLoginInfo(new RepositoryCallback<LoginInfo>() {
+                @Override
+                public void onSuccess(LoginInfo info) {
+                    postToMainThread(() -> savedLoginInfo.setValue(info));
+                }
+
+                @Override
+                public void onError(String error) {
+                    // 如果获取失败，设置为 null
+                    postToMainThread(() -> savedLoginInfo.setValue(null));
+                }
+            });
+        });
     }
 }

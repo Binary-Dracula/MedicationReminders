@@ -368,10 +368,18 @@ public class LoginActivity extends AppCompatActivity {
     }
     
     /**
-     * 在应用启动时检查自动登录
+     * 检查是否需要自动登录或填充已保存的用户信息
      */
     private void checkAutoLogin() {
-        // 检查是否有被记住的用户需要自动登录
+        userViewModel.getSavedLoginInfo().observe(this, loginInfo -> {
+            if (loginInfo != null) {
+                // 填充已保存的用户名和密码
+                binding.etUsername.setText(loginInfo.getUsername());
+                binding.etPassword.setText(loginInfo.getPassword());
+                binding.cbRememberMe.setChecked(true);
+            }
+        });
+        // 检查自动登录
         userViewModel.checkRememberedUser();
     }
 

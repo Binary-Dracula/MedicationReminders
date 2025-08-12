@@ -916,4 +916,29 @@ public class UserRepository implements com.medication.reminders.models.UserRepos
             Log.e(TAG, "清除用户数据失败", e);
         }
     }
+
+    /**
+     * 获取保存的登录信息
+     * @param callback 回调接口，返回LoginInfo对象
+     */
+    public void getSavedLoginInfo(RepositoryCallback<com.medication.reminders.viewmodels.UserViewModel.LoginInfo> callback) {
+        executorService.execute(() -> {
+            try {
+                User rememberedUser = userDao.getRememberedUser();
+                if (rememberedUser != null) {
+                    com.medication.reminders.viewmodels.UserViewModel.LoginInfo loginInfo =
+                        new com.medication.reminders.viewmodels.UserViewModel.LoginInfo(
+                            rememberedUser.getUsername(),
+                            rememberedUser.getPassword()
+                        );
+                    callback.onSuccess(loginInfo);
+                } else {
+                    callback.onSuccess(null);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "获取保存的登录信息失败", e);
+                callback.onError("获取保存的登录信息失败: " + e.getMessage());
+            }
+        });
+    }
 }
