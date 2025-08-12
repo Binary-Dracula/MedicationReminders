@@ -4,10 +4,10 @@ package com.medication.reminders.enums;
  * 提醒周期类型枚举
  */
 public enum ReminderCycleType {
-    DAILY(0, "每日"),
-    WEEKLY(1, "每周"),
-    MONTHLY(2, "每月"),
-    EVERY_X_DAYS(3, "每隔X天");
+    DAILY(0, "Daily"),
+    WEEKLY(1, "Weekly"),
+    MONTHLY(2, "Monthly"),
+    EVERY_X_DAYS(3, "Every X Days");
 
     private final int index;
     private final String displayName;
