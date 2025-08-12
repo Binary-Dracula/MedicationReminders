@@ -410,6 +410,7 @@
     <string name="add_health_diary_title">Add Health Diary</string>
     <string name="edit_health_diary_title">Edit Health Diary</string>
     <string name="diary_content_hint">Enter your health condition, symptoms or feelings...</string>
+  <string name="diary_content_helper">Tip: Click save button to save diary, click cancel button to discard changes</string>
     <string name="diary_content_description">Health diary content input field</string>
     <string name="save_diary">Save Diary</string>
     <string name="save_diary_description">Save health diary content</string>
@@ -481,7 +482,6 @@
   <!-- Login related strings -->
   <string name="login_title">User Login</string>
   <string name="login_button_loading">Logging in…</string>
-  <string name="login_button_text">Login Now</string>
   <string name="login_success_message">Login successful! Preparing app interface…</string>
   <string name="remember_me_checkbox">Remember me</string>
   <string name="login_error_prefix">Login error: </string>
@@ -658,10 +658,6 @@
   <string name="intake_record_detail_page_destroy">Page destroy</string>
   <string name="intake_record_detail_actionbar_back_clicked">ActionBar back button clicked</string>
   <string name="intake_record_detail_back_pressed">User pressed back key</string>
-  <string name="intake_record_detail_medication_name_content_description">Medication name: %s</string>
-  <string name="intake_record_detail_intake_time_content_description">Intake time: %s</string>
-  <string name="intake_record_detail_dosage_content_description">Dosage: %s</string>
-  <string name="intake_record_detail_record_id_content_description">Record ID: %d</string>
   <string name="intake_record_detail_error_content_description">Error message: %s</string>
 
   <!-- Medication schedule related strings -->
@@ -836,4 +832,204 @@
   <string name="error_user_not_found">Current user info not found</string>
   <string name="error_photo_uri_empty">Photo URI cannot be empty</string>
   <string name="error_get_current_user_failed">Failed to get current user: %s</string>
+
+  <!-- Layout hardcoded strings -->
+  <!-- Register Activity -->
+  <string name="register_page_title">User Registration</string>
+  <string name="register_username_hint">Enter username (3-20 characters)</string>
+  <string name="register_username_helper">Username for login, please remember your username</string>
+  <string name="register_username_content_description">Username input field</string>
+  <string name="register_phone_hint">Enter phone number (11 digits)</string>
+  <string name="register_phone_helper">Phone for important notifications</string>
+  <string name="register_phone_content_description">Phone number input field</string>
+  <string name="register_email_hint">Enter email address</string>
+  <string name="register_email_helper">Email for password recovery and notifications</string>
+  <string name="register_email_content_description">Email input field</string>
+  <string name="register_password_hint">Enter password (6-20 characters)</string>
+  <string name="register_password_helper">Password protects your account security</string>
+  <string name="register_password_toggle_description">Show or hide password</string>
+  <string name="register_password_content_description">Password input field</string>
+  <string name="register_button_text">Register Now</string>
+  <string name="register_button_content_description">Click to complete registration</string>
+  <string name="register_login_link_text">Already have an account? Login now</string>
+  <string name="register_login_link_content_description">Click to go to login page</string>
+  <string name="register_loading_text">Registering...</string>
+  <string name="register_loading_content_description">Processing registration info</string>
+
+  <!-- Login Activity -->
+  <string name="login_page_title">User Login</string>
+  <string name="login_page_title_content_description">User login page title</string>
+  <string name="login_username_hint">Enter username</string>
+  <string name="login_username_helper">Enter the username you used during registration</string>
+  <string name="login_username_content_description">Username input field</string>
+  <string name="login_password_hint">Enter password</string>
+  <string name="login_password_helper">Enter the password you set during registration</string>
+  <string name="login_password_toggle_description">Show or hide password</string>
+  <string name="login_password_content_description">Password input field</string>
+  <string name="login_remember_me_text">Remember me</string>
+  <string name="login_remember_me_content_description">Check to auto-fill username and password next time</string>
+  <string name="login_button_text">Login Now</string>
+  <string name="login_button_content_description">Click to login to your account</string>
+  <string name="login_register_link_text">Don\'t have an account? Register now</string>
+  <string name="login_register_link_content_description">Click to go to registration page</string>
+
+  <!-- Main Activity -->
+  <string name="main_welcome_text">Welcome to Medication Reminder Assistant!</string>
+  <string name="main_welcome_content_description">Welcome message</string>
+  <string name="main_health_partner_text">Your health management partner</string>
+  <string name="main_health_partner_content_description">User info</string>
+  <string name="main_view_medication_list_content_description">View medication list</string>
+  <string name="main_health_diary_content_description">View and manage health diary</string>
+  <string name="main_intake_record_content_description">View medication intake records</string>
+  <string name="main_profile_content_description">View and edit profile</string>
+
+  <!-- Add Medication Activity -->
+  <string name="add_medication_photo_upload_hint">Upload medication photo</string>
+  <string name="add_medication_photo_upload_content_description">Click to upload medication photo</string>
+  <string name="add_medication_photo_take_hint">Take photo</string>
+  <string name="add_medication_photo_take_content_description">Click to take medication photo</string>
+  <string name="add_medication_photo_select_hint">Select from gallery</string>
+  <string name="add_medication_photo_select_content_description">Click to select photo from gallery</string>
+  <string name="add_medication_photo_remove_hint">Remove photo</string>
+  <string name="add_medication_photo_remove_content_description">Click to remove medication photo</string>
+  <string name="add_medication_photo_preview_content_description">Medication photo preview</string>
+  <string name="add_medication_photo_default_content_description">Default medication icon</string>
+  <string name="add_medication_color_spinner_content_description">Select medication color</string>
+  <string name="add_medication_dosage_form_spinner_content_description">Select dosage form</string>
+  <string name="add_medication_unit_spinner_content_description">Select medication unit</string>
+  <string name="add_medication_save_button_content_description">Save medication information</string>
+  <string name="add_medication_cancel_button_content_description">Cancel adding medication</string>
+
+  <!-- Medication Detail Activity -->
+  <string name="medication_detail_photo_content_description">Medication photo</string>
+  <string name="medication_detail_default_icon_content_description">Default medication icon</string>
+  <string name="medication_detail_edit_button_content_description">Edit medication information</string>
+  <string name="medication_detail_delete_button_content_description">Delete medication</string>
+  <string name="medication_detail_schedule_button_content_description">Set medication schedule</string>
+
+  <!-- Health Diary List Activity -->
+  <string name="health_diary_list_add_button_content_description">Click to add new health diary</string>
+  <string name="health_diary_list_empty_content_description">No health diary prompt</string>
+  <string name="health_diary_list_loading_content_description">Loading health diary list</string>
+
+  <!-- Health Diary Edit Activity -->
+  <string name="health_diary_edit_content_hint">Enter your health condition, symptoms or feelings...</string>
+  <string name="health_diary_edit_content_content_description">Health diary content input field</string>
+  <string name="health_diary_edit_save_button_content_description">Save health diary content</string>
+  <string name="health_diary_edit_cancel_button_content_description">Cancel edit and return</string>
+
+  <!-- Health Diary Detail Activity -->
+  <string name="health_diary_detail_edit_button_content_description">Edit current diary content</string>
+  <string name="health_diary_detail_delete_button_content_description">Delete current diary</string>
+  <string name="health_diary_detail_back_button_content_description">Return to health diary list</string>
+
+  <!-- Medication Intake Record List Activity -->
+  <string name="intake_record_list_empty_content_description">No intake records prompt</string>
+  <string name="intake_record_list_loading_content_description">Loading intake records</string>
+
+  <!-- Medication Intake Record Detail Activity -->
+  <string name="intake_record_detail_medication_name_content_description">Medication name: %s</string>
+  <string name="intake_record_detail_intake_time_content_description">Intake time: %s</string>
+  <string name="intake_record_detail_dosage_content_description">Dosage: %s</string>
+  <string name="intake_record_detail_record_id_content_description">Record ID: %d</string>
+  <string name="intake_record_detail_back_button_content_description">Return to previous page</string>
+  <string name="intake_record_detail_retry_button_content_description">Retry loading record details</string>
+
+  <!-- Profile Activity -->
+  <string name="profile_photo_content_description">Profile photo</string>
+  <string name="profile_default_avatar_content_description">Default avatar</string>
+  <string name="profile_change_photo_button_content_description">Click to change profile photo</string>
+  <string name="profile_remove_photo_button_content_description">Click to remove profile photo</string>
+  <string name="profile_edit_button_content_description">Edit profile information</string>
+  <string name="profile_logout_button_content_description">Logout from current account</string>
+
+  <!-- Profile Edit Activity -->
+  <string name="profile_edit_photo_content_description">Profile photo</string>
+  <string name="profile_edit_default_avatar_content_description">Default avatar</string>
+  <string name="profile_edit_change_photo_button_content_description">Click to change profile photo</string>
+  <string name="profile_edit_remove_photo_button_content_description">Click to remove profile photo</string>
+  <string name="profile_edit_save_button_content_description">Click to save profile changes</string>
+  <string name="profile_edit_cancel_button_content_description">Cancel edit and return</string>
+
+  <!-- Schedule Edit Activity -->
+  <string name="schedule_edit_time_input_hint">Please enter at least one time, e.g. 08:00,20:00</string>
+  <string name="schedule_edit_save_button_content_description">Save medication schedule changes</string>
+
+  <!-- Item Layouts -->
+  <string name="item_medication_photo_content_description">Medication photo</string>
+  <string name="item_medication_default_icon_content_description">Default medication icon</string>
+  <string name="item_medication_edit_button_content_description">Edit medication</string>
+  <string name="item_medication_delete_button_content_description">Delete medication</string>
+  <string name="item_medication_schedule_button_content_description">Set schedule</string>
+
+  <string name="item_health_diary_content_preview_content_description">Diary content preview</string>
+  <string name="item_health_diary_created_time_content_description">Diary creation time</string>
+  <string name="item_health_diary_updated_time_content_description">Diary update time</string>
+  <string name="item_health_diary_view_details_content_description">View diary details</string>
+
+  <string name="item_intake_record_medication_name_content_description">Medication name</string>
+  <string name="item_intake_record_intake_time_content_description">Intake time</string>
+  <string name="item_intake_record_dosage_content_description">Dosage taken</string>
+  <string name="item_intake_record_view_details_content_description">View intake record details</string>
+
+  <!-- Spinner Items -->
+  <string name="spinner_color_item_content_description">Color option</string>
+  <string name="spinner_dosage_form_item_content_description">Dosage form option</string>
+
+  <!-- Additional strings for item layouts -->
+  <string name="medication_sample_details">White • Tablet</string>
+  <string name="medication_sample_created_date">Added on 2024-01-01</string>
+  <string name="medication_sample_stock_info">Stock: 0/0 pieces (0%)</string>
+  <string name="view_details">View details</string>
+  <string name="diary_sample_created_date">Recorded on 2024-01-01</string>
+  <string name="diary_sample_updated_date">Updated on 2024-01-02</string>
+  <string name="medication_sample_name">Aspirin</string>
+  <string name="intake_record_sample_date">2024-01-01</string>
+  <string name="intake_record_sample_time">08:30</string>
+  <string name="intake_record_sample_dosage">1</string>
+  <string name="medication_stock_label">Stock:</string>
+  <string name="medication_sample_dosage_per_intake">1 piece</string>
+  <string name="medication_sample_low_stock_threshold">5 pieces</string>
+  <string name="medication_stock_warning_message">Your medication stock is insufficient, please replenish soon</string>
+  <string name="medication_time_info_label">Time Information</string>
+  <string name="medication_sample_created_time">Added: 2024-01-01 12:00</string>
+  <string name="medication_sample_updated_time">Updated: 2024-01-01 12:00</string>
+  <string name="set_reminder">Set Reminder</string>
+  <string name="medication_list_first_medication_hint">Click the button below to add your first medication</string>
+  <string name="intake_record_list_auto_record_hint">When you confirm taking medication, the system will automatically record medication information</string>
+
+  <!-- Profile related strings -->
+  <string name="profile_extended_contact_info">Extended Contact Info</string>
+  <string name="profile_backup_phone">Backup Phone</string>
+  <string name="profile_emergency_contact_name">Emergency Contact Name</string>
+  <string name="profile_emergency_contact_phone">Emergency Contact Phone</string>
+  <string name="profile_emergency_contact_relationship">Relationship to Emergency Contact</string>
+  <string name="profile_address_info">Address Information</string>
+  <string name="profile_address">Address</string>
+  <string name="profile_medical_info">Medical Information</string>
+  <string name="profile_blood_type">Blood Type</string>
+  <string name="profile_allergy_info">Allergy Information</string>
+  <string name="profile_medical_history">Medical History</string>
+  <string name="profile_doctor_name">Primary Doctor Name</string>
+  <string name="profile_doctor_phone">Primary Doctor Phone</string>
+  <string name="profile_hospital_name">Frequent Hospital Name</string>
+  <string name="separator_dot">•</string>
+  <string name="medication_name_content_description">Medication name</string>
+  <string name="intake_time_content_description">Intake time</string>
+  <string name="dosage_taken_content_description">Dosage taken</string>
+  <string name="logout_menu_content_description">Logout from current account</string>
+  <string name="intake_record_detail_title_content_description">Intake record detail title</string>
+  <string name="record_id_content_description">Record ID</string>
+  <string name="readonly_notice_content_description">Read-only notice information</string>
+  <string name="retry_button_content_description">Retry button</string>
+  <string name="back_button_content_description">Back button</string>
+  <string name="intake_record_empty_icon_content_description">No intake records icon</string>
+  <string name="intake_record_empty_prompt_content_description">No intake records prompt</string>
+  <string name="intake_record_instruction_content_description">Intake record instruction</string>
+  <string name="login_status_message_content_description">Login status message</string>
+  <string name="medication_list_content_description">Medication list</string>
+  <string name="medication_empty_icon_content_description">No medications icon</string>
+  <string name="profile_page_title_content_description">Profile page title</string>
+  <string name="user_full_name_content_description">User full name</string>
+
 </resources>

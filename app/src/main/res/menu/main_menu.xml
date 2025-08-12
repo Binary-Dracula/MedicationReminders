@@ -5,9 +5,9 @@
     <!-- 退出登录菜单项 -->
     <item
         android:id="@+id/action_logout"
-        android:title="退出登录"
+        android:title="@string/logout_menu_title"
         android:icon="@drawable/ic_arrow_back"
         app:showAsAction="never"
-        android:contentDescription="退出当前账户" />
+        android:contentDescription="@string/logout_menu_content_description" />
 
 </menu>

@@ -28,8 +28,7 @@
                 android:text="@string/edit_profile_title"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:layout_marginBottom="32dp"
-                android:contentDescription="编辑个人资料页面标题" />
+                android:layout_marginBottom="32dp" />
 
             <!-- 个人资料照片编辑区域 -->
             <LinearLayout
@@ -45,8 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_photo_label"
                     style="@style/ProfileSectionTitle"
-                    android:gravity="center"
-                    android:contentDescription="个人资料照片区域标题" />
+                    android:gravity="center" />
 
                 <!-- 个人资料照片预览 -->
                 <ImageView
@@ -74,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/change_profile_photo"
                         android:layout_marginEnd="12dp"
-                        android:contentDescription="点击更改个人资料照片" />
+                        android:contentDescription="@string/change_photo_button_description" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnRemovePhoto"
@@ -82,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/remove_profile_photo"
-                        android:contentDescription="点击删除个人资料照片" />
+                        android:contentDescription="@string/remove_photo_button_description" />
 
                 </LinearLayout>
 
@@ -99,8 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/basic_info_title"
-                    style="@style/ProfileSectionTitle"
-                    android:contentDescription="基本信息编辑区域标题" />
+                    style="@style/ProfileSectionTitle" />
 
                 <!-- 完整姓名输入 -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +115,7 @@
                         style="@style/ElderlyFriendlyEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="完整姓名输入框"
+                        android:contentDescription="@string/full_name_input_description"
                         android:inputType="textPersonName"
                         android:maxLength="100" />
 
@@ -140,7 +137,7 @@
                         style="@style/ElderlyFriendlyEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="性别选择下拉框"
+                        android:contentDescription="@string/gender_selection_description"
                         android:inputType="none"
                         android:focusable="false"
                         android:clickable="true" />
@@ -165,7 +162,7 @@
                         style="@style/ElderlyFriendlyEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="出生日期选择框"
+                        android:contentDescription="@string/birth_date_selection_description"
                         android:inputType="none"
                         android:focusable="false"
                         android:clickable="true" />
@@ -184,7 +181,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="扩展联系方式"
+                    android:text="@string/profile_extended_contact_info"
                     style="@style/ProfileSectionTitle"
                     android:contentDescription="扩展联系方式编辑区域标题" />
 
@@ -268,7 +265,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="地址信息"
+                    android:text="@string/profile_address_info"
                     style="@style/ProfileSectionTitle"
                     android:contentDescription="地址信息编辑区域标题" />
 
@@ -301,7 +298,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="医疗相关信息"
+                    android:text="@string/profile_medical_info"
                     style="@style/ProfileSectionTitle"
                     android:contentDescription="医疗相关信息编辑区域标题" />
 

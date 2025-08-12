@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:text="用户注册"
+            android:text="@string/register_page_title"
             android:textSize="24sp" />
 
         <!-- 用户名输入 -->
@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="请输入用户名（3-20个字符）"
-            app:helperText="用户名用于登录，请记住您的用户名"
+            android:hint="@string/register_username_hint"
+            app:helperText="@string/register_username_helper"
             app:helperTextTextAppearance="@style/ElderlyFriendlyText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -41,7 +41,7 @@
                 style="@style/ElderlyFriendlyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="用户名输入框"
+                android:contentDescription="@string/register_username_content_description"
                 android:inputType="text"
                 android:maxLength="20" />
 
@@ -54,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="请输入手机号（11位数字）"
-            app:helperText="手机号用于接收重要通知"
+            android:hint="@string/register_phone_hint"
+            app:helperText="@string/register_phone_helper"
             app:helperTextTextAppearance="@style/ElderlyFriendlyText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +63,7 @@
                 style="@style/ElderlyFriendlyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="手机号输入框"
+                android:contentDescription="@string/register_phone_content_description"
                 android:inputType="phone"
                 android:maxLength="11" />
 
@@ -76,8 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:hint="请输入邮箱地址"
-            app:helperText="邮箱用于找回密码和接收通知"
+            android:hint="@string/register_email_hint"
+            app:helperText="@string/register_email_helper"
             app:helperTextTextAppearance="@style/ElderlyFriendlyText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +85,7 @@
                 style="@style/ElderlyFriendlyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="邮箱输入框"
+                android:contentDescription="@string/register_email_content_description"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,10 +97,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
-            android:hint="请输入密码（6-20个字符）"
-            app:helperText="密码用于保护您的账户安全"
+            android:hint="@string/register_password_hint"
+            app:helperText="@string/register_password_helper"
             app:helperTextTextAppearance="@style/ElderlyFriendlyText"
-            app:passwordToggleContentDescription="显示或隐藏密码"
+            app:passwordToggleContentDescription="@string/register_password_toggle_description"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -108,7 +108,7 @@
                 style="@style/ElderlyFriendlyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="密码输入框"
+                android:contentDescription="@string/register_password_content_description"
                 android:inputType="textPassword"
                 android:maxLength="20" />
 
@@ -121,9 +121,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:contentDescription="点击完成注册"
+            android:contentDescription="@string/register_button_content_description"
             android:minHeight="56dp"
-            android:text="立即注册" />
+            android:text="@string/register_button_text" />
 
         <!-- 登录链接 -->
         <TextView
@@ -132,11 +132,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="点击跳转到登录页面"
+            android:contentDescription="@string/register_login_link_content_description"
             android:gravity="center"
             android:minHeight="48dp"
             android:padding="12dp"
-            android:text="已有账户？立即登录"
+            android:text="@string/register_login_link_text"
             android:textColor="@color/high_contrast_primary"
             android:textSize="18sp" />
 
@@ -184,14 +184,14 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginBottom="16dp"
-                android:contentDescription="正在处理注册信息" />
+                android:contentDescription="@string/register_loading_content_description" />
 
             <TextView
                 android:id="@+id/tvLoadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="正在注册..."
+                android:text="@string/register_loading_text"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 

@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="vertical"
-            android:contentDescription="药物列表" />
+            android:contentDescription="@string/medication_list_content_description" />
 
         <!-- Empty State Message -->
         <LinearLayout
@@ -36,7 +36,7 @@
                 android:layout_height="96dp"
                 android:src="@drawable/ic_medication_default"
                 android:layout_marginBottom="16dp"
-                android:contentDescription="暂无药物图标" />
+                android:contentDescription="@string/medication_empty_icon_content_description" />
 
             <TextView
                 style="@style/ElderlyFriendlyTitle"
@@ -51,7 +51,7 @@
                 style="@style/ElderlyFriendlyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点击下方按钮添加您的第一个药物"
+                android:text="@string/medication_list_first_medication_hint"
                 android:textColor="@color/high_contrast_text_secondary"
                 android:gravity="center" />
 

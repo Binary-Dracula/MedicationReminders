@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="vertical"
-            android:contentDescription="健康日记列表"
+            android:contentDescription="@string/health_diary_list_loading_content_description"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/elderly_margin_large" />
 
@@ -40,7 +40,7 @@
                 android:layout_height="120dp"
                 android:src="@drawable/ic_medication_default"
                 android:layout_marginBottom="@dimen/elderly_margin_large"
-                android:contentDescription="暂无日记图标"
+                android:contentDescription="@string/health_diary_list_empty_content_description"
                 app:tint="@color/high_contrast_text_secondary" />
 
             <!-- 空状态标题 -->
@@ -113,7 +113,7 @@
                 android:layout_height="96dp"
                 android:src="@drawable/ic_medication_default"
                 android:layout_marginBottom="@dimen/elderly_margin_large"
-                android:contentDescription="加载错误图标"
+                android:contentDescription="@string/health_diary_list_loading_content_description"
                 app:tint="@color/error_color" />
 
             <!-- 错误文本 -->
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/retry"
                 android:minWidth="120dp"
-                android:contentDescription="重新加载日记列表" />
+                android:contentDescription="@string/retry_load_diary" />
 
         </LinearLayout>
 

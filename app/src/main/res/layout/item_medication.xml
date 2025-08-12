@@ -33,7 +33,7 @@
             android:layout_height="64dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/photo_placeholder_background"
-            android:contentDescription="药物照片"
+            android:contentDescription="@string/item_medication_photo_content_description"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_medication_default" />
 
@@ -54,7 +54,7 @@
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="药物名称"
+                android:text="@string/medication_name_label"
                 android:textSize="18sp" />
 
             <!-- Medication Details (Color and Dosage Form) -->
@@ -66,7 +66,7 @@
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="白色 • 片剂"
+                android:text="@string/medication_sample_details"
                 android:textColor="@color/high_contrast_text_secondary" />
 
             <!-- Created Date -->
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="添加于 2024年01月01日"
+                android:text="@string/medication_sample_created_date"
                 android:textColor="@color/high_contrast_text_secondary"
                 android:textSize="14sp" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="库存：0/0 片（0%）"
+                android:text="@string/medication_sample_stock_info"
                 android:textColor="@color/high_contrast_text_secondary"
                 android:textSize="14sp" />
 
@@ -100,7 +100,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
-            android:contentDescription="查看详情"
+            android:contentDescription="@string/view_details"
             android:src="@drawable/ic_arrow_forward"
             app:tint="@color/high_contrast_text_secondary" />
 

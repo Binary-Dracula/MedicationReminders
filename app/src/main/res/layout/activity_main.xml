@@ -20,21 +20,21 @@
             style="@style/ElderlyFriendlyTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="欢迎使用药物提醒助手！"
+            android:text="@string/main_welcome_text"
             android:textSize="22sp"
             android:gravity="center"
             android:layout_marginBottom="8dp"
-            android:contentDescription="欢迎信息" />
+            android:contentDescription="@string/main_welcome_content_description" />
 
         <TextView
             android:id="@+id/tvUserInfo"
             style="@style/ElderlyFriendlyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="您的健康管理伙伴"
+            android:text="@string/main_health_partner_text"
             android:gravity="center"
             android:textColor="@color/high_contrast_text_secondary"
-            android:contentDescription="用户信息" />
+            android:contentDescription="@string/main_health_partner_content_description" />
 
     </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:layout_marginBottom="12dp"
             android:drawableStart="@drawable/ic_medication_default"
             android:drawablePadding="12dp"
-            android:contentDescription="查看药物列表" />
+            android:contentDescription="@string/main_view_medication_list_content_description" />
 
         <!-- Add Medication Button -->
         <Button
@@ -84,7 +84,7 @@
             android:layout_marginBottom="12dp"
             android:drawableStart="@drawable/ic_medication_default"
             android:drawablePadding="12dp"
-            android:contentDescription="查看和管理健康日记" />
+            android:contentDescription="@string/main_health_diary_content_description" />
 
         <!-- Intake Record Button -->
         <Button
@@ -98,7 +98,7 @@
             android:layout_marginBottom="12dp"
             android:drawableStart="@drawable/ic_medication_default"
             android:drawablePadding="12dp"
-            android:contentDescription="@string/intake_record_button_description" />
+            android:contentDescription="@string/main_intake_record_content_description" />
 
         <!-- Profile Button -->
         <Button
@@ -106,12 +106,12 @@
             style="@style/ElderlyFriendlyButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="个人资料"
+            android:text="@string/profile_button"
             android:textSize="20sp"
             android:padding="20dp"
             android:drawableStart="@drawable/ic_arrow_forward"
             android:drawablePadding="12dp"
-            android:contentDescription="查看和编辑个人资料" />
+            android:contentDescription="@string/main_profile_content_description" />
 
     </LinearLayout>
 

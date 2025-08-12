@@ -23,7 +23,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/high_contrast_text_primary"
-            android:contentDescription="用药记录详情标题" />
+                android:contentDescription="@string/intake_record_detail_title_content_description" />
 
     </LinearLayout>
 
@@ -73,7 +73,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/high_contrast_text_primary"
                         android:textStyle="bold"
-                        android:contentDescription="药物名称" />
+                        android:contentDescription="@string/medication_name_content_description" />
 
                 </LinearLayout>
 
@@ -110,7 +110,7 @@
                         android:text=""
                         android:textSize="18sp"
                         android:textColor="@color/high_contrast_text_primary"
-                        android:contentDescription="服用时间" />
+                        android:contentDescription="@string/intake_time_content_description" />
 
                 </LinearLayout>
 
@@ -147,7 +147,7 @@
                         android:text=""
                         android:textSize="18sp"
                         android:textColor="@color/high_contrast_text_primary"
-                        android:contentDescription="服用剂量" />
+                        android:contentDescription="@string/dosage_taken_content_description" />
 
                 </LinearLayout>
 
@@ -185,7 +185,7 @@
                         android:textSize="16sp"
                         android:textColor="@color/high_contrast_text_secondary"
                         android:paddingBottom="4dp"
-                        android:contentDescription="记录编号" />
+                        android:contentDescription="@string/record_id_content_description" />
 
                 </LinearLayout>
 
@@ -207,7 +207,7 @@
                     android:textSize="14sp"
                     android:textColor="@color/high_contrast_text_secondary"
                     android:gravity="center"
-                    android:contentDescription="只读提示信息" />
+                        android:contentDescription="@string/readonly_notice_content_description" />
 
             </LinearLayout>
 
@@ -235,7 +235,7 @@
             android:textColor="@color/error_color"
             android:gravity="center"
             android:paddingBottom="16dp"
-            android:contentDescription="错误信息" />
+                        android:contentDescription="@string/error_message_content_description" />
 
         <Button
             android:id="@+id/btnRetry"
@@ -245,7 +245,7 @@
             android:textSize="16sp"
             android:padding="12dp"
             android:minWidth="120dp"
-            android:contentDescription="重试按钮" />
+                android:contentDescription="@string/retry_button_content_description" />
 
     </LinearLayout>
 
@@ -266,7 +266,7 @@
             android:textSize="16sp"
             android:padding="12dp"
             android:layout_marginEnd="8dp"
-            android:contentDescription="返回按钮" />
+                android:contentDescription="@string/back_button_content_description" />
 
     </LinearLayout>
 

@@ -26,11 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/elderly_margin_small"
-            android:text="阿司匹林"
+            android:text="@string/medication_sample_name"
             android:textSize="@dimen/elderly_text_large"
             android:textStyle="bold"
             android:textColor="@color/high_contrast_text_primary"
-            android:contentDescription="药物名称" />
+            android:contentDescription="@string/item_intake_record_medication_name_content_description" />
 
         <!-- 分隔线 -->
         <View
@@ -60,7 +60,7 @@
                     style="@style/ElderlyFriendlyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2024年01月01日"
+                    android:text="@string/intake_record_sample_date"
                     android:textColor="@color/high_contrast_text_secondary"
                     android:textSize="@dimen/elderly_text_medium"
                     android:drawablePadding="6dp"
@@ -81,7 +81,7 @@
                         style="@style/ElderlyFriendlyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="08:30"
+                        android:text="@string/intake_record_sample_time"
                         android:textColor="@color/high_contrast_text_secondary"
                         android:textSize="@dimen/elderly_text_medium"
                         android:drawablePadding="6dp"
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="8dp"
-                        android:text="·"
+                        android:text="@string/separator_dot"
                         android:textColor="@color/high_contrast_text_secondary"
                         android:textSize="@dimen/elderly_text_medium" />
 
@@ -104,7 +104,7 @@
                         style="@style/ElderlyFriendlyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
+                        android:text="@string/intake_record_sample_dosage"
                         android:textColor="@color/high_contrast_text_secondary"
                         android:textSize="@dimen/elderly_text_medium" />
 
@@ -113,7 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-                        android:text="片"
+                        android:text="@string/unit_piece"
                         android:textColor="@color/high_contrast_text_secondary"
                         android:textSize="@dimen/elderly_text_medium" />
 
@@ -126,7 +126,7 @@
                 android:layout_width="@dimen/min_touch_target"
                 android:layout_height="@dimen/min_touch_target"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="查看用药记录详情"
+                android:contentDescription="@string/item_intake_record_view_details_content_description"
                 android:src="@drawable/ic_arrow_forward"
                 android:padding="12dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"

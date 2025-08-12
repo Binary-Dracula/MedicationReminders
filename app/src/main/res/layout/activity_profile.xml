@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:contentDescription="个人资料页面标题"
+                android:contentDescription="@string/profile_page_title_content_description"
                 android:gravity="center"
                 android:text="@string/profile_title"
                 android:textSize="24sp" />
@@ -56,7 +56,7 @@
                     style="@style/ProfilePhotoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="点击更改个人资料照片"
+                    android:contentDescription="@string/change_photo_button_description"
                     android:text="@string/change_profile_photo" />
 
             </LinearLayout>
@@ -72,7 +72,6 @@
                     style="@style/ProfileSectionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="基本信息区域标题"
                     android:text="@string/basic_info_title" />
 
                 <!-- 完整姓名 -->
@@ -95,7 +94,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:contentDescription="用户完整姓名"
+                        android:contentDescription="@string/user_full_name_content_description"
                         android:text="@string/profile_not_set" />
 
                 </LinearLayout>
@@ -277,7 +276,7 @@
                     style="@style/ProfileSectionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="扩展联系方式" />
+                    android:text="@string/profile_extended_contact_info" />
 
                 <!-- 备用电话 -->
                 <LinearLayout
@@ -291,7 +290,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="备用电话" />
+                        android:text="@string/profile_backup_phone" />
 
                     <TextView
                         android:id="@+id/tvSecondaryPhone"
@@ -314,7 +313,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="紧急联系人姓名" />
+                        android:text="@string/profile_emergency_contact_name" />
 
                     <TextView
                         android:id="@+id/tvEmergencyContactName"
@@ -337,7 +336,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="紧急联系人电话" />
+                        android:text="@string/profile_emergency_contact_phone" />
 
                     <TextView
                         android:id="@+id/tvEmergencyContactPhone"
@@ -359,7 +358,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="与紧急联系人关系" />
+                        android:text="@string/profile_emergency_contact_relationship" />
 
                     <TextView
                         android:id="@+id/tvEmergencyContactRelation"
@@ -383,7 +382,7 @@
                     style="@style/ProfileSectionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="地址信息" />
+                    android:text="@string/profile_address_info" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -395,7 +394,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="地址" />
+                        android:text="@string/profile_address" />
 
                     <TextView
                         android:id="@+id/tvAddress"
@@ -420,7 +419,7 @@
                     style="@style/ProfileSectionTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="医疗相关信息" />
+                    android:text="@string/profile_medical_info" />
 
                 <!-- 血型 -->
                 <LinearLayout
@@ -434,7 +433,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="血型" />
+                        android:text="@string/profile_blood_type" />
 
                     <TextView
                         android:id="@+id/tvBloodType"
@@ -457,7 +456,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="过敏信息" />
+                        android:text="@string/profile_allergy_info" />
 
                     <TextView
                         android:id="@+id/tvAllergies"
@@ -480,7 +479,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="既往病史" />
+                        android:text="@string/profile_medical_history" />
 
                     <TextView
                         android:id="@+id/tvMedicalConditions"
@@ -503,7 +502,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="主治医生姓名" />
+                        android:text="@string/profile_doctor_name" />
 
                     <TextView
                         android:id="@+id/tvDoctorName"
@@ -526,7 +525,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="主治医生电话" />
+                        android:text="@string/profile_doctor_phone" />
 
                     <TextView
                         android:id="@+id/tvDoctorPhone"
@@ -548,7 +547,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="常去医院名称" />
+                        android:text="@string/profile_hospital_name" />
 
                     <TextView
                         android:id="@+id/tvHospitalName"
