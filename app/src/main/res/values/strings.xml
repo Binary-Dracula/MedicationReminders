@@ -405,7 +405,7 @@
     <string name="diary_created_time_label">Created:</string>
     <string name="diary_updated_time_label">Modified:</string>
     <string name="edit_diary">Edit Diary</string>
-    <string name="delete_diary">Delete Diary</string>
+    <string name="delete_diary">Delete</string>
     <string name="edit_diary_description">Edit current diary content</string>
     <string name="delete_diary_description">Delete current diary</string>
     <string name="confirm_delete_diary_title">Confirm Delete</string>
