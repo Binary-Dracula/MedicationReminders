@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String loginStatus) {
                 if (loginStatus != null && !loginStatus.isEmpty()) {
-                    if (loginStatus.contains(getString(R.string.diary_operation_success_contains))) {
+                    if (loginStatus.contains(getString(R.string.user_auto_login_success))) {
                         showSuccess(loginStatus);
                     } else {
                         showError(loginStatus);

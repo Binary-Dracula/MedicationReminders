@@ -26,7 +26,7 @@ public class UserValidator {
     );
     
     private static final Pattern PHONE_PATTERN = Pattern.compile(
-        "^1[3-9]\\d{9}$" // 中国手机号格式
+        "^1[3-9]\\d{9}$" // Chinese mobile phone format
     );
     
     private static final Pattern USERNAME_PATTERN = Pattern.compile(
@@ -58,7 +58,7 @@ public class UserValidator {
     private static final int MAX_MEDICAL_FIELD_LENGTH = 500;
     
     // 有效的性别选项
-    private static final String[] VALID_GENDERS = {"男性", "女性", "不愿透露"};
+    private static final String[] VALID_GENDERS = {"Male", "Female", "Prefer not to say"};
 
     /**
      * 验证注册表单
@@ -101,7 +101,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (!PHONE_PATTERN.matcher(secondaryPhone.trim()).matches()) {
-            return ProfileValidationResult.failure("备用电话", "备用电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+            return ProfileValidationResult.failure("Secondary Phone", "Invalid secondary phone number format", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
         return ProfileValidationResult.success();
     }
@@ -111,7 +111,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (name.trim().length() > MAX_NAME_LENGTH) {
-            return ProfileValidationResult.failure("紧急联系人姓名", "紧急联系人姓名过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Emergency Contact Name", "Emergency contact name is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -121,7 +121,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (!PHONE_PATTERN.matcher(phone.trim()).matches()) {
-            return ProfileValidationResult.failure("紧急联系人电话", "紧急联系人电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+            return ProfileValidationResult.failure("Emergency Contact Phone", "Invalid emergency contact phone number format", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
         return ProfileValidationResult.success();
     }
@@ -131,7 +131,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (relation.trim().length() > MAX_RELATION_LENGTH) {
-            return ProfileValidationResult.failure("紧急联系人关系", "紧急联系人关系过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Emergency Contact Relation", "Emergency contact relation is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -141,7 +141,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (address.trim().length() > MAX_ADDRESS_LENGTH) {
-            return ProfileValidationResult.failure("地址", "地址过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Address", "Address is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -151,7 +151,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (!BLOOD_TYPE_PATTERN.matcher(bloodType.trim().toUpperCase()).matches()) {
-            return ProfileValidationResult.failure("血型", "血型格式不正确 (e.g., A+, O-)", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+            return ProfileValidationResult.failure("Blood Type", "Invalid blood type format (e.g., A+, O-)", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
         return ProfileValidationResult.success();
     }
@@ -161,7 +161,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (allergies.trim().length() > MAX_MEDICAL_FIELD_LENGTH) {
-            return ProfileValidationResult.failure("过敏史", "过敏史描述过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Allergies", "Allergies description is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -171,7 +171,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (conditions.trim().length() > MAX_MEDICAL_FIELD_LENGTH) {
-            return ProfileValidationResult.failure("医疗状况", "医疗状况描述过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Medical Conditions", "Medical conditions description is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -181,7 +181,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (name.trim().length() > MAX_NAME_LENGTH) {
-            return ProfileValidationResult.failure("医生姓名", "医生姓名过长", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
+            return ProfileValidationResult.failure("Doctor Name", "Doctor name is too long", ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
         return ProfileValidationResult.success();
     }
@@ -191,7 +191,7 @@ public class UserValidator {
             return ProfileValidationResult.success(); // Optional field
         }
         if (!PHONE_PATTERN.matcher(phone.trim()).matches()) {
-            return ProfileValidationResult.failure("医生电话", "医生电话号码格式不正确", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
+            return ProfileValidationResult.failure("Doctor Phone", "Invalid doctor phone number format", ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
         }
         return ProfileValidationResult.success();
     }
@@ -378,7 +378,7 @@ public class UserValidator {
      */
     public static ProfileValidationResult validateGender(String gender) {
         if (gender == null || gender.trim().isEmpty()) {
-            return ProfileValidationResult.failure("性别", "请选择性别", 
+            return ProfileValidationResult.failure("Gender", "Please select a gender",
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
         
@@ -390,7 +390,7 @@ public class UserValidator {
             }
         }
         
-        return ProfileValidationResult.failure("性别", "请选择有效的性别选项", 
+        return ProfileValidationResult.failure("Gender", "Please select a valid gender option",
             ProfileValidationResult.ValidationErrorType.INVALID_FORMAT);
     }
 
@@ -401,7 +401,7 @@ public class UserValidator {
      */
     public static ProfileValidationResult validateBirthDate(String birthDate) {
         if (birthDate == null || birthDate.trim().isEmpty()) {
-            return ProfileValidationResult.failure("出生日期", "出生日期不能为空", 
+            return ProfileValidationResult.failure("Birth Date", "Birth date cannot be empty",
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
         
@@ -413,8 +413,8 @@ public class UserValidator {
             DATE_FORMAT.setLenient(false);
             parsedDate = DATE_FORMAT.parse(trimmedDate);
         } catch (ParseException e) {
-            return ProfileValidationResult.failure("出生日期", 
-                "出生日期格式不正确，请使用YYYY-MM-DD格式", 
+            return ProfileValidationResult.failure("出生日期",
+                "出生日期格式不正确，请使用YYYY-MM-DD格式",
                 ProfileValidationResult.ValidationErrorType.INVALID_DATE);
         }
         
@@ -464,26 +464,26 @@ public class UserValidator {
      * @return 验证结果
      */
     public static ProfileValidationResult validateProfilePhoto(String photoPath) {
-        // 个人���料照片是可选的，所以null/empty是有效的
+        // Profile photo is optional, so null/empty is valid
         if (photoPath == null || photoPath.trim().isEmpty()) {
             return ProfileValidationResult.success();
         }
 
         String trimmedPath = photoPath.trim();
 
-        // 基本路径验证 - 检查是否看起来像有效的文件路径
+        // Basic path validation - check if it looks like a valid file path
         if (!trimmedPath.contains("/") && !trimmedPath.contains("\\")) {
-            return ProfileValidationResult.failure("个人资料照片",
-                "照片路径格式不正确",
+            return ProfileValidationResult.failure("Profile Photo",
+                "Invalid photo path format",
                 ProfileValidationResult.ValidationErrorType.FILE_ERROR);
         }
 
-        // 检查常见的图片文件扩展名
+        // Check common image file extensions
         String lowerPath = trimmedPath.toLowerCase();
         if (!lowerPath.endsWith(".jpg") && !lowerPath.endsWith(".jpeg") && 
             !lowerPath.endsWith(".png") && !lowerPath.endsWith(".gif")) {
-            return ProfileValidationResult.failure("个人资料照片",
-                "照片文件格式不支持，请��用JPG、PNG或GIF格式",
+            return ProfileValidationResult.failure("Profile Photo",
+                "Unsupported photo format. Please use JPG, PNG or GIF format",
                 ProfileValidationResult.ValidationErrorType.FILE_ERROR);
         }
 
@@ -500,10 +500,10 @@ public class UserValidator {
     public static ProfileValidationResult validateTextFieldLength(String fieldName, String text, int maxLength) {
         if (text != null && text.length() > maxLength) {
             return ProfileValidationResult.failure(fieldName, 
-                fieldName + "长度不能超过" + maxLength + "个字符", 
+                fieldName + " length cannot exceed " + maxLength + " characters",
                 ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
         }
-        
+
         return ProfileValidationResult.success();
     }
 
@@ -514,53 +514,49 @@ public class UserValidator {
      * @param emergencyContactRelation 与紧急联系人的关系
      * @return 验证结果
      */
-    public static ProfileValidationResult validateEmergencyContactInfo(String emergencyContactName, 
-                                                                      String emergencyContactPhone, 
+    public static ProfileValidationResult validateEmergencyContactInfo(String emergencyContactName,
+                                                                      String emergencyContactPhone,
                                                                       String emergencyContactRelation) {
         boolean hasName = emergencyContactName != null && !emergencyContactName.trim().isEmpty();
         boolean hasPhone = emergencyContactPhone != null && !emergencyContactPhone.trim().isEmpty();
         boolean hasRelation = emergencyContactRelation != null && !emergencyContactRelation.trim().isEmpty();
-        
-        // 如果提供了任何紧急联系人信息，则必须提供完整信息
+
         if (hasName || hasPhone || hasRelation) {
             if (!hasName) {
-                return ProfileValidationResult.failure("紧急联系人", 
-                    "紧急联系人姓名不能为空", 
+                return ProfileValidationResult.failure("Emergency Contact",
+                    "Emergency contact name cannot be empty",
                     ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
             }
-            
+
             if (!hasPhone) {
-                return ProfileValidationResult.failure("紧急联系人", 
-                    "紧急联系人电话不能为空", 
+                return ProfileValidationResult.failure("Emergency Contact",
+                    "Emergency contact phone cannot be empty",
                     ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
             }
-            
+
             if (!hasRelation) {
-                return ProfileValidationResult.failure("紧急联系人", 
-                    "与紧急联系人的关系不能为空", 
+                return ProfileValidationResult.failure("Emergency Contact",
+                    "Emergency contact relation cannot be empty",
                     ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
             }
-            
-            // 验证紧急联系人姓名
+
             ProfileValidationResult nameResult = validateFullName(emergencyContactName);
             if (!nameResult.isValid()) {
-                return ProfileValidationResult.failure("紧急联系人姓名", 
-                    nameResult.getErrorMessage(), 
+                return ProfileValidationResult.failure("Emergency Contact Name",
+                    nameResult.getErrorMessage(),
                     nameResult.getErrorType());
             }
-            
-            // 验证紧急联系人电话
+
             ProfileValidationResult phoneResult = validatePhoneNumber(emergencyContactPhone);
             if (!phoneResult.isValid()) {
-                return ProfileValidationResult.failure("紧急联系人电话", 
-                    phoneResult.getErrorMessage(), 
+                return ProfileValidationResult.failure("Emergency Contact Phone",
+                    phoneResult.getErrorMessage(),
                     phoneResult.getErrorType());
             }
-            
-            // 验证关系长度
+
             if (emergencyContactRelation.length() > 50) {
-                return ProfileValidationResult.failure("紧急联系人关系", 
-                    "关系描述不能超过50个字符", 
+                return ProfileValidationResult.failure("Emergency Contact Relation",
+                    "Relation description cannot exceed 50 characters",
                     ProfileValidationResult.ValidationErrorType.INVALID_LENGTH);
             }
         }
@@ -575,7 +571,8 @@ public class UserValidator {
      */
     public static ProfileValidationResult validateCompleteUser(User user) {
         if (user == null) {
-            return ProfileValidationResult.failure("用户信息", "用户信息不能为空", 
+            return ProfileValidationResult.failure("User Information",
+                "User information cannot be empty",
                 ProfileValidationResult.ValidationErrorType.REQUIRED_FIELD_EMPTY);
         }
         
@@ -607,17 +604,17 @@ public class UserValidator {
         }
         
         // 验证文本字段长度
-        ProfileValidationResult allergiesResult = validateTextFieldLength("过敏信息", user.getAllergies(), MAX_TEXT_FIELD_LENGTH);
+        ProfileValidationResult allergiesResult = validateTextFieldLength("Allergies", user.getAllergies(), MAX_TEXT_FIELD_LENGTH);
         if (!allergiesResult.isValid()) {
             return allergiesResult;
         }
         
-        ProfileValidationResult medicalConditionsResult = validateTextFieldLength("既往病史", user.getMedicalConditions(), MAX_TEXT_FIELD_LENGTH);
+        ProfileValidationResult medicalConditionsResult = validateTextFieldLength("Medical History", user.getMedicalConditions(), MAX_TEXT_FIELD_LENGTH);
         if (!medicalConditionsResult.isValid()) {
             return medicalConditionsResult;
         }
         
-        ProfileValidationResult addressResult = validateTextFieldLength("地址", user.getAddress(), MAX_TEXT_FIELD_LENGTH);
+        ProfileValidationResult addressResult = validateTextFieldLength("Address", user.getAddress(), MAX_TEXT_FIELD_LENGTH);
         if (!addressResult.isValid()) {
             return addressResult;
         }
@@ -633,8 +630,8 @@ public class UserValidator {
         if (user.getSecondaryPhone() != null && !user.getSecondaryPhone().trim().isEmpty()) {
             ProfileValidationResult secondaryPhoneResult = validatePhoneNumber(user.getSecondaryPhone());
             if (!secondaryPhoneResult.isValid()) {
-                return ProfileValidationResult.failure("备用电话", 
-                    secondaryPhoneResult.getErrorMessage(), 
+                return ProfileValidationResult.failure("Secondary Phone",
+                    secondaryPhoneResult.getErrorMessage(),
                     secondaryPhoneResult.getErrorType());
             }
         }
@@ -643,8 +640,8 @@ public class UserValidator {
         if (user.getDoctorName() != null && !user.getDoctorName().trim().isEmpty()) {
             ProfileValidationResult doctorNameResult = validateFullName(user.getDoctorName());
             if (!doctorNameResult.isValid()) {
-                return ProfileValidationResult.failure("医生姓名", 
-                    doctorNameResult.getErrorMessage(), 
+                return ProfileValidationResult.failure("Doctor Name",
+                    doctorNameResult.getErrorMessage(),
                     doctorNameResult.getErrorType());
             }
         }
@@ -652,8 +649,8 @@ public class UserValidator {
         if (user.getDoctorPhone() != null && !user.getDoctorPhone().trim().isEmpty()) {
             ProfileValidationResult doctorPhoneResult = validatePhoneNumber(user.getDoctorPhone());
             if (!doctorPhoneResult.isValid()) {
-                return ProfileValidationResult.failure("医生电话", 
-                    doctorPhoneResult.getErrorMessage(), 
+                return ProfileValidationResult.failure("Doctor Phone",
+                    doctorPhoneResult.getErrorMessage(),
                     doctorPhoneResult.getErrorType());
             }
         }

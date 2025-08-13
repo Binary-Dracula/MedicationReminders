@@ -21,17 +21,5 @@
         <item name="colorError">@color/error_color</item>
         <!-- Customize your theme here. -->
     </style>
-    
-    <!-- Elderly-friendly theme with enhanced accessibility -->
-    <style name="Theme.MedicationReminders.ElderlyFriendly" parent="Theme.MedicationReminders">
-        <!-- Enhanced contrast and larger text -->
-        <item name="android:textSize">@dimen/elderly_text_medium</item>
-        <item name="android:textColor">@color/high_contrast_text_primary</item>
-        <!-- Larger touch targets -->
-        <item name="android:minHeight">@dimen/min_touch_target</item>
-        <!-- Enhanced button styling -->
-        <item name="materialButtonStyle">@style/ElderlyFriendlyButton</item>
-        <!-- Enhanced text input styling -->
-        <item name="textInputStyle">@style/ElderlyFriendlyTextInputLayout</item>
-    </style>
+
 </resources>

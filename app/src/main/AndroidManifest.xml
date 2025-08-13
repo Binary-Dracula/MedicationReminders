@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <!-- Android 13+ 通知权限（建议一并申请提升可达性） -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="33" />
-    
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="33" />
+
     <!-- Camera feature (optional) -->
     <uses-feature
         android:name="android.hardware.camera"
@@ -48,68 +50,57 @@
         <activity
             android:name=".view.AddMedicationActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MainActivity" />
 
         <activity
             android:name=".view.MedicationListActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MainActivity" />
 
         <activity
             android:name=".view.MedicationDetailActivity"
             android:exported="false"
-            android:parentActivityName=".view.MedicationListActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MedicationListActivity" />
 
         <activity
             android:name=".view.ProfileActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MainActivity" />
 
         <activity
             android:name=".view.ProfileEditActivity"
             android:exported="false"
-            android:parentActivityName=".view.ProfileActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.ProfileActivity" />
 
         <activity
             android:name=".view.HealthDiaryListActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MainActivity" />
 
         <activity
             android:name=".view.HealthDiaryDetailActivity"
             android:exported="false"
-            android:parentActivityName=".view.HealthDiaryListActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.HealthDiaryListActivity" />
 
         <activity
             android:name=".view.HealthDiaryEditActivity"
             android:exported="false"
-            android:parentActivityName=".view.HealthDiaryListActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.HealthDiaryListActivity" />
 
         <activity
             android:name=".view.ScheduleEditActivity"
             android:exported="false"
-            android:parentActivityName=".view.MedicationListActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MedicationListActivity" />
 
         <activity
             android:name=".view.MedicationIntakeRecordListActivity"
             android:exported="false"
-            android:parentActivityName=".view.MainActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MainActivity" />
 
         <activity
             android:name=".view.MedicationIntakeRecordDetailActivity"
             android:exported="false"
-            android:parentActivityName=".view.MedicationIntakeRecordListActivity"
-            android:theme="@style/Theme.MedicationReminders.ElderlyFriendly" />
+            android:parentActivityName=".view.MedicationIntakeRecordListActivity" />
 
         <!-- FileProvider for camera photo capture -->
         <provider
