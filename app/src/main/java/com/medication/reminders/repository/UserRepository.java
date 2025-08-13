@@ -138,14 +138,7 @@ public class UserRepository implements com.medication.reminders.models.UserRepos
                     return;
                 }
                 
-                // 使用统一的UserValidator进行验证
-                com.medication.reminders.models.ProfileValidationResult validationResult = 
-                    com.medication.reminders.utils.UserValidator.validateRegistrationForm(
-                        username.trim(), email.trim(), phone.trim(), password);
-                if (!validationResult.isValid()) {
-                    callback.onError(validationResult.getErrorMessage());
-                    return;
-                }
+                // Repository层专注于业务规则验证，格式验证在上层完成
                 
                 // 创建User对象
                 User user = new User(username.trim(), email.trim(), phone.trim(), password);
@@ -368,12 +361,8 @@ public class UserRepository implements com.medication.reminders.models.UserRepos
                     return;
                 }
                 
-                // 使用统一的UserValidator进行验证
-                ProfileValidationResult validationResult = UserValidator.validateCompleteUser(user);
-                if (!validationResult.isValid()) {
-                    callback.onError(validationResult.getErrorMessage());
-                    return;
-                }
+                // Repository层不进行格式验证，只进行业务规则验证（如唯一性检查）
+                // 格式验证应该在View层或ViewModel层完成
                 
                 // 检查用户是否存在
                 User existingUser = userDao.getUserById(user.getId());
@@ -837,11 +826,7 @@ public class UserRepository implements com.medication.reminders.models.UserRepos
             // 创建 User 实体
             User user = new User(username, email, phone, password);
             
-            // 验证用户信息
-            com.medication.reminders.models.ProfileValidationResult validationResult = UserValidator.validateRegistrationForm(username, email, phone, password);
-            if (!validationResult.isValid()) {
-                return new RepositoryResult(false, validationResult.getErrorMessage());
-            }
+            // Repository层专注于业务规则验证，格式验证在上层完成
             
             // 检查唯一性
             int usernameCount = userDao.getUsernameCount(username);

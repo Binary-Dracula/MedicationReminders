@@ -77,6 +77,9 @@ public class ProfileEditActivity extends AppCompatActivity {
     // 日期选择对话框
     private DatePickerDialog datePickerDialog;
     
+    // Handler用于管理延迟任务
+    private android.os.Handler mainHandler;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,9 @@ public class ProfileEditActivity extends AppCompatActivity {
         // 初始化日期格式化器
         dateFormatter = new SimpleDateFormat(getString(R.string.date_format_storage), Locale.getDefault());
         displayDateFormatter = new SimpleDateFormat(getString(R.string.date_format_display), Locale.getDefault());
+        
+        // 初始化Handler
+        mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
         
         // 初始化UserViewModel
         initializeViewModel();
@@ -142,8 +148,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         showLoadingState(false);
         hideMessage();
         
-        // 设置保存按钮初始状态为禁用
-        binding.btnSave.setEnabled(false);
+        // 设置保存按钮初始状态为启用
+        binding.btnSave.setEnabled(true);
     }
     
     /**
@@ -157,7 +163,9 @@ public class ProfileEditActivity extends AppCompatActivity {
         // 设置性别选择监听器
         binding.actvGender.setOnItemClickListener((parent, view, position, id) -> {
             hasUnsavedChanges = true;
-            validateForm();
+            // 清除之前的错误状态，但不进行实时验证
+            clearFieldErrors();
+            hideMessage();
         });
     }
     
@@ -192,7 +200,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onChanged(String updateStatus) {
                 if (updateStatus != null && !updateStatus.isEmpty()) {
                     if (updateStatus.contains(getString(R.string.profile_edit_success_contains))) {
-                        showSuccessMessage(updateStatus);
+                        // 不在这里显示成功消息，由profileUpdateSuccess统一处理
+                        // showSuccessMessage(updateStatus);
                     } else {
                         showErrorMessage(updateStatus);
                     }
@@ -206,13 +215,25 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onChanged(Boolean success) {
                 if (success != null && success) {
                     hasUnsavedChanges = false;
-                    showSuccessMessage(getString(R.string.profile_saved_successfully));
+                    
+                    // 显示成功消息和Toast（只在这里显示一次）
+                    String successMsg = getString(R.string.profile_saved_successfully);
+                    showSuccessMessage(successMsg);
+                    Toast.makeText(ProfileEditActivity.this, successMsg, Toast.LENGTH_SHORT).show();
                     
                     // 延迟返回上一页面
-                    binding.getRoot().postDelayed(() -> {
+                    if (mainHandler != null) {
+                        mainHandler.postDelayed(() -> {
+                            if (!isFinishing() && !isDestroyed()) {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1500);
+                    } else {
+                        // 如果handler已经为null，直接返回
                         setResult(RESULT_OK);
                         finish();
-                    }, 1500);
+                    }
                 }
             }
         });
@@ -223,6 +244,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onChanged(String errorMessage) {
                 if (errorMessage != null && !errorMessage.trim().isEmpty()) {
                     showErrorMessage(errorMessage);
+                    // 错误消息显示Toast，提供额外的用户反馈
+                    Toast.makeText(ProfileEditActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -232,7 +255,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(String successMessage) {
                 if (successMessage != null && !successMessage.trim().isEmpty()) {
-                    showSuccessMessage(successMessage);
+                    // 不在这里显示成功消息，避免重复显示，由profileUpdateSuccess统一处理
+                    // showSuccessMessage(successMessage);
                 }
             }
         });
@@ -314,7 +338,7 @@ public class ProfileEditActivity extends AppCompatActivity {
      * 设置表单验证
      */
     private void setupFormValidation() {
-        // 为所有输入字段添加文本变化监听器
+        // 为所有输入字段添加文本变化监听器，只标记有未保存更改，不进行实时验证
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -325,7 +349,9 @@ public class ProfileEditActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 hasUnsavedChanges = true;
-                validateForm();
+                // 清除之前的错误状态，但不进行实时验证
+                clearFieldErrors();
+                hideMessage();
                 // 清除ViewModel中的错误信息
                 userViewModel.clearErrorMessage();
                 userViewModel.clearFormValidationError();
@@ -406,149 +432,212 @@ public class ProfileEditActivity extends AppCompatActivity {
         
         // 重置未保存更改标记
         hasUnsavedChanges = false;
-        
-        // 验证表单
-        validateForm();
     }
     
     /**
-     * 验证表单并启用/禁用保存按钮
+     * 验证表单，只验证有内容的字段，允许用户只更新部分字段
+     * @return 验证是否通过
      */
-    private void validateForm() {
-        boolean isFormValid = true;
-        
+    private boolean validateForm() {
         // 清除之前的错误状态
         clearFieldErrors();
+        hideMessage();
         
-        // 验证完整姓名
+        // 验证完整姓名（使用可选验证）
         String fullName = binding.etFullName.getText().toString().trim();
-        ProfileValidationResult nameResult = UserValidator.validateFullName(fullName);
+        ProfileValidationResult nameResult = UserValidator.validateFullNameOptional(fullName);
         if (!nameResult.isValid()) {
             binding.tilFullName.setError(nameResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(nameResult.getErrorMessage());
+            binding.etFullName.requestFocus();
+            return false;
         }
         
-        // 验证性别
+        // 验证性别（使用可选验证）
         String gender = binding.actvGender.getText().toString().trim();
-        ProfileValidationResult genderResult = UserValidator.validateGender(gender);
+        ProfileValidationResult genderResult = UserValidator.validateGenderOptional(gender);
         if (!genderResult.isValid()) {
             binding.tilGender.setError(genderResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(genderResult.getErrorMessage());
+            binding.actvGender.requestFocus();
+            return false;
         }
         
-        // 验证出生日期
+        // 验证出生日期（使用可选验证）
         String birthDateDisplay = binding.etBirthDate.getText().toString().trim();
         String birthDate = convertDisplayDateToStorageFormat(birthDateDisplay);
-        ProfileValidationResult birthDateResult = UserValidator.validateBirthDate(birthDate);
+        ProfileValidationResult birthDateResult = UserValidator.validateBirthDateOptional(birthDate);
         if (!birthDateResult.isValid()) {
             binding.tilBirthDate.setError(birthDateResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(birthDateResult.getErrorMessage());
+            binding.etBirthDate.requestFocus();
+            return false;
         }
         
-        // 验证用户名
+        // 验证用户名（使用可选验证）
         String username = binding.etUsername.getText().toString().trim();
-        ProfileValidationResult usernameResult = UserValidator.validateUsername(username);
+        ProfileValidationResult usernameResult = UserValidator.validateUsernameOptional(username);
         if (!usernameResult.isValid()) {
             binding.tilUsername.setError(usernameResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(usernameResult.getErrorMessage());
+            binding.etUsername.requestFocus();
+            return false;
         }
         
-        // 验证邮箱
+        // 验证邮箱（使用可选验证）
         String email = binding.etEmail.getText().toString().trim();
-        ProfileValidationResult emailResult = UserValidator.validateEmail(email);
+        ProfileValidationResult emailResult = UserValidator.validateEmailOptional(email);
         if (!emailResult.isValid()) {
             binding.tilEmail.setError(emailResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(emailResult.getErrorMessage());
+            binding.etEmail.requestFocus();
+            return false;
         }
         
-        // 验证电话号码
+        // 验证电话号码（使用可选验证）
         String phoneNumber = binding.etPhoneNumber.getText().toString().trim();
-        ProfileValidationResult phoneResult = UserValidator.validatePhoneNumber(phoneNumber);
+        ProfileValidationResult phoneResult = UserValidator.validatePhoneNumberOptional(phoneNumber);
         if (!phoneResult.isValid()) {
             binding.tilPhoneNumber.setError(phoneResult.getErrorMessage());
-            isFormValid = false;
+            showErrorMessage(phoneResult.getErrorMessage());
+            binding.etPhoneNumber.requestFocus();
+            return false;
         }
 
-        // 验证扩展字段
+        // 验证备用电话（如果有输入）
         String secondaryPhone = binding.etSecondaryPhone.getText().toString().trim();
-        ProfileValidationResult secondaryPhoneResult = UserValidator.validateSecondaryPhone(secondaryPhone);
-        if (!secondaryPhoneResult.isValid()) {
-            binding.tilSecondaryPhone.setError(secondaryPhoneResult.getErrorMessage());
-            isFormValid = false;
+        if (!secondaryPhone.isEmpty()) {
+            ProfileValidationResult secondaryPhoneResult = UserValidator.validateSecondaryPhone(secondaryPhone);
+            if (!secondaryPhoneResult.isValid()) {
+                binding.tilSecondaryPhone.setError(secondaryPhoneResult.getErrorMessage());
+                showErrorMessage(secondaryPhoneResult.getErrorMessage());
+                binding.etSecondaryPhone.requestFocus();
+                return false;
+            }
         }
 
+        // 验证紧急联系人姓名（如果有输入）
         String emergencyContactName = binding.etEmergencyContactName.getText().toString().trim();
-        ProfileValidationResult emergencyContactNameResult = UserValidator.validateEmergencyContactName(emergencyContactName);
-        if (!emergencyContactNameResult.isValid()) {
-            binding.tilEmergencyContactName.setError(emergencyContactNameResult.getErrorMessage());
-            isFormValid = false;
+        if (!emergencyContactName.isEmpty()) {
+            ProfileValidationResult emergencyContactNameResult = UserValidator.validateEmergencyContactName(emergencyContactName);
+            if (!emergencyContactNameResult.isValid()) {
+                binding.tilEmergencyContactName.setError(emergencyContactNameResult.getErrorMessage());
+                showErrorMessage(emergencyContactNameResult.getErrorMessage());
+                binding.etEmergencyContactName.requestFocus();
+                return false;
+            }
         }
 
+        // 验证紧急联系人电话（如果有输入）
         String emergencyContactPhone = binding.etEmergencyContactPhone.getText().toString().trim();
-        ProfileValidationResult emergencyContactPhoneResult = UserValidator.validateEmergencyContactPhone(emergencyContactPhone);
-        if (!emergencyContactPhoneResult.isValid()) {
-            binding.tilEmergencyContactPhone.setError(emergencyContactPhoneResult.getErrorMessage());
-            isFormValid = false;
+        if (!emergencyContactPhone.isEmpty()) {
+            ProfileValidationResult emergencyContactPhoneResult = UserValidator.validateEmergencyContactPhone(emergencyContactPhone);
+            if (!emergencyContactPhoneResult.isValid()) {
+                binding.tilEmergencyContactPhone.setError(emergencyContactPhoneResult.getErrorMessage());
+                showErrorMessage(emergencyContactPhoneResult.getErrorMessage());
+                binding.etEmergencyContactPhone.requestFocus();
+                return false;
+            }
         }
 
+        // 验证紧急联系人关系（如果有输入）
         String emergencyContactRelation = binding.etEmergencyContactRelation.getText().toString().trim();
-        ProfileValidationResult emergencyContactRelationResult = UserValidator.validateEmergencyContactRelation(emergencyContactRelation);
-        if (!emergencyContactRelationResult.isValid()) {
-            binding.tilEmergencyContactRelation.setError(emergencyContactRelationResult.getErrorMessage());
-            isFormValid = false;
+        if (!emergencyContactRelation.isEmpty()) {
+            ProfileValidationResult emergencyContactRelationResult = UserValidator.validateEmergencyContactRelation(emergencyContactRelation);
+            if (!emergencyContactRelationResult.isValid()) {
+                binding.tilEmergencyContactRelation.setError(emergencyContactRelationResult.getErrorMessage());
+                showErrorMessage(emergencyContactRelationResult.getErrorMessage());
+                binding.etEmergencyContactRelation.requestFocus();
+                return false;
+            }
         }
 
+        // 验证地址（如果有输入）
         String address = binding.etAddress.getText().toString().trim();
-        ProfileValidationResult addressResult = UserValidator.validateAddress(address);
-        if (!addressResult.isValid()) {
-            binding.tilAddress.setError(addressResult.getErrorMessage());
-            isFormValid = false;
+        if (!address.isEmpty()) {
+            ProfileValidationResult addressResult = UserValidator.validateAddress(address);
+            if (!addressResult.isValid()) {
+                binding.tilAddress.setError(addressResult.getErrorMessage());
+                showErrorMessage(addressResult.getErrorMessage());
+                binding.etAddress.requestFocus();
+                return false;
+            }
         }
 
+        // 验证血型（如果有输入）
         String bloodType = binding.etBloodType.getText().toString().trim();
-        ProfileValidationResult bloodTypeResult = UserValidator.validateBloodType(bloodType);
-        if (!bloodTypeResult.isValid()) {
-            binding.tilBloodType.setError(bloodTypeResult.getErrorMessage());
-            isFormValid = false;
+        if (!bloodType.isEmpty()) {
+            ProfileValidationResult bloodTypeResult = UserValidator.validateBloodType(bloodType);
+            if (!bloodTypeResult.isValid()) {
+                binding.tilBloodType.setError(bloodTypeResult.getErrorMessage());
+                showErrorMessage(bloodTypeResult.getErrorMessage());
+                binding.etBloodType.requestFocus();
+                return false;
+            }
         }
 
+        // 验证过敏信息（如果有输入）
         String allergies = binding.etAllergies.getText().toString().trim();
-        ProfileValidationResult allergiesResult = UserValidator.validateAllergies(allergies);
-        if (!allergiesResult.isValid()) {
-            binding.tilAllergies.setError(allergiesResult.getErrorMessage());
-            isFormValid = false;
+        if (!allergies.isEmpty()) {
+            ProfileValidationResult allergiesResult = UserValidator.validateAllergies(allergies);
+            if (!allergiesResult.isValid()) {
+                binding.tilAllergies.setError(allergiesResult.getErrorMessage());
+                showErrorMessage(allergiesResult.getErrorMessage());
+                binding.etAllergies.requestFocus();
+                return false;
+            }
         }
 
+        // 验证病史（如果有输入）
         String medicalConditions = binding.etMedicalConditions.getText().toString().trim();
-        ProfileValidationResult medicalConditionsResult = UserValidator.validateMedicalConditions(medicalConditions);
-        if (!medicalConditionsResult.isValid()) {
-            binding.tilMedicalConditions.setError(medicalConditionsResult.getErrorMessage());
-            isFormValid = false;
+        if (!medicalConditions.isEmpty()) {
+            ProfileValidationResult medicalConditionsResult = UserValidator.validateMedicalConditions(medicalConditions);
+            if (!medicalConditionsResult.isValid()) {
+                binding.tilMedicalConditions.setError(medicalConditionsResult.getErrorMessage());
+                showErrorMessage(medicalConditionsResult.getErrorMessage());
+                binding.etMedicalConditions.requestFocus();
+                return false;
+            }
         }
 
+        // 验证医生姓名（如果有输入）
         String doctorName = binding.etDoctorName.getText().toString().trim();
-        ProfileValidationResult doctorNameResult = UserValidator.validateDoctorName(doctorName);
-        if (!doctorNameResult.isValid()) {
-            binding.tilDoctorName.setError(doctorNameResult.getErrorMessage());
-            isFormValid = false;
+        if (!doctorName.isEmpty()) {
+            ProfileValidationResult doctorNameResult = UserValidator.validateDoctorName(doctorName);
+            if (!doctorNameResult.isValid()) {
+                binding.tilDoctorName.setError(doctorNameResult.getErrorMessage());
+                showErrorMessage(doctorNameResult.getErrorMessage());
+                binding.etDoctorName.requestFocus();
+                return false;
+            }
         }
 
+        // 验证医生电话（如果有输入）
         String doctorPhone = binding.etDoctorPhone.getText().toString().trim();
-        ProfileValidationResult doctorPhoneResult = UserValidator.validateDoctorPhone(doctorPhone);
-        if (!doctorPhoneResult.isValid()) {
-            binding.tilDoctorPhone.setError(doctorPhoneResult.getErrorMessage());
-            isFormValid = false;
+        if (!doctorPhone.isEmpty()) {
+            ProfileValidationResult doctorPhoneResult = UserValidator.validateDoctorPhone(doctorPhone);
+            if (!doctorPhoneResult.isValid()) {
+                binding.tilDoctorPhone.setError(doctorPhoneResult.getErrorMessage());
+                showErrorMessage(doctorPhoneResult.getErrorMessage());
+                binding.etDoctorPhone.requestFocus();
+                return false;
+            }
         }
 
+        // 验证医院名称（如果有输入）
         String hospitalName = binding.etHospitalName.getText().toString().trim();
-        ProfileValidationResult hospitalNameResult = UserValidator.validateHospitalName(hospitalName);
-        if (!hospitalNameResult.isValid()) {
-            binding.tilHospitalName.setError(hospitalNameResult.getErrorMessage());
-            isFormValid = false;
+        if (!hospitalName.isEmpty()) {
+            ProfileValidationResult hospitalNameResult = UserValidator.validateHospitalName(hospitalName);
+            if (!hospitalNameResult.isValid()) {
+                binding.tilHospitalName.setError(hospitalNameResult.getErrorMessage());
+                showErrorMessage(hospitalNameResult.getErrorMessage());
+                binding.etHospitalName.requestFocus();
+                return false;
+            }
         }
         
-        // 启用或禁用保存按钮
-        binding.btnSave.setEnabled(isFormValid);
+        // 所有有内容的字段验证都通过
+        return true;
     }
     
     /**
@@ -599,11 +688,8 @@ public class ProfileEditActivity extends AppCompatActivity {
      * 验证并保存个人资料
      */
     private void validateAndSaveProfile() {
-        // 再次验证表单
-        validateForm();
-        
-        if (!binding.btnSave.isEnabled()) {
-            showErrorMessage(getString(R.string.error_form_validation_failed));
+        // 验证表单，如果验证失败则直接返回
+        if (!validateForm()) {
             return;
         }
         
@@ -619,7 +705,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
     
     /**
-     * 创建更新后的用户对象
+     * 创建更新后的用户对象，只更新有内容的字段，空字段保持原值
      * @return 更新后的User对象
      */
     private User createUpdatedUser() {
@@ -631,33 +717,69 @@ public class ProfileEditActivity extends AppCompatActivity {
             // 复制当前用户对象
             User updatedUser = new User();
             updatedUser.setId(currentUser.getId());
-            updatedUser.setUsername(binding.etUsername.getText().toString().trim());
-            updatedUser.setEmail(binding.etEmail.getText().toString().trim());
-            updatedUser.setPhone(binding.etPhoneNumber.getText().toString().trim());
             updatedUser.setPassword(currentUser.getPassword()); // 保持原密码
             
-            // 设置个人资料信息
-            updatedUser.setFullName(binding.etFullName.getText().toString().trim());
-            updatedUser.setGender(binding.actvGender.getText().toString().trim());
+            // 只更新有内容的字段，空字段保持原值
+            String username = binding.etUsername.getText().toString().trim();
+            updatedUser.setUsername(!username.isEmpty() ? username : currentUser.getUsername());
             
-            // 转换出生日期格式
+            String email = binding.etEmail.getText().toString().trim();
+            updatedUser.setEmail(!email.isEmpty() ? email : currentUser.getEmail());
+            
+            String phone = binding.etPhoneNumber.getText().toString().trim();
+            updatedUser.setPhone(!phone.isEmpty() ? phone : currentUser.getPhone());
+            
+            String fullName = binding.etFullName.getText().toString().trim();
+            updatedUser.setFullName(!fullName.isEmpty() ? fullName : currentUser.getFullName());
+            
+            String gender = binding.actvGender.getText().toString().trim();
+            updatedUser.setGender(!gender.isEmpty() ? gender : currentUser.getGender());
+            
+            // 处理出生日期
             String birthDateDisplay = binding.etBirthDate.getText().toString().trim();
-            String birthDate = convertDisplayDateToStorageFormat(birthDateDisplay);
-            updatedUser.setBirthDate(birthDate);
+            if (!birthDateDisplay.isEmpty()) {
+                String birthDate = convertDisplayDateToStorageFormat(birthDateDisplay);
+                updatedUser.setBirthDate(birthDate);
+            } else {
+                updatedUser.setBirthDate(currentUser.getBirthDate());
+            }
             
-            // 保持现有的其他字段
+            // 保持现有的照片路径
             updatedUser.setProfilePhotoPath(currentUser.getProfilePhotoPath());
-            updatedUser.setSecondaryPhone(binding.etSecondaryPhone.getText().toString().trim());
-            updatedUser.setEmergencyContactName(binding.etEmergencyContactName.getText().toString().trim());
-            updatedUser.setEmergencyContactPhone(binding.etEmergencyContactPhone.getText().toString().trim());
-            updatedUser.setEmergencyContactRelation(binding.etEmergencyContactRelation.getText().toString().trim());
-            updatedUser.setAddress(binding.etAddress.getText().toString().trim());
-            updatedUser.setBloodType(binding.etBloodType.getText().toString().trim());
-            updatedUser.setAllergies(binding.etAllergies.getText().toString().trim());
-            updatedUser.setMedicalConditions(binding.etMedicalConditions.getText().toString().trim());
-            updatedUser.setDoctorName(binding.etDoctorName.getText().toString().trim());
-            updatedUser.setDoctorPhone(binding.etDoctorPhone.getText().toString().trim());
-            updatedUser.setHospitalName(binding.etHospitalName.getText().toString().trim());
+            
+            // 处理扩展字段，只更新有内容的字段
+            String secondaryPhone = binding.etSecondaryPhone.getText().toString().trim();
+            updatedUser.setSecondaryPhone(!secondaryPhone.isEmpty() ? secondaryPhone : currentUser.getSecondaryPhone());
+            
+            String emergencyContactName = binding.etEmergencyContactName.getText().toString().trim();
+            updatedUser.setEmergencyContactName(!emergencyContactName.isEmpty() ? emergencyContactName : currentUser.getEmergencyContactName());
+            
+            String emergencyContactPhone = binding.etEmergencyContactPhone.getText().toString().trim();
+            updatedUser.setEmergencyContactPhone(!emergencyContactPhone.isEmpty() ? emergencyContactPhone : currentUser.getEmergencyContactPhone());
+            
+            String emergencyContactRelation = binding.etEmergencyContactRelation.getText().toString().trim();
+            updatedUser.setEmergencyContactRelation(!emergencyContactRelation.isEmpty() ? emergencyContactRelation : currentUser.getEmergencyContactRelation());
+            
+            String address = binding.etAddress.getText().toString().trim();
+            updatedUser.setAddress(!address.isEmpty() ? address : currentUser.getAddress());
+            
+            String bloodType = binding.etBloodType.getText().toString().trim();
+            updatedUser.setBloodType(!bloodType.isEmpty() ? bloodType : currentUser.getBloodType());
+            
+            String allergies = binding.etAllergies.getText().toString().trim();
+            updatedUser.setAllergies(!allergies.isEmpty() ? allergies : currentUser.getAllergies());
+            
+            String medicalConditions = binding.etMedicalConditions.getText().toString().trim();
+            updatedUser.setMedicalConditions(!medicalConditions.isEmpty() ? medicalConditions : currentUser.getMedicalConditions());
+            
+            String doctorName = binding.etDoctorName.getText().toString().trim();
+            updatedUser.setDoctorName(!doctorName.isEmpty() ? doctorName : currentUser.getDoctorName());
+            
+            String doctorPhone = binding.etDoctorPhone.getText().toString().trim();
+            updatedUser.setDoctorPhone(!doctorPhone.isEmpty() ? doctorPhone : currentUser.getDoctorPhone());
+            
+            String hospitalName = binding.etHospitalName.getText().toString().trim();
+            updatedUser.setHospitalName(!hospitalName.isEmpty() ? hospitalName : currentUser.getHospitalName());
             
             // 保持会话管理字段
             updatedUser.setLoggedIn(currentUser.isLoggedIn());
@@ -740,7 +862,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 binding.etBirthDate.setText(formattedDate);
                 
                 hasUnsavedChanges = true;
-                validateForm();
             }
         }, year, month, day);
         
@@ -966,14 +1087,15 @@ public class ProfileEditActivity extends AppCompatActivity {
             binding.tvMessage.setContentDescription(getString(R.string.profile_edit_error_content_description, message));
             binding.tvMessage.announceForAccessibility(getString(R.string.profile_edit_error_announcement, message));
             
-            // 同时显示Toast提示
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            // 移除Toast显示，避免重复提示，界面上的消息显示已经足够
             
             // 清除ViewModel中的错误消息
             userViewModel.clearErrorMessage();
             
             // 3秒后自动隐藏消息
-            binding.getRoot().postDelayed(this::hideMessage, 3000);
+            if (mainHandler != null) {
+                mainHandler.postDelayed(this::hideMessage, 3000);
+            }
         }
     }
     
@@ -1001,8 +1123,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             // 添加成功动画效果
             addSuccessAnimation(binding.tvMessage);
             
-            // 同时显示Toast提示
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            // 移除Toast显示，避免重复提示，界面上的消息显示已经足够
             
             // 清除ViewModel中的成功消息
             userViewModel.clearSuccessMessage();
@@ -1027,12 +1148,26 @@ public class ProfileEditActivity extends AppCompatActivity {
      * 隐藏消息
      */
     private void hideMessage() {
-        binding.tvMessage.setVisibility(View.GONE);
+        if (binding != null && binding.tvMessage != null && !isFinishing() && !isDestroyed()) {
+            binding.tvMessage.setVisibility(View.GONE);
+        }
     }
     
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        
+        // 清理Handler中的所有延迟任务
+        if (mainHandler != null) {
+            mainHandler.removeCallbacksAndMessages(null);
+            mainHandler = null;
+        }
+        
+        // 清理日期选择对话框
+        if (datePickerDialog != null && datePickerDialog.isShowing()) {
+            datePickerDialog.dismiss();
+            datePickerDialog = null;
+        }
         
         // 清理资源
         if (binding != null) {
