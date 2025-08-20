@@ -44,7 +44,7 @@ public class MedicationIntakeRecordAdapter extends RecyclerView.Adapter<Medicati
     public MedicationIntakeRecordAdapter(List<MedicationIntakeRecord> intakeRecords, OnIntakeRecordClickListener clickListener) {
         this.intakeRecords = intakeRecords;
         this.clickListener = clickListener;
-        this.dateFormat = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
         this.timeFormat = new SimpleDateFormat("HH:mm", Locale.CHINA);
     }
     

@@ -43,7 +43,7 @@ public class HealthDiaryAdapter extends RecyclerView.Adapter<HealthDiaryAdapter.
     public HealthDiaryAdapter(List<HealthDiary> diaries, OnDiaryClickListener clickListener) {
         this.diaries = diaries;
         this.clickListener = clickListener;
-        this.dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.CHINA);
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
     }
     
     @NonNull
